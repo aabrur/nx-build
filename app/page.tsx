@@ -1,18 +1,20 @@
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
+      <Header />
       <Hero />
       <Shop />
       <Activation />
       <About />
       <Footer />
+      <FloatingContact />
     </main>
   );
 }
 
 function Hero() {
   return (
-    <section className="flex flex-col items-center justify-center text-center py-32 px-6 border-b border-neutral-800">
+    <section className="flex flex-col items-center justify-center text-center pt-40 pb-32 px-6 border-b border-neutral-800">
       <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
         0xTanda
       </h1>
@@ -127,3 +129,30 @@ function Footer() {
     </footer>
   );
 }
+
+function Header() {
+  return (
+    <header className="fixed top-0 left-0 w-full bg-black/60 backdrop-blur-md border-b border-neutral-800 z-50">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <span className="font-bold tracking-wide">0xTanda</span>
+        <nav className="hidden md:flex gap-6 text-sm text-neutral-400">
+          <a href="#shop" className="hover:text-white transition">Shop</a>
+          <a href="#activation" className="hover:text-white transition">Activation</a>
+          <a href="#about" className="hover:text-white transition">About</a>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function FloatingContact() {
+  return (
+    <a
+      href="mailto:hello@0xtanda.xyz"
+      className="fixed bottom-6 right-6 bg-white text-black px-5 py-3 rounded-full shadow-lg hover:opacity-80 transition"
+    >
+      Contact
+    </a>
+  );
+}
+
