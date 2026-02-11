@@ -1,9 +1,8 @@
-/* app/globals.css */
-
 @import "tailwindcss";
 
-/* ----------------------- Root / design tokens ----------------------- */
-:root{
+/* ================= ROOT TOKENS ================= */
+
+:root {
   --brand-black: #0E0E0E;
   --brand-white: #F0F0F0;
   --brand-purple: #836EF9;
@@ -11,112 +10,69 @@
   --brand-gray: #A19797;
   --brand-tokopedia: #03AC0E;
   --brand-shopee: #EE4D2D;
-  --brand-tiktok: #000000;
   --brand-whatsapp: #25D366;
-
-  --font-sans: "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
 }
 
-/* ----------------------- Base / layout ----------------------- */
-html{ scroll-behavior:smooth; }
-body{
+/* ================= BASE ================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
   background: var(--brand-black);
   color: var(--brand-white);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+  font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
 }
 
-/* selection styling */
-::selection{
-  background: var(--brand-purple);
-  color: var(--brand-black);
-}
+/* ================= BRAND HELPERS ================= */
 
-/* ----------------------- Brand utility classes (fallback) -----------------------
-   Some components rely on classes like bg-brand-black / text-brand-gray / border-brand-purple.
-   If you later add tailwind.config.ts, you can remove these and use Tailwind utilities instead.
--------------------------------------------------------------------------*/
-.bg-brand-black { background-color: var(--brand-black) !important; }
-.bg-brand-purple { background-color: var(--brand-purple) !important; }
-.bg-brand-white { background-color: var(--brand-white) !important; }
+.bg-brand-black { background: var(--brand-black); }
+.bg-brand-purple { background: var(--brand-purple); }
 
-.text-brand-white { color: var(--brand-white) !important; }
-.text-brand-gray  { color: var(--brand-gray) !important; }
-.text-brand-purple{ color: var(--brand-purple) !important; }
-.text-brand-green { color: var(--brand-green) !important; }
+.text-brand-white { color: var(--brand-white); }
+.text-brand-gray { color: var(--brand-gray); }
+.text-brand-purple { color: var(--brand-purple); }
+.text-brand-green { color: var(--brand-green); }
 
-.border-brand-purple { border-color: var(--brand-purple) !important; }
-.border-brand-black  { border-color: var(--brand-black) !important; }
+.border-brand-purple { border-color: var(--brand-purple); }
 
-.hover\:bg-brand-purple:hover { background-color: var(--brand-purple) !important; }
-.hover\:text-brand-white:hover { color: var(--brand-white) !important; }
+/* ================= MARQUEE ================= */
 
-/* small branded helpers for external buttons */
-.bg-brand-tokopedia { background-color: var(--brand-tokopedia) !important; }
-.bg-brand-shopee   { background-color: var(--brand-shopee) !important; }
-.text-brand-tokopedia { color: var(--brand-tokopedia) !important; }
-.text-brand-shopee     { color: var(--brand-shopee) !important; }
-.text-brand-whatsapp   { color: var(--brand-whatsapp) !important; }
-
-/* ----------------------- Scrollbar / helpers ----------------------- */
-.hide-scrollbar::-webkit-scrollbar{ display:none; }
-.hide-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
-
-/* ----------------------- marquee animation ----------------------- */
 @keyframes marquee {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
+
 .animate-marquee {
-  display:inline-block;
-  min-width:200%;
   animation: marquee 20s linear infinite;
-  will-change: transform;
+  display: inline-block;
+  min-width: 200%;
 }
 
-/* ----------------------- cinematic grain / noise ----------------------- */
-.cinematic-noise{
-  background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size: 3px 3px;
-}
+/* ================= GLITCH ================= */
 
-/* ----------------------- glitch (light) ----------------------- */
 @keyframes glitch-flicker {
   0%, 92%, 100% { opacity: 0; transform: translate(0,0); }
-  93% { opacity: 0.6; transform: translate(2px,-1px); }
-  95% { opacity: 0.4; transform: translate(-2px,1px); }
-  97% { opacity: 0.5; transform: translate(1px,0); }
+  93% { opacity: .6; transform: translate(2px,-1px); }
+  95% { opacity: .4; transform: translate(-2px,1px); }
+  97% { opacity: .5; transform: translate(1px,0); }
 }
+
 .glitch-layer {
   position: absolute;
   inset: 0;
   pointer-events: none;
   mix-blend-mode: screen;
   animation: glitch-flicker 4s infinite;
-  will-change: transform, opacity;
 }
 
-/* subtle logo-specific glow (used by hero) */
-.logo-glow {
-  filter: drop-shadow(0 0 14px rgba(131,110,249,0.25));
-  transition: filter .2s ease;
-}
+/* ================= REDUCED MOTION ================= */
 
-/* ----------------------- reduced motion (accessibility) ----------------------- */
-@media (prefers-reduced-motion: reduce){
-  .animate-marquee { animation: none !important; }
-  .glitch-layer { animation: none !important; }
-  * { transition: none !important; animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .glitch-layer {
+    animation: none !important;
+  }
 }
-
-/* ----------------------- utility: hide on small screens ----------------------- */
-@media (max-width: 768px) {
-  .md\\:hidden { display: none !important; }
-}
-
-/* ----------------------- small polished helpers ----------------------- */
-.shadow-glow { box-shadow: 0 10px 30px rgba(131,110,249,0.12); }
-.rounded-card { border-radius: 12px; }
