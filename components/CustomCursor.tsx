@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 /**
- * Komponen Custom Cursor yang ditingkatkan kecepatannya.
- * Anda bisa mengatur variabel 'stiffness' dan 'damping' di bawah untuk merubah feel-nya.
+ * Komponen Custom Cursor dengan perbaikan Type Safety untuk Vercel.
  */
 export default function CustomCursor() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -16,7 +15,6 @@ export default function CustomCursor() {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
 
-    // Deteksi jika mouse berada di atas elemen interaktif
     const handleMouseOver = (e: MouseEvent) => {
       if ((e.target as HTMLElement).closest('button, a, .group, input, [role="button"]')) {
         setIsHovering(true);
@@ -34,28 +32,24 @@ export default function CustomCursor() {
     };
   }, []);
 
-  // PENGATURAN KECEPATAN (Ubah di sini)
-  // Stiffness: Makin tinggi makin cepat/kaku.
-  // Damping: Makin rendah makin membal/bergetar.
-  // Mass: Makin rendah makin ringan gerakannya.
-  
+  // PENGATURAN KECEPATAN dengan 'as const' untuk memperbaiki Error TypeScript
   const dotSpring = {
     type: 'spring',
-    stiffness: 800, // Sangat tinggi agar nempel terus dengan mouse
+    stiffness: 800,
     damping: 50,
     mass: 0.1
-  };
+  } as const;
 
   const ringSpring = {
     type: 'spring',
-    stiffness: 400, // Cukup tinggi agar tidak terlalu tertinggal
+    stiffness: 400,
     damping: 30,
     mass: 0.5
-  };
+  } as const;
 
   return (
     <>
-      {/* Titik Utama (Sangat Responsif) */}
+      {/* Titik Utama */}
       <motion.div
         className="fixed top-0 left-0 w-1.5 h-1.5 bg-brand-purple rounded-full z-[9999] pointer-events-none"
         animate={{ 
@@ -66,7 +60,7 @@ export default function CustomCursor() {
         transition={dotSpring}
       />
 
-      {/* Ring Luar (Efek Mengikuti dengan Halus) */}
+      {/* Ring Luar */}
       <motion.div
         className="fixed top-0 left-0 w-8 h-8 border border-brand-purple/50 rounded-full z-[9998] pointer-events-none"
         animate={{ 
