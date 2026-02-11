@@ -24,7 +24,7 @@ export default function HomePage() {
           </p>
           
           {/* LOGO UTAMA - Menggantikan teks H1 dengan Image */}
-          <div className="relative w-[300px] h-[100px] md:w-[600px] md:h-[150px] mb-12 animate-glitch">
+          <div className="relative w-full max-w-[450px] h-[150px] md:max-w-[900px] md:h-[250px] mb-16 animate-glitch">
             <Image 
               src="/branding/logo-0xtanda.png"
               alt="0xTanda Logo"
