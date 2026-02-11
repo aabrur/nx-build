@@ -1,3 +1,6 @@
+"use client";
+import { motion } from "framer-motion";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
@@ -15,12 +18,24 @@ export default function Home() {
 function Hero() {
   return (
     <section className="flex flex-col items-center justify-center text-center pt-40 pb-32 px-6 border-b border-neutral-800">
-      <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-5xl md:text-7xl font-bold tracking-tight"
+      >
         0xTanda
-      </h1>
-      <p className="mt-6 text-lg md:text-xl text-neutral-400 max-w-2xl">
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+        className="mt-6 text-lg md:text-xl text-neutral-400 max-w-2xl"
+      >
         Bridging the Gap Between Realities.
-      </p>
+      </motion.p>
+
       <p className="mt-2 text-sm text-neutral-500">
         Wear the Future. Own the Data.
       </p>
@@ -44,17 +59,21 @@ function Hero() {
 }
 
 function Shop() {
+  const products = ["Jacket", "Hoodie", "T-Shirt", "Cap"];
+
   return (
     <section id="shop" className="py-24 px-6 border-b border-neutral-800">
       <h2 className="text-3xl font-semibold mb-12 text-center">
         Phygital Collection
       </h2>
 
-      <div className="grid md:grid-cols-4 gap-6">
-        {["Jacket", "Hoodie", "T-Shirt", "Cap"].map((item, i) => (
-          <div
+      <div className="flex gap-6 overflow-x-auto pb-4 scroll-smooth">
+        {products.map((item, i) => (
+          <motion.div
             key={i}
-            className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 hover:border-white transition"
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.2 }}
+            className="min-w-[280px] bg-neutral-900 border border-neutral-800 rounded-lg p-6 hover:border-white transition"
           >
             <div className="h-40 bg-neutral-800 rounded mb-4" />
             <h3 className="font-semibold text-lg">0xTanda {item}</h3>
@@ -63,14 +82,17 @@ function Shop() {
             </p>
 
             <div className="mt-4 flex gap-2 text-xs">
-              <button className="px-3 py-2 bg-neutral-800 rounded">
+              <button className="px-3 py-2 bg-neutral-800 rounded hover:bg-neutral-700 transition">
                 Shopee
               </button>
-              <button className="px-3 py-2 bg-neutral-800 rounded">
+              <button className="px-3 py-2 bg-neutral-800 rounded hover:bg-neutral-700 transition">
                 Tokopedia
               </button>
+              <button className="px-3 py-2 bg-neutral-800 rounded hover:bg-neutral-700 transition">
+                TikTok
+              </button>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
