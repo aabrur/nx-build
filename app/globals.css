@@ -19,6 +19,13 @@
   }
 }
 
+@font-face {
+  font-family: "Vox";
+  src: url("/fonts/vox-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -37,4 +44,52 @@ body {
   background: linear-gradient(90deg, #ffffff, #9b5cff, #00f0ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* ================= GLITCH EFFECT ================= */
+
+.glitch-red,
+.glitch-cyan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.glitch-red {
+  filter: drop-shadow(0 0 2px red);
+}
+
+.glitch-cyan {
+  filter: drop-shadow(0 0 2px cyan);
+}
+
+@keyframes glitch-flicker {
+  0%, 92%, 100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  93% {
+    opacity: 0.6;
+    transform: translate(2px, -1px);
+  }
+
+  95% {
+    opacity: 0.4;
+    transform: translate(-2px, 1px);
+  }
+
+  97% {
+    opacity: 0.5;
+    transform: translate(1px, 0);
+  }
+}
+
+.glitch-red {
+  animation: glitch-flicker 4s infinite;
+}
+
+.glitch-cyan {
+  animation: glitch-flicker 5s infinite;
 }
