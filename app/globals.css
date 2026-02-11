@@ -12,7 +12,22 @@
   --font-display: var(--font-cinzel);
 }
 
-/* Custom Glitch Animation from your HTML */
+/* --- CORE RESET --- */
+html, body {
+  background-color: #0E0E0E;
+  color: #FFFFFF;
+  /* Menghilangkan kursor asli di seluruh website */
+  cursor: none !important;
+}
+
+/* Memastikan elemen interaktif juga tidak memunculkan kursor pointer bawaan */
+a, button, input, select, textarea, .group, [role="button"] {
+  cursor: none !important;
+}
+
+/* --- ANIMATIONS --- */
+
+/* Glitch Effect */
 @keyframes glitch {
   0% { transform: translate(0); text-shadow: -2px 0 #836EF9, 2px 0 #00FF9D; }
   25% { transform: translate(-2px, 2px); }
@@ -25,7 +40,7 @@
   animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
 }
 
-/* Marquee Animation */
+/* Marquee Effect */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -37,11 +52,7 @@
   animation: marquee 25s linear infinite;
 }
 
-body {
-  cursor: none; /* Kita akan pakai custom cursor nanti */
-}
-
-/* Smooth Fade In */
+/* Smooth Fade In Up */
 .fade-in {
   animation: fadeIn 0.8s ease-out forwards;
 }
@@ -49,4 +60,10 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Selection Color */
+::selection {
+  background-color: #836EF9;
+  color: #0E0E0E;
 }
