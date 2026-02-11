@@ -1,96 +1,68 @@
+// components/Hero.tsx
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { ASSETS } from "@/lib/data";
 
 export default function Hero() {
-  const [glitchActive, setGlitchActive] = useState(false);
+  const [glitch, setGlitch] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setGlitchActive(true);
-      setTimeout(() => setGlitchActive(false), 120);
-    }, 4000);
-
-    return () => clearInterval(interval);
+    const id = setInterval(() => {
+      setGlitch(true);
+      setTimeout(() => setGlitch(false), 150);
+    }, 4200);
+    return () => clearInterval(id);
   }, []);
 
   return (
-    <section className="relative pt-40 pb-32 text-center px-6 border-b border-neutral-800 overflow-hidden cinematic-noise">
-      
-      {/* Ambient Purple Glow */}
+    <section className="relative pt-28 pb-24 text-center px-6 overflow-hidden">
+      {/* ambient glow (behind) */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <div className="w-[900px] h-[900px] bg-[#836EF9] opacity-20 blur-[220px] rounded-full" />
       </div>
 
-      {/* Logo Container */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{
-          opacity: 1,
-          scale: 1,
-          y: [0, -8, 0],
-        }}
-        transition={{
-          opacity: { duration: 0.8 },
-          scale: { duration: 0.8 },
-          y: { duration: 6, repeat: Infinity },
-        }}
-        whileHover={{ scale: 1.02 }}
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
         className="relative z-10 mx-auto w-fit"
+        aria-hidden={false}
       >
-        {/* Base Logo */}
-        <Image
-          src="/branding/logo-0xtanda.png"
-          alt="0xTanda Logo"
-          width={700}
-          height={250}
-          priority
-        />
-
-        {/* Red Glitch */}
-        <div
-          className={`absolute inset-0 glitch-red transition-opacity duration-75 ${
-            glitchActive ? "opacity-70" : "opacity-0"
-          }`}
-          aria-hidden
-        >
+        <div className="relative w-[420px] md:w-[700px]">
           <Image
-            src="/branding/logo-0xtanda.png"
-            alt=""
+            src={ASSETS.logoMain}
+            alt="0xTanda"
             width={700}
-            height={250}
+            height={700}
+            className="object-contain"
+            priority
           />
-        </div>
 
-        {/* Cyan Glitch */}
-        <div
-          className={`absolute inset-0 glitch-cyan transition-opacity duration-75 ${
-            glitchActive ? "opacity-70" : "opacity-0"
-          }`}
-          aria-hidden
-        >
-          <Image
-            src="/branding/logo-0xtanda.png"
-            alt=""
-            width={700}
-            height={250}
-          />
+          {/* glitch layers (simple duplicated images with CSS filters) */}
+          <div className={`absolute inset-0 pointer-events-none mix-blend-screen ${glitch ? "opacity-70" : "opacity-0"} transition-opacity duration-75`} aria-hidden>
+            <Image src={ASSETS.logoMain} alt="" width={700} height={700} />
+          </div>
         </div>
       </motion.div>
 
-      {/* Slogan */}
       <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.8 }}
-        className="relative z-10 mt-10 max-w-3xl mx-auto text-lg leading-relaxed text-[#836EF9]"
-        style={{ fontFamily: "Vox, sans-serif" }}
+        className="relative z-10 mt-8 max-w-3xl mx-auto text-lg md:text-xl leading-relaxed text-[#836EF9]"
+        style={{ fontFamily: "Space Grotesk, system-ui, sans-serif" }}
       >
         Tangible craftsmanship you can feel,
         secured by digital ownership you can prove.
       </motion.p>
+
+      <div className="relative z-10 mt-8 flex items-center justify-center gap-4">
+        <a href="#shop" className="px-6 py-3 border border-neutral-700 rounded-md hover:bg-[#836EF9] hover:text-black transition">Explore Collection</a>
+        <a href="#activation" className="px-6 py-3 border border-neutral-700 rounded-md hover:bg-neutral-800 transition">Digital Activation</a>
+      </div>
     </section>
   );
 }
