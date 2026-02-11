@@ -1,66 +1,27 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import React from 'react';
+import type { Metadata } from 'next';
+import { Space_Grotesk, Space_Mono, Cinzel_Decorative } from 'next/font/google';
+import './globals.css';
+
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
+const spaceMono = Space_Mono({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-space-mono' });
+const cinzel = Cinzel_Decorative({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-cinzel' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nx-build.vercel.app"),
-
-  title: {
-    default: "0xTanda — One Entity // Dual Existence",
-    template: "%s | 0xTanda",
-  },
-
-  description:
-    "0xTanda is a Jakarta-based phygital streetwear brand merging tangible craftsmanship with provable digital ownership.",
-
-  keywords: [
-    "0xTanda",
-    "Phygital Fashion",
-    "NFT Streetwear",
-    "Digital Twin Clothing",
-    "Web3 Fashion",
-    "NFC Apparel",
-    "Jakarta Streetwear",
-  ],
-
-  openGraph: {
-    title: "0xTanda — Phygital Streetwear",
-    description:
-      "Tangible craftsmanship you can feel, secured by digital ownership you can prove.",
-    url: "https://nx-build.vercel.app",
-    siteName: "0xTanda",
-    images: [
-      {
-        url: "/branding/logo-0xtanda.png",
-        width: 1200,
-        height: 630,
-        alt: "0xTanda Official",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "0xTanda — Phygital Streetwear",
-    description:
-      "Tangible craftsmanship you can feel, secured by digital ownership you can prove.",
-    images: ["/branding/logo-0xtanda.png"],
-  },
-
+  title: '0xTanda // Phygital Fashion Store',
+  description: 'One Entity // Dual Existence. Est 2026 Jakarta.',
+  // INI UNTUK MEMASANG ICON DI TAB BROWSER
   icons: {
-    icon: "/branding/logo-0xtanda.png",
+    icon: '/branding/logo-0xtanda-icon.png',
+    shortcut: '/branding/logo-0xtanda-icon.png',
+    apple: '/branding/logo-0xtanda-icon.png',
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="bg-black text-white antialiased">
+    <html lang="id" className="scroll-smooth">
+      <body className={`${spaceGrotesk.variable} ${spaceMono.variable} ${cinzel.variable} bg-[#0E0E0E] text-[#FFFFFF] antialiased`}>
         {children}
       </body>
     </html>

@@ -1,78 +1,52 @@
 @import "tailwindcss";
 
-/* ================= ROOT TOKENS ================= */
-
-:root {
-  --brand-black: #0E0E0E;
-  --brand-white: #F0F0F0;
-  --brand-purple: #836EF9;
-  --brand-green: #00FF9D;
-  --brand-gray: #A19797;
-  --brand-tokopedia: #03AC0E;
-  --brand-shopee: #EE4D2D;
-  --brand-whatsapp: #25D366;
+@theme {
+  --color-brand-black: #0E0E0E;
+  --color-brand-purple: #836EF9;
+  --color-brand-green: #00FF9D;
+  --color-brand-white: #FFFFFF;
+  --color-brand-gray: #888888;
+  
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-space-mono);
+  --font-display: var(--font-cinzel);
 }
 
-/* ================= BASE ================= */
-
-html {
-  scroll-behavior: smooth;
+/* Custom Glitch Animation from your HTML */
+@keyframes glitch {
+  0% { transform: translate(0); text-shadow: -2px 0 #836EF9, 2px 0 #00FF9D; }
+  25% { transform: translate(-2px, 2px); }
+  50% { transform: translate(2px, -2px); text-shadow: 2px 0 #836EF9, -2px 0 #00FF9D; }
+  75% { transform: translate(-2px, -2px); }
+  100% { transform: translate(0); }
 }
 
-body {
-  background: var(--brand-black);
-  color: var(--brand-white);
-  font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
-  overflow-x: hidden;
+.animate-glitch {
+  animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
 }
 
-/* ================= BRAND HELPERS ================= */
-
-.bg-brand-black { background: var(--brand-black); }
-.bg-brand-purple { background: var(--brand-purple); }
-
-.text-brand-white { color: var(--brand-white); }
-.text-brand-gray { color: var(--brand-gray); }
-.text-brand-purple { color: var(--brand-purple); }
-.text-brand-green { color: var(--brand-green); }
-
-.border-brand-purple { border-color: var(--brand-purple); }
-
-/* ================= MARQUEE ================= */
-
+/* Marquee Animation */
 @keyframes marquee {
-  0% { transform: translateX(0%); }
+  0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
 .animate-marquee {
-  animation: marquee 20s linear infinite;
-  display: inline-block;
-  min-width: 200%;
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
 }
 
-/* ================= GLITCH ================= */
-
-@keyframes glitch-flicker {
-  0%, 92%, 100% { opacity: 0; transform: translate(0,0); }
-  93% { opacity: .6; transform: translate(2px,-1px); }
-  95% { opacity: .4; transform: translate(-2px,1px); }
-  97% { opacity: .5; transform: translate(1px,0); }
+body {
+  cursor: none; /* Kita akan pakai custom cursor nanti */
 }
 
-.glitch-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  animation: glitch-flicker 4s infinite;
+/* Smooth Fade In */
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
-/* ================= REDUCED MOTION ================= */
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee,
-  .glitch-layer {
-    animation: none !important;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

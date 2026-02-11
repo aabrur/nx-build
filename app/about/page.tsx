@@ -1,61 +1,62 @@
-// app/about/page.tsx
-import RoadmapSlider from "@/components/RoadmapSlider";
-import { ASSETS } from "@/lib/data";
+import React from 'react';
+import Navbar from '@/components/Navbar';
+import Marquee from '@/components/Marquee';
+import CustomCursor from '@/components/CustomCursor';
+import { ROADMAP_DATA } from '@/lib/data';
 
 export default function AboutPage() {
   return (
-    <main className="bg-black text-white pt-28 pb-24">
-      <div className="max-w-5xl mx-auto px-6 text-center mb-20">
-        <img src={ASSETS.logoMain} alt="0xTanda" className="h-40 md:h-64 mx-auto mb-6 object-contain" />
-        <div className="inline-block border border-[#836EF9] bg-[#836EF9]/8 px-4 py-1 mb-4">
-          <span className="font-mono text-xs text-[#836EF9] uppercase">BRAND MANIFESTO // V1.0</span>
+    <main className="min-h-screen pb-20">
+      <CustomCursor />
+      <Marquee />
+      <Navbar />
+
+      <div className="pt-44 px-6 max-w-4xl mx-auto">
+        <section className="text-center mb-32">
+          <h2 className="text-[10px] font-mono text-brand-purple tracking-[0.5em] mb-6 uppercase">The Manifesto</h2>
+          <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tighter mb-10 leading-none uppercase">
+            Mendefinisikan <br/><span className="text-neutral-600 italic">Masa Depan.</span>
+          </h1>
+          <p className="text-lg text-neutral-400 font-mono leading-relaxed italic max-w-2xl mx-auto">
+            "0xTanda adalah jembatan antara identitas fisik yang nyata dengan kepemilikan digital yang abadi."
+          </p>
+        </section>
+
+        <div className="grid md:grid-cols-2 gap-16 mb-32">
+          <div className="space-y-6">
+            <div className="w-12 h-1 bg-brand-purple" />
+            <h4 className="text-2xl font-display font-bold uppercase tracking-tighter">Phygital Concept</h4>
+            <p className="text-neutral-400 font-mono text-xs leading-relaxed uppercase">
+              Setiap produk kami memiliki 'Digital Twin' di blockchain. Kami menggabungkan material garmen industrial dengan teknologi NFC untuk memastikan keaslian yang tidak bisa dipalsukan.
+            </p>
+          </div>
+          <div className="space-y-6">
+            <div className="w-12 h-1 bg-white" />
+            <h4 className="text-2xl font-display font-bold uppercase tracking-tighter">Limited Archival</h4>
+            <p className="text-neutral-400 font-mono text-xs leading-relaxed uppercase">
+              Kami tidak melakukan mass-production. Setiap rilis adalah arsip terbatas (Limited Batch) yang didesain untuk bertahan lama, baik secara fisik maupun nilai koleksinya.
+            </p>
+          </div>
         </div>
-        <h1 className="text-4xl md:text-6xl font-bold uppercase mb-4">Mendefinisikan Ulang<br/><span className="text-neutral-400">Kepemilikan.</span></h1>
-        <p className="text-neutral-400 font-mono max-w-2xl mx-auto">Kami tidak hanya menjual pakaian. Kami membangun arsip. Di era di mana karya seni mudah disalin, 0xTanda menghadirkan keaslian yang terverifikasi.</p>
-      </div>
 
-      <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 mb-24">
-        <div className="md:col-span-3 hidden md:block">
-          <nav className="sticky top-32 border-l border-[#333] pl-6 space-y-4 text-left">
-            <a href="#intro" className="block text-sm font-mono text-[#836EF9]">01. PENDAHULUAN</a>
-            <a href="#problem" className="block text-sm font-mono text-neutral-400">02. MASALAH</a>
-            <a href="#solution" className="block text-sm font-mono text-neutral-400">03. TIGA PILAR</a>
-            <a href="#roadmap-section" className="block text-sm font-mono text-neutral-400">04. PETA JALAN</a>
-          </nav>
-        </div>
-
-        <div className="md:col-span-9 space-y-20">
-          <section id="intro">
-            <div className="flex items-center gap-3 mb-6"><div className="w-1.5 h-8 bg-[#836EF9] rounded" /><h2 className="text-2xl font-bold uppercase">Latar Belakang</h2></div>
-            <p className="text-neutral-400 font-mono">Industri mode Indonesia sedang berada di persimpangan jalan... <strong>0xTanda</strong> lahir dari kegelisahan ini.</p>
-          </section>
-
-          <section id="problem">
-            <div className="flex items-center gap-3 mb-6"><div className="w-1.5 h-8 bg-[#836EF9] rounded" /><h2 className="text-2xl font-bold uppercase">Masalah Utama</h2></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-[#121212] p-6 border border-[#333]"><h3 className="text-white font-bold mb-2">Penurunan Kualitas</h3><p className="text-neutral-400 text-sm">Dominasi bahan murah ...</p></div>
-              <div className="bg-[#121212] p-6 border border-[#333]"><h3 className="text-white font-bold mb-2">Kepemilikan Semu</h3><p className="text-neutral-400 text-sm">Saat Anda membeli pakaian biasa ...</p></div>
-            </div>
-          </section>
-
-          <section id="solution">
-            <div className="flex items-center gap-3 mb-6"><div className="w-1.5 h-8 bg-[#836EF9] rounded" /><h2 className="text-2xl font-bold uppercase">Tiga Pilar 0xTanda</h2></div>
-            <div className="space-y-8 text-neutral-400">
-              <div><h3 className="text-xl font-bold text-white">The Canvas: Eksplorasi Material</h3><p className="text-sm">Fokus kami adalah kualitas sandang...</p></div>
-              <div><h3 className="text-xl font-bold text-white">The Artifact: Kartu Koleksi Fisik</h3><p className="text-sm">Setiap produk disertai kartu fisik eksklusif...</p></div>
-              <div><h3 className="text-xl font-bold text-white">The Rights: Sertifikat Digital</h3><p className="text-sm">Kami memanfaatkan teknologi Blockchain...</p></div>
-            </div>
-          </section>
-        </div>
-      </div>
-
-      <section id="roadmap-section" className="border-t border-[#333] pt-12 mb-20">
-        <RoadmapSlider />
-      </section>
-
-      <div className="text-center pt-12 pb-8 border-t border-[#333]">
-        <p className="text-3xl md:text-4xl font-bold mb-2">"ONE ENTITY // DUAL EXISTENCE"</p>
-        <p className="text-xs text-neutral-400">JAKARTA, INDONESIA // EST. 2026</p>
+        {/* Roadmap */}
+        <section className="border-t border-white/10 pt-20">
+          <h4 className="text-center font-display text-3xl font-bold uppercase mb-20 italic tracking-tighter">PROJECT ROADMAP</h4>
+          <div className="space-y-16">
+            {ROADMAP_DATA.map((item, idx) => (
+              <div key={idx} className="flex gap-10 group">
+                <div className="text-5xl font-display font-bold text-neutral-800 group-hover:text-brand-purple transition-colors duration-500">{item.phase}</div>
+                <div>
+                  <h5 className="font-display font-bold text-2xl uppercase flex items-center gap-4 italic">
+                    {item.title} 
+                    <span className="text-[10px] bg-white/5 border border-white/10 px-3 py-1 rounded-full font-mono font-normal tracking-widest">{item.year}</span>
+                  </h5>
+                  <p className="text-neutral-500 font-mono text-xs mt-4 uppercase leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </main>
   );

@@ -1,54 +1,76 @@
-// app/shop/page.tsx
 "use client";
 
-import { useState } from "react";
-import { PRODUCTS } from "@/lib/data";
-import RoadmapSlider from "@/components/RoadmapSlider";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import Navbar from '@/components/Navbar';
+import Marquee from '@/components/Marquee';
+import CustomCursor from '@/components/CustomCursor';
+import { PRODUCTS_DATA } from '@/lib/data';
+import { motion } from 'framer-motion';
 
 export default function ShopPage() {
-  const [selected, setSelected] = useState<number | null>(null);
-
   return (
-    <main className="min-h-screen bg-black pt-28 pb-12 px-6 text-white">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-end mb-12 border-b border-[#333] pb-4">
-          <div className="flex items-center gap-4">
-            <div className="w-2 h-10 bg-[#836EF9] rounded" />
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight">GENESIS <span className="text-xs align-top ml-2">BATCH 001</span></h2>
+    <main className="min-h-screen pb-20">
+      <CustomCursor />
+      <Marquee />
+      <Navbar />
+
+      <div className="pt-44 px-6 max-w-7xl mx-auto">
+        <header className="mb-16 border-b border-white/10 pb-10 flex flex-col md:flex-row justify-between items-end gap-6">
+          <div>
+            <h2 className="text-xs font-mono text-brand-purple mb-2 uppercase tracking-widest">The Catalog</h2>
+            <h1 className="text-5xl font-display font-bold tracking-tighter uppercase">Genesis Batch</h1>
           </div>
-        </div>
+          <div className="text-right font-mono text-[10px] text-neutral-500">
+            SHOWING {PRODUCTS_DATA.length} ARCHIVAL ITEMS
+          </div>
+        </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {PRODUCTS.map((p) => (
-            <article key={p.id} className="group relative bg-[#121212] border border-[#333] rounded-lg overflow-hidden">
-              <div className="relative aspect-[3/4] overflow-hidden bg-[#1a1a1a]">
-                <img src={p.imgPhysical} alt={p.name} className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
-                <img src={p.imgNFT} alt={`${p.name} art`} className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 scale-110 group-hover:scale-100 transition-all duration-500" />
-                <div className="absolute top-4 right-4 bg-black/80 border border-[#836EF9] text-[#836EF9] text-[10px] font-mono px-2 py-1 flex items-center gap-1">DIGITAL CARD</div>
-              </div>
-
-              <div className="p-4">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-bold text-white text-lg">{p.name}</h3>
-                  <div className="text-right text-sm font-mono">Rp {p.priceIDR.toLocaleString()}</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {PRODUCTS_DATA.map((product, idx) => (
+            <motion.div 
+              key={product.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              className="group"
+            >
+              <Link href={`/product/${product.slug}`}>
+                <div className="relative aspect-[3/4] bg-neutral-900 overflow-hidden border border-white/5 mb-6">
+                  {/* Physical Image */}
+                  <Image 
+                    src={product.imgPhysical} 
+                    alt={product.name}
+                    fill
+                    className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-0"
+                  />
+                  {/* Digital/NFT Image (Appears on Hover) */}
+                  <Image 
+                    src={product.imgDigital} 
+                    alt={`${product.name} Digital`}
+                    fill
+                    className="object-cover scale-125 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
+                  />
+                  
+                  {/* Label */}
+                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-brand-purple/50 px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-brand-purple font-mono text-[8px] tracking-widest">DIGITAL TWIN</span>
+                  </div>
                 </div>
 
-                <div className="h-[1px] bg-[#333] my-3 group-hover:bg-[#836EF9] transition-colors"></div>
-
-                <div className="flex justify-between items-center text-xs font-mono text-neutral-400 mb-4">
-                  <span>{p.type}</span>
-                  <Link href={`/product/${p.id}`} className="flex items-center gap-1 text-neutral-300 hover:text-white">DETAIL →</Link>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="font-display font-bold text-lg uppercase group-hover:text-brand-purple transition-colors">{product.name}</h3>
+                    <p className="font-mono text-neutral-500 text-[10px] mt-1 uppercase tracking-widest">{product.type}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-mono font-bold text-sm">IDR {product.price.toLocaleString()}</p>
+                    <p className="font-mono text-[8px] text-brand-green mt-1 uppercase">Sisa Stok: {product.stock}</p>
+                  </div>
                 </div>
-
-                <div className="grid grid-cols-4 gap-2 border-t border-[#333] pt-3">
-                  <button onClick={(e) => { e.stopPropagation(); window.open(p.links.tokopedia, "_blank", "noopener"); }} className="p-2 border border-[#333] rounded-sm flex items-center justify-center text-neutral-400 hover:border-[#03AC0E]">T</button>
-                  <button onClick={(e) => { e.stopPropagation(); window.open(p.links.shopee, "_blank", "noopener"); }} className="p-2 border border-[#333] rounded-sm text-neutral-400 hover:border-[#EE4D2D]">S</button>
-                  <button onClick={(e) => { e.stopPropagation(); window.open(p.links.tiktok, "_blank", "noopener"); }} className="p-2 border border-[#333] rounded-sm text-neutral-400 hover:border-white">TT</button>
-                  <button onClick={(e) => { e.stopPropagation(); window.open(p.links.whatsapp, "_blank", "noopener"); }} className="p-2 border border-[#333] rounded-sm text-neutral-400 hover:border-[#25D366]">WA</button>
-                </div>
-              </div>
-            </article>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </div>
