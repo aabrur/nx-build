@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-black text-white cyber-grid">
       <Header />
       <Hero />
       <Shop />
@@ -22,7 +22,7 @@ function Hero() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-5xl md:text-7xl font-bold tracking-tight"
+        className="text-5xl md:text-7xl font-bold tracking-tight neon-text"
       >
         0xTanda
       </motion.h1>
@@ -73,9 +73,11 @@ function Shop() {
             key={i}
             whileHover={{ scale: 1.03 }}
             transition={{ duration: 0.2 }}
-            className="min-w-[280px] bg-neutral-900 border border-neutral-800 rounded-lg p-6 hover:border-white transition"
+            className="min-w-[280px] bg-neutral-900 border border-neutral-800 rounded-lg p-6 hover:border-purple-500 transition hover:shadow-[0_0_30px_rgba(155,92,255,0.3)]"
           >
-            <div className="h-40 bg-neutral-800 rounded mb-4" />
+            <div className="relative w-full aspect-[4/5] bg-neutral-800 rounded mb-4 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-cyan-500/10 to-transparent" />
+            </div>
             <h3 className="font-semibold text-lg">0xTanda {item}</h3>
             <p className="text-sm text-neutral-400 mt-2">
               Embedded NFC • NFT Digital Twin • Limited Drop
@@ -105,24 +107,43 @@ function Activation() {
       id="activation"
       className="py-24 px-6 border-b border-neutral-800 bg-neutral-950"
     >
-      <h2 className="text-3xl font-semibold text-center mb-10">
-        Digital Twin Activation
-      </h2>
+      <div className="max-w-4xl mx-auto text-center">
+        <h2 className="text-3xl font-semibold neon-text mb-8">
+          Activate Your Digital Twin
+        </h2>
 
-      <div className="max-w-3xl mx-auto text-neutral-400 space-y-4 text-sm">
-        <p>1. Create a crypto wallet (Metamask / WalletConnect).</p>
-        <p>2. Copy your public wallet address.</p>
-        <p>3. Scan the NFC / QR tag on your 0xTanda product.</p>
-        <p>4. Submit your address to register your Digital Twin NFT.</p>
-      </div>
+        <p className="text-neutral-400 mb-12">
+          Every 0xTanda piece carries a unique digital identity.
+          Claim ownership. Unlock access. Enter the phygital layer.
+        </p>
 
-      <div className="flex justify-center mt-10">
-        <a
-          href="#"
-          className="px-6 py-3 bg-white text-black font-medium rounded-md hover:opacity-80 transition"
-        >
-          Claim Digital Twin
-        </a>
+        <div className="grid md:grid-cols-4 gap-6 text-sm text-neutral-400">
+          {[
+            "Create Wallet",
+            "Copy Public Address",
+            "Scan NFC / QR",
+            "Claim NFT"
+          ].map((step, i) => (
+            <div
+              key={i}
+              className="p-6 border border-neutral-800 rounded-lg bg-neutral-900 hover:border-purple-500 transition"
+            >
+              <div className="text-lg font-semibold mb-3">
+                0{i + 1}
+              </div>
+              {step}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12">
+          <a
+            href="#"
+            className="px-8 py-4 bg-gradient-to-r from-purple-600 to-cyan-500 text-black font-semibold rounded-md hover:opacity-90 transition shadow-lg"
+          >
+            Claim Digital Twin
+          </a>
+        </div>
       </div>
     </section>
   );
