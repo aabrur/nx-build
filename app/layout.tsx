@@ -4,9 +4,14 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://nx-build.vercel.app"),
 
-  title: "0xTanda — One Entity // Dual Existence",
+  title: {
+    default: "0xTanda — One Entity // Dual Existence",
+    template: "%s | 0xTanda",
+  },
+
   description:
     "0xTanda is a Jakarta-based phygital streetwear brand merging tangible craftsmanship with provable digital ownership.",
+
   keywords: [
     "0xTanda",
     "Phygital Fashion",
@@ -14,6 +19,7 @@ export const metadata: Metadata = {
     "Digital Twin Clothing",
     "Web3 Fashion",
     "NFC Apparel",
+    "Jakarta Streetwear",
   ],
 
   openGraph: {
@@ -41,6 +47,10 @@ export const metadata: Metadata = {
       "Tangible craftsmanship you can feel, secured by digital ownership you can prove.",
     images: ["/branding/logo-0xtanda.png"],
   },
+
+  icons: {
+    icon: "/branding/logo-0xtanda.png",
+  },
 };
 
 export default function RootLayout({
@@ -50,7 +60,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-black text-white antialiased">
+        {children}
+      </body>
     </html>
   );
 }
