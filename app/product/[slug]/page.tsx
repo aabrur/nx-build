@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { 
   ArrowLeft, 
@@ -32,12 +34,7 @@ const PRODUCTS_DATA = [
   }
 ];
 
-const ROADMAP_DATA = [
-  { phase: "PHASE 01", year: "2026", title: "GENESIS LAUNCH", desc: "Initial release of 14 units." }
-];
-
 // --- MOCKED NEXT.JS COMPONENTS FOR PREVIEW ---
-// Catatan: Gunakan import asli di proyek lokal Anda
 const Image = ({ src, alt, fill, className, priority, ...props }: any) => (
   <img 
     src={src} 
@@ -130,7 +127,7 @@ const CustomCursor = () => {
 export default function App() {
   const [view, setView] = useState<'physical' | 'digital'>('physical');
   
-  // Mock params untuk preview
+  // Mock product data for preview
   const product = PRODUCTS_DATA[0];
 
   return (
@@ -200,11 +197,10 @@ export default function App() {
               </p>
             </div>
 
-            {/* SHOPPING CHANNELS - Perbaikan Build Error dengan Optional Chaining */}
+            {/* SHOPPING CHANNELS */}
             <div className="space-y-4">
               <p className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.5em] mb-4">PILIH CHANNEL PEMBELIAN:</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Tombol-tombol ini menggunakan product.links?. untuk menghindari error build */}
                 <a 
                   href={product.links?.shopee || "#"} 
                   target="_blank" 
