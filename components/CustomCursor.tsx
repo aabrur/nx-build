@@ -4,82 +4,81 @@ import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 /**
- * Komponen Custom Cursor yang ditingkatkan kecepatannya.
- * Menggunakan useSpring hooks untuk performa yang lebih lancar dan responsif.
+ * Custom Cursor Pro 0xTanda.
+ * - 1:1 Tracking dengan hardware acceleration.
+ * - Auto-hide pada perangkat touch (HP/Tablet).
  */
 export default function CustomCursor() {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
-  // Menggunakan MotionValue untuk performa optimal (menghindari re-render berlebih)
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  // Motion values untuk performa tinggi tanpa re-render React berlebih
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
 
-  // Konfigurasi Spring yang sangat cepat/agresif
-  // Stiffness tinggi = tarikan sangat kuat/cepat
-  // Damping tinggi = meminimalisir getaran (oscillation)
-  const springConfigDot = { stiffness: 2000, damping: 90, mass: 0.1 };
-  const springConfigRing = { stiffness: 800, damping: 50, mass: 0.2 };
-
-  const dotX = useSpring(mouseX, springConfigDot);
-  const dotY = useSpring(mouseY, springConfigDot);
-  
-  const ringX = useSpring(mouseX, springConfigRing);
-  const ringY = useSpring(mouseY, springConfigRing);
+  // Konfigurasi Spring Ultra-Responsive (Hampir instan)
+  const springConfig = { stiffness: 1500, damping: 60, mass: 0.1 };
+  const dotX = useSpring(mouseX, springConfig);
+  const dotY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    // Deteksi jika perangkat adalah touch device
+    const touchCheck = window.matchMedia("(pointer: coarse)").matches;
+    setIsTouchDevice(touchCheck);
+    if (touchCheck) return;
+
+    const moveMouse = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
 
-    const handleMouseOver = (e: MouseEvent) => {
-      // Deteksi elemen interaktif
-      if ((e.target as HTMLElement).closest('button, a, .group, input, [role="button"]')) {
+    const handleHover = (e: MouseEvent) => {
+      if ((e.target as HTMLElement).closest('a, button, .group, [role="button"]')) {
         setIsHovering(true);
       } else {
         setIsHovering(false);
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseover', handleMouseOver);
-    
+    window.addEventListener('mousemove', moveMouse);
+    window.addEventListener('mouseover', handleHover);
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('mousemove', moveMouse);
+      window.removeEventListener('mouseover', handleHover);
     };
   }, [mouseX, mouseY]);
 
+  // Jangan render apapun jika di HP
+  if (isTouchDevice) return null;
+
   return (
-    <>
-      {/* Titik Utama (Hampir Instan) */}
+    <div className="fixed inset-0 pointer-events-none z-[9999]">
       <motion.div
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-brand-purple rounded-full z-[9999] pointer-events-none"
-        style={{ 
-          x: dotX, 
+        className="w-1.5 h-1.5 bg-brand-purple rounded-full"
+        style={{
+          x: dotX,
           y: dotY,
           translateX: "-50%",
           translateY: "-50%",
-          scale: isHovering ? 2.5 : 1 
+        }}
+        animate={{
+          scale: isHovering ? 2.5 : 1,
         }}
       />
-
-      {/* Ring Luar (Mengikuti dengan halus tapi tetap cepat) */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-brand-purple/40 rounded-full z-[9998] pointer-events-none"
-        style={{ 
-          x: ringX, 
-          y: ringY,
+        className="absolute top-0 left-0 w-8 h-8 border border-brand-purple/40 rounded-full"
+        style={{
+          x: dotX,
+          y: dotY,
           translateX: "-50%",
           translateY: "-50%",
         }}
         animate={{
           scale: isHovering ? 1.5 : 1,
-          borderColor: isHovering ? "rgba(131, 110, 249, 1)" : "rgba(131, 110, 249, 0.4)",
-          backgroundColor: isHovering ? "rgba(131, 110, 249, 0.05)" : "transparent"
+          borderColor: isHovering ? "#836EF9" : "rgba(131, 110, 249, 0.4)",
+          backgroundColor: isHovering ? "rgba(131, 110, 249, 0.1)" : "transparent",
         }}
-        transition={{ duration: 0.2 }}
       />
-    </>
+    </div>
   );
 }

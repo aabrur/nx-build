@@ -7,25 +7,26 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
 /**
- * Navbar 0xTanda V2 - Perbaikan
- * Hanya menampilkan logo-0xtanda-icon.png di pojok kiri atas.
+ * Komponen Navbar 0xTanda.
+ * Menampilkan urutan menu: HOME, SHOP, VERIFY, ABOUT.
  */
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
+  // URUTAN MENU DIPERBAIKI: Verify sebelum About sesuai alur navigasi
   const navLinks = [
     { name: 'HOME', path: '/' },
     { name: 'SHOP', path: '/shop' },
-    { name: 'ABOUT', path: '/about' },
     { name: 'VERIFY', path: '/verify' },
+    { name: 'ABOUT', path: '/about' },
   ];
 
   return (
-    <nav className="fixed top-12 left-0 w-full z-50 px-6">
+    <nav className="fixed top-10 left-0 w-full z-50 px-6">
       <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
         
-        {/* LOGO SECTION - HANYA IKON */}
+        {/* LOGO ICON (POJOK KIRI) */}
         <Link href="/" className="flex items-center group">
           <div className="relative w-8 h-8">
             <Image 
@@ -37,7 +38,6 @@ export default function Navbar() {
               priority
             />
           </div>
-          {/* Logo tulisan dihapus dari sini agar tidak double */}
         </Link>
 
         {/* Desktop Menu */}
@@ -71,13 +71,13 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch">
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
           {navLinks.map((link) => (
             <Link 
               key={link.path} 
               href={link.path}
               onClick={() => setIsOpen(false)}
-              className={`text-4xl font-display font-bold tracking-tighter transition-colors ${
+              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
                 pathname === link.path ? 'text-brand-purple' : 'text-white'
               }`}
             >

@@ -3,76 +3,79 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Navbar from '@/components/Navbar';
-import Marquee from '@/components/Marquee';
-import CustomCursor from '@/components/CustomCursor';
-import { PRODUCTS_DATA } from '@/lib/data';
-import { motion } from 'framer-motion';
+// Menggunakan jalur relatif yang diperbaiki sesuai dengan struktur folder App Router
+import Navbar from '../../components/Navbar';
+import Marquee from '../../components/Marquee';
+import CustomCursor from '../../components/CustomCursor';
+import { PRODUCTS_DATA } from '../../lib/data';
+import { ShieldCheck, ArrowRight } from 'lucide-react';
 
+/**
+ * Halaman Galeri Produk 0xTanda.
+ * Menampilkan koleksi archive dengan desain industrial dan sistem navigasi yang diperbaiki.
+ */
 export default function ShopPage() {
   return (
-    <main className="min-h-screen pb-20">
+    <main className="min-h-screen bg-brand-black pb-20">
       <CustomCursor />
       <Marquee />
       <Navbar />
 
-      <div className="pt-44 px-6 max-w-7xl mx-auto">
-        <header className="mb-16 border-b border-white/10 pb-10 flex flex-col md:flex-row justify-between items-end gap-6">
-          <div>
-            <h2 className="text-xs font-mono text-brand-purple mb-2 uppercase tracking-widest">The Catalog</h2>
-            <h1 className="text-5xl font-display font-bold tracking-tighter uppercase">Genesis Batch</h1>
-          </div>
-          <div className="text-right font-mono text-[10px] text-neutral-500">
-            SHOWING {PRODUCTS_DATA.length} ARCHIVAL ITEMS
-          </div>
-        </header>
+      <header className="pt-44 px-6 mb-20 text-center">
+        <h2 className="font-mono text-brand-purple text-[10px] tracking-[0.5em] mb-4 uppercase">Archive Collection</h2>
+        <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tighter uppercase leading-none">
+          Genesis // <span className="text-neutral-700 italic">01</span>
+        </h1>
+      </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {PRODUCTS_DATA.map((product, idx) => (
-            <motion.div 
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              className="group"
-            >
-              <Link href={`/product/${product.slug}`}>
-                <div className="relative aspect-[3/4] bg-neutral-900 overflow-hidden border border-white/5 mb-6">
-                  {/* Physical Image */}
-                  <Image 
-                    src={product.imgPhysical} 
-                    alt={product.name}
-                    fill
-                    className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-0"
-                  />
-                  {/* Digital/NFT Image (Appears on Hover) */}
-                  <Image 
-                    src={product.imgDigital} 
-                    alt={`${product.name} Digital`}
-                    fill
-                    className="object-cover scale-125 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
-                  />
-                  
-                  {/* Label */}
-                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-brand-purple/50 px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="text-brand-purple font-mono text-[8px] tracking-widest">DIGITAL TWIN</span>
-                  </div>
-                </div>
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {PRODUCTS_DATA.map((product) => (
+          <Link 
+            key={product.id} 
+            href={`/product/${product.slug}`}
+            className="group relative bg-neutral-900 border border-white/5 hover:border-brand-purple/50 transition-all duration-500 overflow-hidden"
+          >
+            {/* Image Container */}
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <Image 
+                src={product.imgPhysical} 
+                alt={product.name}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:opacity-40"
+              />
+              
+              {/* Hover Info Overlay */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 text-center bg-brand-black/60 backdrop-blur-sm">
+                <p className="font-mono text-[10px] text-brand-purple mb-4 tracking-[0.3em]">VIEW SPECIFICATIONS</p>
+                <p className="text-xs text-neutral-300 font-mono leading-relaxed uppercase tracking-tighter">
+                  {product.description}
+                </p>
+              </div>
 
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-display font-bold text-lg uppercase group-hover:text-brand-purple transition-colors">{product.name}</h3>
-                    <p className="font-mono text-neutral-500 text-[10px] mt-1 uppercase tracking-widest">{product.type}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-mono font-bold text-sm">IDR {product.price.toLocaleString()}</p>
-                    <p className="font-mono text-[8px] text-brand-green mt-1 uppercase">Sisa Stok: {product.stock}</p>
-                  </div>
+              {/* Tag Physical/Digital */}
+              <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 border border-white/10 rounded-full flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-brand-green rounded-full animate-pulse" />
+                <span className="font-mono text-[8px] tracking-widest text-white uppercase">In Stock: {product.stock}</span>
+              </div>
+            </div>
+
+            {/* Product Info */}
+            <div className="p-6 border-t border-white/5">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="font-display text-xl font-bold tracking-tighter group-hover:text-brand-purple transition-colors">{product.name}</h3>
+                <ShieldCheck size={16} className="text-brand-purple opacity-50" />
+              </div>
+              <p className="font-mono text-xs text-neutral-500 mb-6 tracking-widest uppercase">{product.type}</p>
+              
+              <div className="flex justify-between items-center">
+                <p className="font-mono text-sm font-bold tracking-tighter">IDR {product.price.toLocaleString('id-ID')}</p>
+                <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-purple group-hover:border-brand-purple transition-all">
+                  <ArrowRight size={14} className="group-hover:text-black transition-colors" />
                 </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </main>
   );
