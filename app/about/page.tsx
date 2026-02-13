@@ -4,7 +4,6 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Marquee from '../../components/Marquee';
-import CustomCursor from '../../components/CustomCursor';
 import { ROADMAP_DATA } from '../../lib/data';
 import { 
   Send, 
@@ -100,7 +99,6 @@ const RoadmapSlider = () => {
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#0E0E0E] text-white selection:bg-brand-purple selection:text-black font-mono">
-      <CustomCursor />
       <Marquee />
       <Navbar />
 

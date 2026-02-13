@@ -4,7 +4,6 @@ import Image from 'next/image';
 // Jalur relatif untuk keamanan preview
 import Navbar from '../components/Navbar';
 import Marquee from '../components/Marquee';
-import CustomCursor from '../components/CustomCursor';
 import { ArrowRight } from 'lucide-react';
 
 /**
@@ -15,7 +14,6 @@ import { ArrowRight } from 'lucide-react';
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-brand-black overflow-hidden">
-      <CustomCursor />
       <Marquee />
       <Navbar />
 

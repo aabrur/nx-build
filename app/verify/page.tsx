@@ -3,7 +3,6 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
 import Marquee from '../../components/Marquee';
-import CustomCursor from '../../components/CustomCursor';
 import { Ticket, Shield, ArrowRight } from 'lucide-react';
 
 /**
@@ -20,7 +19,6 @@ export default function VerifyPage() {
 
   return (
     <main className="min-h-screen bg-[#0E0E0E] text-white selection:bg-brand-purple selection:text-black">
-      <CustomCursor />
       <Marquee />
       <Navbar />
 

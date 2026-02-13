@@ -7,7 +7,6 @@ import Image from 'next/image';
 // --- IMPORT KOMPONEN ASLI DARI FOLDER COMPONENTS ---
 // Menggunakan path relatif untuk naik 3 level ke root folder
 import Navbar from '../../../components/Navbar';
-import CustomCursor from '../../../components/CustomCursor';
 import Marquee from '../../../components/Marquee';
 
 // --- IMPORT DATA DARI LIB ---
@@ -51,7 +50,6 @@ export default function ProductDetailPage() {
 
   return (
     <main className="min-h-screen pb-20 bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden">
-      <CustomCursor />
       <Marquee />
       <Navbar />
 

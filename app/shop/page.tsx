@@ -6,7 +6,6 @@ import Image from 'next/image';
 // Menggunakan jalur relatif yang diperbaiki sesuai dengan struktur folder App Router
 import Navbar from '../../components/Navbar';
 import Marquee from '../../components/Marquee';
-import CustomCursor from '../../components/CustomCursor';
 import { PRODUCTS_DATA } from '../../lib/data';
 import { ShieldCheck, ArrowRight } from 'lucide-react';
 
@@ -17,7 +16,6 @@ import { ShieldCheck, ArrowRight } from 'lucide-react';
 export default function ShopPage() {
   return (
     <main className="min-h-screen bg-brand-black pb-20">
-      <CustomCursor />
       <Marquee />
       <Navbar />
 
