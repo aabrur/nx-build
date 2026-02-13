@@ -1,7 +1,7 @@
 /**
- * Data Produk 0xTanda
- * File ini adalah Single Source of Truth untuk seluruh informasi produk.
- * Struktur data diperbarui untuk mendukung fitur galeri geser (slider).
+ * 0xTanda - Single Source of Truth
+ * Data produk diperbarui dengan ekstensi .png dan penamaan file spesifik (_front/_back).
+ * File ini mengelola konten untuk katalog Shop dan halaman Detail Produk.
  */
 
 export interface Product {
@@ -15,12 +15,10 @@ export interface Product {
   includes: string[];
   stock: number;
   slug: string;
-  // Gambar utama untuk katalog di halaman Shop
-  imgPhysical: string; 
-  // Gambar untuk tampilan Digital Card/NFT
-  imgDigital: string;   
-  // Array gambar untuk slider (Mockup + Model)
-  images: string[];
+  imgPhysical: string; // Gambar utama untuk tampilan kartu di halaman Shop
+  imgDigital: string;   // Gambar untuk tampilan Digital Card / NFT
+  gallery: string[];    // Kumpulan gambar untuk slider (Mockup & Model)
+  isPlaceholder?: boolean;
   links: {
     telegram: string;
     tokopedia?: string;
@@ -36,8 +34,8 @@ export const PRODUCTS_DATA: Product[] = [
     slug: "genesis-boxy-tee",
     name: "GENESIS BOXY TEE",
     type: "0xTanda Batch #001",
-    price: 149000,
-    description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Dirancang untuk memberikan siluet yang tegas dan nyaman dipakai sehari-hari. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”.",
+    price: 159000,
+    description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
     specs: [
       "Nama: Genesis Boxy Tee",
       "Batch: #001 (Limited Release)",
@@ -60,18 +58,19 @@ export const PRODUCTS_DATA: Product[] = [
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
     stock: 14,
-    // Gambar utama katalog (Mockup Hitam)
-    imgPhysical: "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt.png",
-    // Gambar Digital/NFT
-    imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda_Page_1.png",
-    // Daftar gambar untuk slider di halaman detail produk
-    images: [
-      "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt.png",
-      "/product/gen1/mockup/Gen_Batch_1_White_Tshirt.png",
-      "/product/gen1/model/Model-1-front-gen-1.jpg",
-      "/product/gen1/model/Model-1-back-gen-1.jpg",
-      "/product/gen1/model/Model-2-front-gen-1.jpg",
-      "/product/gen1/model/Model-2-back-gen-1.jpg",
+    // Menggunakan mockup belakang hitam sebagai gambar utama katalog
+    imgPhysical: "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_back.png",
+    imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
+    // Daftar gambar lengkap untuk fitur slider di halaman produk
+    gallery: [
+      "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_back.png",
+      "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_front.png",
+      "/product/gen1/mockup/Gen_Batch_1_White_Tshirt_back.png",
+      "/product/gen1/mockup/Gen_Batch_1_White_Tshirt_front.png",
+      "/product/gen1/model/Model-1-front-gen-1.png",
+      "/product/gen1/model/Model-1-back-gen-1.png",
+      "/product/gen1/model/Model-2-front-gen-1.png",
+      "/product/gen1/model/Model-2-back-gen-1.png",
     ],
     links: {
       telegram: "https://t.me/oxtanda_order",
@@ -80,6 +79,41 @@ export const PRODUCTS_DATA: Product[] = [
       tiktokshop: "https://tiktok.com/@oxtanda/shop",
       shopify: "https://oxtanda.myshopify.com"
     }
+  },
+  // Produk Placeholder (Coming Soon)
+  {
+    id: "PL-002",
+    slug: "archive-02-placeholder",
+    name: "ARCHIVE_02 // ???",
+    type: "Upcoming Phygital Release",
+    price: 0,
+    description: "Dokumen terenkripsi. Detail produk akan tersedia pada fase pengembangan berikutnya.",
+    specs: [],
+    features: [],
+    includes: [],
+    stock: 0,
+    imgPhysical: "", 
+    imgDigital: "",
+    gallery: [],
+    isPlaceholder: true,
+    links: { telegram: "" }
+  },
+  {
+    id: "PL-003",
+    slug: "archive-03-placeholder",
+    name: "ARCHIVE_03 // ???",
+    type: "Upcoming Phygital Release",
+    price: 0,
+    description: "Dokumen terenkripsi. Detail produk akan tersedia pada fase pengembangan berikutnya.",
+    specs: [],
+    features: [],
+    includes: [],
+    stock: 0,
+    imgPhysical: "", 
+    imgDigital: "",
+    gallery: [],
+    isPlaceholder: true,
+    links: { telegram: "" }
   }
 ];
 

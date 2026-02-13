@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // --- IMPORT KOMPONEN ASLI ---
 import Navbar from '../../../components/Navbar';
@@ -30,11 +31,12 @@ export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
   
-  // State untuk kontrol Media
+  // State untuk kontrol Media (Fisik vs Digital)
   const [view, setView] = useState<'physical' | 'digital'>('physical');
+  // State untuk index gambar yang sedang aktif di slider
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
-  // Cari produk berdasarkan slug
+  // Cari produk berdasarkan slug dari URL
   const product = useMemo(() => 
     PRODUCTS_DATA.find(p => p.slug === params.slug), 
     [params.slug]
@@ -53,27 +55,29 @@ export default function ProductDetailPage() {
     );
   }
 
-  // Fungsi navigasi slider gambar fisik
+  // Gunakan array 'gallery' dari lib/data.ts
+  const images = product.gallery || [];
+
+  // Fungsi navigasi slider
   const nextImage = () => {
-    if (product.images) {
-      setCurrentImgIndex((prev) => (prev + 1) % product.images.length);
+    if (images.length > 0) {
+      setCurrentImgIndex((prev) => (prev + 1) % images.length);
     }
   };
 
   const prevImage = () => {
-    if (product.images) {
-      setCurrentImgIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
+    if (images.length > 0) {
+      setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
     }
   };
 
   return (
     <main className="min-h-screen pb-20 bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden">
-      {/* Komponen Header Global */}
       <Marquee />
       <Navbar />
 
       <div className="pt-48 px-6 max-w-7xl mx-auto">
-        {/* Navigasi Kembali */}
+        {/* Tombol Kembali */}
         <Link 
           href="/shop"
           className="inline-flex items-center gap-2 text-neutral-500 hover:text-white mb-10 font-mono text-[10px] tracking-[0.5em] uppercase transition-colors group"
@@ -83,36 +87,58 @@ export default function ProductDetailPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           
-          {/* MEDIA SECTION - DENGAN SLIDER */}
-          <div className="space-y-4">
-            <div className="relative aspect-square bg-[#121212] border border-white/5 overflow-hidden rounded-sm shadow-2xl group">
-              <Image 
-                src={view === 'physical' ? (product.images?.[currentImgIndex] || product.imgPhysical) : product.imgDigital} 
-                alt={product.name} 
-                fill 
-                className="object-cover transition-opacity duration-500" 
-                priority
-              />
+          {/* MEDIA SECTION - DENGAN SLIDER DAN ANTI-CROP */}
+          <div className="space-y-6">
+            <div className="relative aspect-square bg-black border border-white/5 overflow-hidden rounded-sm shadow-2xl group flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={view === 'physical' ? (images[currentImgIndex] || 'empty') : product.imgDigital}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="relative w-full h-full"
+                >
+                  <Image 
+                    src={view === 'physical' ? (images[currentImgIndex] || product.imgPhysical) : product.imgDigital} 
+                    alt={product.name} 
+                    fill 
+                    // FIX: object-contain agar baju tidak terpotong
+                    className="object-contain p-4 md:p-8 transition-opacity duration-500" 
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
               
-              {/* Tombol Panah Slider (Hanya muncul di view physical & jika ada array images) */}
-              {view === 'physical' && product.images && product.images.length > 1 && (
+              {/* Tombol Navigasi Slider (Hanya untuk Physical View) */}
+              {view === 'physical' && images.length > 1 && (
                 <>
                   <button 
                     onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl"
                   >
                     <ChevronLeft size={20} />
                   </button>
                   <button 
                     onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl"
                   >
                     <ChevronRight size={20} />
                   </button>
+                  
+                  {/* Indikator Titik Slider */}
+                  <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                    {images.map((_, i) => (
+                      <div 
+                        key={i} 
+                        className={`h-1 transition-all duration-300 ${i === currentImgIndex ? 'w-6 bg-[#836EF9]' : 'w-2 bg-white/20'}`} 
+                      />
+                    ))}
+                  </div>
                 </>
               )}
               
-              {/* Toggle Fisik / Digital Card */}
+              {/* Toggle View Fisik / Digital Card */}
               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex bg-black/80 backdrop-blur-2xl p-1.5 rounded-full border border-white/10 shadow-2xl z-30">
                 <button 
                   onClick={() => setView('physical')} 
@@ -134,15 +160,15 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Thumbnail Navigation (Hanya untuk Physical) */}
-            {view === 'physical' && product.images && (
-              <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
-                {product.images.map((img, idx) => (
+            {view === 'physical' && images.length > 0 && (
+              <div className="flex gap-3 overflow-x-auto pb-4 hide-scrollbar justify-center">
+                {images.map((img, idx) => (
                   <button 
                     key={idx}
                     onClick={() => setCurrentImgIndex(idx)}
-                    className={`relative w-16 h-16 flex-shrink-0 border transition-all ${currentImgIndex === idx ? 'border-[#836EF9]' : 'border-white/10 opacity-50 hover:opacity-100'}`}
+                    className={`relative w-20 h-24 flex-shrink-0 border transition-all rounded-sm overflow-hidden bg-neutral-900 ${currentImgIndex === idx ? 'border-[#836EF9] opacity-100' : 'border-white/10 opacity-40 hover:opacity-100'}`}
                   >
-                    <Image src={img} alt="thumbnail" fill className="object-cover" />
+                    <Image src={img} alt={`thumb-${idx}`} fill className="object-contain p-1" />
                   </button>
                 ))}
               </div>
@@ -170,7 +196,6 @@ export default function ProductDetailPage() {
             <div className="space-y-6 mb-16">
               <p className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.5em]">PLACE YOUR ORDER:</p>
               
-              {/* TOMBOL TELEGRAM UTAMA */}
               <a 
                 href={product.links.telegram} 
                 target="_blank" 
@@ -180,19 +205,18 @@ export default function ProductDetailPage() {
                 <Send size={18} /> ORDER VIA TELEGRAM
               </a>
 
-              {/* MARKETPLACE ICONS */}
-              <div className="flex items-center justify-center gap-10 pt-4 border-t border-white/5">
-                <a href={product.links.shopee} target="_blank" className="text-neutral-500 hover:text-[#EE4D2D] transition-colors">
-                  <ShoppingCart size={22} />
+              <div className="flex items-center justify-center gap-10 pt-6 border-t border-white/5">
+                <a href={product.links.shopee} target="_blank" title="Shopee" className="text-neutral-400 hover:text-[#EE4D2D] transition-all transform hover:scale-110">
+                  <ShoppingCart size={24} />
                 </a>
-                <a href={product.links.tokopedia} target="_blank" className="text-neutral-500 hover:text-[#03AC0E] transition-colors">
-                  <ShoppingCart size={22} />
+                <a href={product.links.tokopedia} target="_blank" title="Tokopedia" className="text-neutral-400 hover:text-[#03AC0E] transition-all transform hover:scale-110">
+                  <ShoppingCart size={24} />
                 </a>
-                <a href={product.links.tiktokshop} target="_blank" className="text-neutral-500 hover:text-white transition-colors">
-                  <Smartphone size={22} />
+                <a href={product.links.tiktokshop} target="_blank" title="TikTok Shop" className="text-neutral-400 hover:text-white transition-all transform hover:scale-110">
+                  <Smartphone size={24} />
                 </a>
-                <a href={product.links.shopify} target="_blank" className="text-neutral-500 hover:text-[#95BF47] transition-colors">
-                  <ShoppingCart size={22} />
+                <a href={product.links.shopify} target="_blank" title="Shopify" className="text-neutral-400 hover:text-[#95BF47] transition-all transform hover:scale-110">
+                  <ExternalLink size={24} />
                 </a>
               </div>
             </div>
@@ -201,14 +225,8 @@ export default function ProductDetailPage() {
             <div className="space-y-12 font-mono text-[11px] uppercase tracking-wider leading-relaxed">
               <div className="space-y-4">
                 <h3 className="text-[#836EF9] font-bold tracking-[0.3em]">DESKRIPSI PRODUK</h3>
-                <div className="space-y-4 text-neutral-400 normal-case tracking-normal leading-relaxed">
+                <div className="space-y-4 text-neutral-400 normal-case tracking-normal leading-relaxed text-sm">
                   <p>{product.description}</p>
-                  <p>
-                    Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”.
-                  </p>
-                  <p>
-                    Setiap pembelian kaos akan mendapatkan Genesis Collection Card yang berisi akses digital resmi dari 0xTanda. Aset digital tersebut bukan untuk diperjualbelikan secara terpisah dan hanya diberikan sebagai bonus kepemilikan produk fisik.
-                  </p>
                 </div>
               </div>
 
