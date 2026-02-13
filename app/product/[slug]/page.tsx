@@ -4,12 +4,13 @@ import React, { useState, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-// Import komponen dari folder components (naik 3 level folder)
+// --- IMPORT KOMPONEN ASLI DARI FOLDER COMPONENTS ---
+// Menggunakan path relatif untuk naik 3 level ke root folder
 import Navbar from '../../../components/Navbar';
 import CustomCursor from '../../../components/CustomCursor';
 import Marquee from '../../../components/Marquee';
 
-// Import data produk dari folder lib
+// --- IMPORT DATA DARI LIB ---
 import { PRODUCTS_DATA } from '../../../lib/data';
 
 import { 
@@ -116,7 +117,7 @@ export default function ProductDetailPage() {
               </p>
             </div>
 
-            {/* SHOPPING CHANNELS - Menggunakan optional chaining (?.) agar aman saat build */}
+            {/* SHOPPING CHANNELS - Aman dengan Optional Chaining */}
             <div className="space-y-4">
               <p className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.5em] mb-4">PILIH CHANNEL PEMBELIAN:</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

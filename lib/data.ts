@@ -1,5 +1,5 @@
 export interface Product {
-  id: string;
+  id: string | number;
   name: string;
   type: string;
   price: number;
@@ -9,12 +9,12 @@ export interface Product {
   imgDigital: string;
   stock: number;
   slug: string;
-  // TAMBAHKAN INI: Agar TypeScript tahu ada properti links
+  // Struktur links diperbarui untuk mendukung 4 platform marketplace
   links?: {
     tokopedia?: string;
     shopee?: string;
-    whatsapp?: string;
-    tiktok?: string;
+    tiktokshop?: string; // Wajib menggunakan nama key 'tiktokshop' (lowercase, disambung)
+    shopify?: string;
   };
 }
 
@@ -29,18 +29,28 @@ export const PRODUCTS_DATA: Product[] = [
     benefit: "Sertifikat Keaslian Digital + Kartu Koleksi Fisik.",
     imgPhysical: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
     imgDigital: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80",
-    stock: 4,
-    // Tambahkan data link contoh
+    stock: 14,
     links: {
-      tokopedia: "https://tokopedia.com/0xtanda",
-      shopee: "https://shopee.co.id/0xtanda",
-      whatsapp: "https://wa.me/6281234567890"
+      tokopedia: "https://www.tokopedia.com/oxtanda",
+      shopee: "https://shopee.co.id/oxtanda",
+      tiktokshop: "https://www.tiktok.com/@oxtanda/shop",
+      shopify: "https://oxtanda.myshopify.com"
     }
   },
-  // Lanjutkan produk lainnya dengan struktur yang sama...
+  // Tambahkan produk lain di sini jika ada...
 ];
 
 export const ROADMAP_DATA = [
-  { phase: "FASE 01", year: "2026", title: "GENESIS LAUNCH", desc: "14 Unit Micro-Batch Launch." },
-  { phase: "FASE 02", year: "2026", title: "COMMUNITY", desc: "Discord Activation." },
+  { 
+    phase: "FASE 01", 
+    year: "2026", 
+    title: "GENESIS LAUNCH", 
+    desc: "14 Unit Micro-Batch Launch." 
+  },
+  { 
+    phase: "FASE 02", 
+    year: "2026", 
+    title: "COMMUNITY", 
+    desc: "Discord Activation." 
+  },
 ];
