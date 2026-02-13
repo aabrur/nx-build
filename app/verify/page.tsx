@@ -23,7 +23,7 @@ export default function VerifyPage() {
       <Navbar />
 
       {/* Kontainer Utama dengan pt-52 agar konten turun jauh dari Navbar */}
-      <div className="min-h-screen flex flex-col pt-52 md:pt-60 items-center justify-start p-6 text-center relative z-10">
+      <div className="min-h-screen flex flex-col pt-33 items-center justify-start p-6 text-center relative z-10">
         <div className="w-full max-w-md animate-glitch-logo">
           
           {/* Ikon Portal */}
@@ -32,11 +32,11 @@ export default function VerifyPage() {
           </div>
 
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 tracking-tighter uppercase">
-            Redemption Portal
+            Verifikasi Portal
           </h2>
           
           <p className="text-neutral-500 font-mono text-[10px] md:text-xs mb-10 uppercase tracking-[0.3em] leading-relaxed">
-            Verifikasi keaslian produk fisik dan klaim aset digital Anda melalui formulir terenkripsi kami.
+            Verifikasi produk fisik Anda dan aktifkan akses digital resmi melalui formulir yang telah kami sediakan.
           </p>
 
           {/* Panduan Box */}
@@ -46,16 +46,16 @@ export default function VerifyPage() {
             </h3>
             <ul className="text-[10px] md:text-xs text-neutral-400 space-y-3 list-none font-mono uppercase tracking-tight">
               <li className="flex gap-2">
-                <span className="text-brand-purple">[01]</span> Siapkan Kartu Fisik "Genesis Access Card" Anda.
+                <span className="text-brand-purple">[01]</span> Siapkan kartu fisik “Genesis Collection Card” Anda.
               </li>
               <li className="flex gap-2">
-                <span className="text-brand-purple">[02]</span> Gosok area pelindung untuk melihat Kode Hash unik.
+                <span className="text-brand-purple">[02]</span> Gosok area pelindung untuk melihat Secret Code unik.
               </li>
               <li className="flex gap-2">
-                <span className="text-brand-purple">[03]</span> Klik tombol di bawah untuk membuka Formulir Klaim.
+                <span className="text-brand-purple">[03]</span> Klik tombol di bawah untuk membuka formulir verifikasi.
               </li>
               <li className="flex gap-2">
-                <span className="text-brand-purple">[04]</span> Isi data wallet dan upload bukti kepemilikan.
+                <span className="text-brand-purple">[04]</span> Isi data yang diperlukan dan masukkan alamat wallet Anda untuk proses aktivasi.
               </li>
             </ul>
           </div>
@@ -70,7 +70,7 @@ export default function VerifyPage() {
           </button>
           
           <p className="mt-6 text-[9px] font-mono text-neutral-600 uppercase tracking-widest">
-            Anda akan diarahkan ke Google Form eksternal yang aman.
+            Anda akan diarahkan ke formulir eksternal yang aman untuk menyelesaikan proses verifikasi.
           </p>
         </div>
 
