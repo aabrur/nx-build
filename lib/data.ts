@@ -73,7 +73,7 @@ export const PRODUCTS_DATA: Product[] = [
       "/product/gen1/model/Model-2-back-gen-1.png",
     ],
     links: {
-      telegram: "https://t.me/oxtanda_order",
+      telegram: "https://t.me/rempeyek_0",
       tokopedia: "https://tokopedia.com/oxtanda",
       shopee: "https://shopee.co.id/oxtanda",
       tiktokshop: "https://tiktok.com/@oxtanda/shop",

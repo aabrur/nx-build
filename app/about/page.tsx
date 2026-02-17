@@ -233,7 +233,7 @@ export default function AboutPage() {
           <div className="flex flex-wrap justify-center gap-6 md:gap-12">
             {/* Instagram */}
             <a 
-              href="https://instagram.com/oxtanda" 
+              href="https://www.instagram.com/0xtanda/" 
               target="_blank" 
               className="group flex flex-col items-center gap-3 transition-all"
             >
@@ -245,7 +245,7 @@ export default function AboutPage() {
             
             {/* TikTok */}
             <a 
-              href="https://tiktok.com/@oxtanda" 
+              href="https://www.tiktok.com/@0xtanda?is_from_webapp=1&sender_device=pc" 
               target="_blank" 
               className="group flex flex-col items-center gap-3 transition-all"
             >
@@ -257,7 +257,7 @@ export default function AboutPage() {
             
             {/* X (Twitter) */}
             <a 
-              href="https://x.com/oxtanda" 
+              href="https://x.com/0xTanda" 
               target="_blank" 
               className="group flex flex-col items-center gap-3 transition-all"
             >
@@ -269,7 +269,7 @@ export default function AboutPage() {
             
             {/* Telegram Community */}
             <a 
-              href="https://t.me/oxtanda_community" 
+              href="https://t.me/Official0xTanda" 
               target="_blank" 
               className="group flex flex-col items-center gap-3 transition-all"
             >
@@ -285,7 +285,7 @@ export default function AboutPage() {
       {/* FLOATING TELEGRAM CS - Pojok Kanan Bawah & Fixed mengikuti scroll */}
       <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-4">
         <a 
-          href="https://t.me/oxtanda_cs" 
+          href="https://t.me/Bob_Node88" 
           target="_blank" 
           rel="noopener noreferrer"
           className="w-14 h-14 bg-[#836EF9] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(131,110,249,0.5)] hover:scale-110 active:scale-95 transition-all group relative border border-white/10"
