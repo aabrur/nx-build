@@ -1,82 +1,76 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import Navbar from '../../components/Navbar';
-import Marquee from '../../components/Marquee';
-import { Ticket, Shield, ArrowRight } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, ArrowRight, Lock, ScanLine } from 'lucide-react';
 
-/**
- * Halaman Verifikasi 0xTanda.
- * Diperbarui dengan padding-top yang lebih besar agar tidak tertutup Navbar.
- * Jalur impor diperbaiki untuk struktur App Router.
- */
-export default function VerifyPage() {
-  const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSd.../viewform";
-
-  const openGoogleForm = () => {
-    window.open(GOOGLE_FORM_URL, '_blank');
-  };
-
+export default function VerifyLandingPage() {
   return (
-    <main className="min-h-screen bg-[#0E0E0E] text-white selection:bg-brand-purple selection:text-black">
-      <Marquee />
+    <div className="bg-[#0a0a0a] min-h-screen text-[#f3f3f3] font-mono selection:bg-[#836EF9] selection:text-black">
       <Navbar />
-
-      {/* Kontainer Utama dengan pt-52 agar konten turun jauh dari Navbar */}
-      <div className="min-h-screen flex flex-col pt-33 items-center justify-start p-6 text-center relative z-10">
-        <div className="w-full max-w-md animate-glitch-logo">
-          
-          {/* Ikon Portal */}
-          <div className="w-24 h-24 border-2 border-white/5 rounded-xl flex items-center justify-center mx-auto mb-10 bg-white/5 shadow-[0_0_50px_rgba(131,110,249,0.15)]">
-            <Ticket size={48} className="text-brand-purple" />
+      
+      <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto flex flex-col items-center text-center">
+        
+        {/* --- HERO SECTION --- */}
+        <div className="mb-12 animate-in fade-in zoom-in duration-700">
+          <div className="w-24 h-24 bg-[#836EF9]/10 rounded-full flex items-center justify-center border border-[#836EF9]/30 mx-auto mb-6 shadow-[0_0_30px_rgba(131,110,249,0.2)]">
+             <ScanLine size={40} className="text-[#836EF9]" />
           </div>
-
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 tracking-tighter uppercase">
-            Verifikasi Portal
-          </h2>
-          
-          <p className="text-neutral-500 font-mono text-[10px] md:text-xs mb-10 uppercase tracking-[0.3em] leading-relaxed">
-            Verifikasi produk fisik Anda dan aktifkan akses digital resmi melalui formulir yang telah kami sediakan.
-          </p>
-
-          {/* Panduan Box */}
-          <div className="bg-white/5 border border-brand-purple/20 p-8 mb-10 text-left rounded-sm">
-            <h3 className="text-white font-bold mb-4 flex items-center gap-3 text-xs uppercase tracking-widest">
-              <Shield size={16} className="text-brand-purple"/> PANDUAN VERIFIKASI:
-            </h3>
-            <ul className="text-[10px] md:text-xs text-neutral-400 space-y-3 list-none font-mono uppercase tracking-tight">
-              <li className="flex gap-2">
-                <span className="text-brand-purple">[01]</span> Siapkan kartu fisik “Genesis Collection Card” Anda.
-              </li>
-              <li className="flex gap-2">
-                <span className="text-brand-purple">[02]</span> Gosok area pelindung untuk melihat Secret Code unik.
-              </li>
-              <li className="flex gap-2">
-                <span className="text-brand-purple">[03]</span> Klik tombol di bawah untuk membuka formulir verifikasi.
-              </li>
-              <li className="flex gap-2">
-                <span className="text-brand-purple">[04]</span> Isi data yang diperlukan dan masukkan alamat wallet Anda untuk proses aktivasi.
-              </li>
-            </ul>
-          </div>
-
-          {/* Tombol Aksi */}
-          <button 
-            onClick={openGoogleForm} 
-            className="w-full bg-white text-black py-5 font-mono text-[10px] font-bold hover:bg-brand-purple hover:text-white transition-all flex items-center justify-center gap-3 group shadow-[0_0_30px_rgba(255,255,255,0.1)] active:scale-95"
-          >
-            BUKA FORMULIR VERIFIKASI 
-            <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform"/>
-          </button>
-          
-          <p className="mt-6 text-[9px] font-mono text-neutral-600 uppercase tracking-widest">
-            Anda akan diarahkan ke formulir eksternal yang aman untuk menyelesaikan proses verifikasi.
+          <h1 className="text-4xl md:text-6xl font-sans font-bold tracking-tighter mb-4 uppercase">
+            VERIFICATION <span className="text-[#836EF9]">PROTOCOL</span>
+          </h1>
+          <p className="text-sm md:text-base text-[#888] font-mono max-w-2xl mx-auto leading-relaxed">
+            "Tangible craftsmanship you can feel, secured by digital ownership you can prove."
           </p>
         </div>
 
-        {/* Dekorasi Latar Belakang */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl aspect-square bg-brand-purple/5 blur-[150px] pointer-events-none rounded-full -z-10" />
-      </div>
-    </main>
+        {/* --- INSTRUCTIONS BOX --- */}
+        <div className="bg-[#111] border border-[#333] p-8 md:p-10 mb-12 rounded-sm text-left max-w-2xl w-full relative overflow-hidden group hover:border-[#836EF9]/50 transition-colors">
+          
+          <div className="absolute top-0 right-0 p-4 opacity-10">
+            <Lock size={120} />
+          </div>
+
+          <h3 className="text-[#00FF9D] font-bold text-xs tracking-[0.2em] mb-6 flex items-center gap-2">
+            <AlertTriangle size={16} /> SYSTEM REQUIREMENTS
+          </h3>
+          
+          <ul className="space-y-4 text-xs md:text-sm text-[#ccc] list-decimal list-inside leading-relaxed font-mono relative z-10">
+            <li className="pl-2">
+              <span className="text-white font-bold bg-[#836EF9]/20 px-1">GOSOK</span> panel pada Genesis Card untuk mendapatkan Secret Code.
+            </li>
+            <li className="pl-2">
+              Siapkan <span className="text-[#836EF9] font-bold">Personal Wallet MONAD/EVM</span> (Metamask/Phantom/Rabby).
+            </li>
+            <li className="pl-2 text-red-400 font-bold">
+              DILARANG menggunakan alamat Exchange (Indodax/Binance/dll). Aset akan hilang.
+            </li>
+            <li className="pl-2">
+              Proses verifikasi manual (<span className="text-[#00FF9D]">Max 1x24 Jam</span>).
+            </li>
+            <li className="pl-2">
+              Gas Fee ditanggung penuh oleh 0xTanda (GRATIS).
+            </li>
+          </ul>
+        </div>
+
+        {/* --- ACTION BUTTON --- */}
+        <Link href="/verify/pageform" className="w-full max-w-md group">
+            <div className="bg-white text-black font-sans font-black text-lg py-5 hover:bg-[#836EF9] hover:text-white transition-all duration-300 flex items-center justify-center gap-3 tracking-widest clip-path-slant relative overflow-hidden">
+                <span className="relative z-10 flex items-center gap-2">
+                    START VERIFICATION <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform"/>
+                </span>
+                {/* Hover Effect */}
+                <div className="absolute inset-0 bg-[#836EF9] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 z-0"></div>
+            </div>
+        </Link>
+        
+        <p className="text-[10px] text-[#444] mt-6 font-mono">
+            SECURE CONNECTION // 256-BIT ENCRYPTION
+        </p>
+
+      </main>
+    </div>
   );
 }
