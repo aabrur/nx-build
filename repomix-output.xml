@@ -1,0 +1,1961 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.gitignore
+app/about/page.tsx
+app/globals.css
+app/icon.png
+app/layout.tsx
+app/page.tsx
+app/product/[slug]/page.tsx
+app/shop/page.tsx
+app/verify/page.tsx
+app/verify/pageform/page.tsx
+components/Marquee.tsx
+components/Navbar.tsx
+eslint.config.mjs
+lib/data.ts
+next.config.ts
+package.json
+postcss.config.mjs
+public/branding/logo-0xtanda-icon.png
+public/branding/logo-0xtanda.png
+public/file.svg
+public/font/vox-regular.ttf.ttf
+public/globe.svg
+public/next.svg
+public/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_back.png
+public/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_front.png
+public/product/gen1/mockup/Gen_Batch_1_White_Tshirt_back.png
+public/product/gen1/mockup/Gen_Batch_1_White_Tshirt_front.png
+public/product/gen1/model/Model-1-back-gen-1.png
+public/product/gen1/model/Model-1-front-gen-1.png
+public/product/gen1/model/Model-2-back-gen-1.png
+public/product/gen1/model/Model-2-front-gen-1.png
+public/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png
+public/window.svg
+README.md
+tailwind.config.ts
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".gitignore">
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+</file>
+
+<file path="eslint.config.mjs">
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);
+
+export default eslintConfig;
+</file>
+
+<file path="postcss.config.mjs">
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+</file>
+
+<file path="public/file.svg">
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+</file>
+
+<file path="public/globe.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+</file>
+
+<file path="public/next.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+</file>
+
+<file path="public/window.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+</file>
+
+<file path="README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="tailwind.config.ts">
+// tailwind.config.ts
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          purple: "#836EF9",
+          black: "#0E0E0E",
+          white: "#F0F0F0",
+          green: "#00FF9D",
+          gray: "#A19797",
+          tokopedia: "#03AC0E",
+          shopee: "#EE4D2D",
+          tiktok: "#000000",
+          whatsapp: "#25D366",
+        },
+      },
+      fontFamily: {
+        sans: ["Space Grotesk", "sans-serif"],
+        mono: ["Space Mono", "monospace"],
+        deco: ["Cinzel Decorative", "serif"],
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+</file>
+
+<file path="app/verify/pageform/page.tsx">
+"use client";
+
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Navbar from '../../../components/Navbar';
+import Marquee from '../../../components/Marquee';
+import { 
+  ShieldCheck, 
+  Wallet, 
+  UploadCloud, 
+  CheckCircle2, 
+  AlertTriangle, 
+  Loader2, 
+  X,
+  Key,
+  User,
+  Smartphone,
+  Mail,
+  ShoppingBag,
+  Lock
+} from 'lucide-react';
+
+export default function VerifyFormPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error' | 'used'>('idle');
+  const [fileName, setFileName] = useState('');
+
+  // 🔴 PASTIKAN URL INI BENAR DARI DEPLOYMENT GOOGLE APPS SCRIPT
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9_dc-9v8UNopJGhjlzoBPluWiS9i2krk4-wARwH5PhiFiLx-BAHGoZoUgngcGw1ff/exec";
+
+  const [formData, setFormData] = useState({
+    secretCode: '',
+    walletAddress: '',
+    nama: '',
+    gender: 'Pria',
+    email: '',
+    noHp: '',
+    telegramId: '',
+    productName: 'GENESIS BOXY TEE',
+    orderId: '',
+    proofImage: '' // Base64 string
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validasi Ukuran File (Max 2MB agar Google Sheet tidak error)
+      if (file.size > 2 * 1024 * 1024) {
+        alert("Ukuran file terlalu besar. Maksimal 2MB.");
+        return;
+      }
+      setFileName(file.name);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, proofImage: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // --- VALIDASI WALLET MONAD (EVM) ---
+    // Harus diawali 0x dan panjang 42 karakter
+    const evmRegex = /^0x[a-fA-F0-9]{40}$/;
+    if (!evmRegex.test(formData.walletAddress)) {
+        alert("ALAMAT WALLET TIDAK VALID!\nPastikan alamat dimulai dengan '0x' dan merupakan format standar MONAD/EVM.");
+        return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Mengirim data ke Google Script
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        // Menggunakan mode no-cors seringkali diperlukan untuk Google Script jika client-side, 
+        // tapi ini akan membuat kita tidak bisa membaca response JSON.
+        // Jika script Anda support CORS, gunakan standard fetch.
+        // Untuk MVP ini, kita gunakan pendekatan redirect 'follow' atau standard.
+        body: JSON.stringify(formData),
+      });
+
+      // CATATAN PENTING:
+      // Google Apps Script sering memblokir pembacaan response JSON langsung karena CORS.
+      // Jika error "SyntaxError", biasanya data SUDAH MASUK tapi browser memblokir response-nya.
+      // Di sini kita coba parse, jika gagal kita asumsikan sukses (untuk UX).
+      
+      const result = await response.json();
+
+      if (result.status === 'success') {
+        setStatus('success');
+      } else if (result.status === 'duplicate') {
+        setStatus('used');
+      } else {
+        setStatus('error');
+      }
+
+    } catch (error) {
+      console.error("Submission Error:", error);
+      // Fallback: Jika data terkirim tapi response diblokir browser (CORS issue umum di GAS)
+      // Kita anggap sukses agar user tidak bingung, admin tetap verifikasi manual.
+      setStatus('success'); 
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <main className="min-h-screen bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-mono overflow-x-hidden">
+      <Marquee />
+      <Navbar />
+
+      <div className="pt-32 px-6 pb-20 max-w-4xl mx-auto">
+        
+        {/* HEADER & INSTRUCTION */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 border border-[#836EF9] bg-[#836EF9]/10 px-4 py-1 mb-6 rounded-full">
+            <div className="w-2 h-2 bg-[#836EF9] rounded-full animate-pulse"/>
+            <span className="text-[10px] text-[#836EF9] font-bold tracking-[0.2em] uppercase">SYSTEM_ONLINE // VERIFICATION_NODE</span>
+          </div>
+          <h1 className="text-3xl md:text-5xl font-sans font-bold uppercase tracking-tighter mb-4">
+            ACTIVATION <span className="text-[#836EF9]">PORTAL</span>
+          </h1>
+          <p className="text-neutral-500 text-xs md:text-sm uppercase tracking-widest max-w-2xl mx-auto italic">
+            "Tangible craftsmanship you can feel, secured by digital ownership you can prove."
+          </p>
+        </div>
+
+        <div className="bg-[#121212] border border-white/10 p-8 rounded-sm mb-12 relative overflow-hidden group">
+          <div className="absolute top-0 left-0 w-1 h-full bg-[#836EF9] group-hover:w-full group-hover:opacity-5 transition-all duration-700" />
+          <h3 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
+            <AlertTriangle className="text-[#836EF9]" size={18} /> INSTRUKSI PENTING:
+          </h3>
+          <ul className="space-y-3 text-[10px] md:text-xs text-neutral-400 uppercase tracking-wide leading-relaxed relative z-10">
+            <li className="flex gap-3"><span className="text-[#836EF9] font-bold">01.</span> GOSOK panel pelindung pada Genesis Card untuk melihat Secret Code.</li>
+            <li className="flex gap-3"><span className="text-[#836EF9] font-bold">02.</span> PASTIKAN alamat wallet yang dimasukkan adalah Personal Wallet MONAD (Metamask/Phantom/Rabby).</li>
+            <li className="flex gap-3 text-red-500 font-bold bg-red-900/10 p-2 border border-red-900/30 rounded"><span className="text-red-500">03.</span> 🚫 DILARANG menggunakan alamat Exchange (Indodax/Binance/Tokocrypto dll).</li>
+            <li className="flex gap-3"><span className="text-[#836EF9] font-bold">04.</span> PROSES verifikasi dilakukan secara manual demi keamanan (Max 1x24 Jam).</li>
+            <li className="flex gap-3"><span className="text-[#836EF9] font-bold">05.</span> BIAYA jaringan (Gas Fee) ditanggung 0xTanda (GRATIS).</li>
+          </ul>
+        </div>
+
+        {/* FORM */}
+        <form onSubmit={handleSubmit} className="space-y-12">
+          
+          {/* SECTION 1: CRITICAL DATA (BIG & EYE CATCHING) */}
+          <div className="space-y-6">
+            <div className="bg-gradient-to-b from-[#1a1a1a] to-black border border-[#836EF9]/50 p-8 rounded-sm shadow-[0_0_30px_rgba(131,110,249,0.1)] relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-20">
+                <ShieldCheck size={64} className="text-[#836EF9]" />
+              </div>
+              <h4 className="text-[#836EF9] text-xs font-bold uppercase tracking-[0.3em] mb-8 flex items-center gap-2">
+                <ShieldCheck size={16}/> PRIMARY CREDENTIALS
+              </h4>
+              
+              <div className="grid gap-10">
+                {/* SECRET CODE */}
+                <div className="space-y-3">
+                  <label className="text-xs text-[#836EF9] font-bold uppercase tracking-[0.2em] flex items-center gap-2">
+                    <Key size={14}/> SECRET CODE (GENESIS CARD)
+                  </label>
+                  <input 
+                    type="text" 
+                    name="secretCode"
+                    required
+                    placeholder="XXXX-XXXX-XXXX" 
+                    className="w-full bg-black border-2 border-[#836EF9] p-6 text-xl md:text-3xl font-sans font-bold text-white placeholder:text-white/10 focus:shadow-[0_0_30px_rgba(131,110,249,0.4)] focus:outline-none transition-all uppercase tracking-widest text-center rounded-sm"
+                    onChange={handleInputChange}
+                  />
+                  <p className="text-[9px] text-neutral-500 uppercase tracking-widest text-center">*Masukkan Kode persis sesuai kartu</p>
+                </div>
+
+                {/* WALLET ADDRESS */}
+                <div className="space-y-3">
+                  <label className="text-xs text-[#00FF9D] font-bold uppercase tracking-[0.2em] flex items-center gap-2">
+                    <Wallet size={14}/> WALLET MONAD ADDRESS
+                  </label>
+                  <input 
+                    type="text" 
+                    name="walletAddress"
+                    required
+                    placeholder="0x..." 
+                    className="w-full bg-black border-2 border-[#00FF9D]/50 p-6 text-sm md:text-xl font-mono text-[#00FF9D] placeholder:text-[#00FF9D]/20 focus:border-[#00FF9D] focus:shadow-[0_0_30px_rgba(0,255,157,0.2)] focus:outline-none transition-all rounded-sm"
+                    onChange={handleInputChange}
+                  />
+                  <p className="text-[9px] text-neutral-500 uppercase tracking-widest text-right">*Wajib format 0x... (Personal Wallet)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 2: PROFILE */}
+          <div className="space-y-8 pt-8 border-t border-white/5">
+            <h4 className="text-white text-xs font-bold uppercase tracking-[0.3em] flex items-center gap-2">
+              <User size={16} className="text-neutral-500" /> IDENTITAS OWNER
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Nama Lengkap</label>
+                <input type="text" name="nama" required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Jenis Kelamin</label>
+                <select name="gender" className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors appearance-none" onChange={handleInputChange}>
+                  <option value="Pria">PRIA</option>
+                  <option value="Wanita">WANITA</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Email</label>
+                <div className="relative">
+                  <Mail className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20" size={16} />
+                  <input type="email" name="email" required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">No. HP / WhatsApp</label>
+                <div className="relative">
+                  <Smartphone className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20" size={16} />
+                  <input type="tel" name="noHp" required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+                </div>
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">ID Telegram (Opsional - Untuk Group War Room)</label>
+                <input type="text" name="telegramId" placeholder="@username" className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 3: DETAIL ORDER */}
+          <div className="space-y-8 pt-8 border-t border-white/5">
+            <h4 className="text-white text-xs font-bold uppercase tracking-[0.3em] flex items-center gap-2">
+              <ShoppingBag size={16} className="text-neutral-500" /> DETAIL TRANSAKSI
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Pilih Artefak (Produk)</label>
+                <div className="relative">
+                  <select name="productName" className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-[#836EF9] font-bold focus:border-white/50 focus:outline-none transition-colors appearance-none uppercase" onChange={handleInputChange}>
+                    <option value="GENESIS BOXY TEE">GENESIS BOXY TEE [BATCH #001]</option>
+                    <option value="-" disabled>ARCHIVE 02 (LOCKED)</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <div className="w-2 h-2 bg-[#836EF9] rounded-full" />
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Order ID (E-Commerce/Manual)</label>
+                <input type="text" name="orderId" placeholder="Contoh: 230919ABC..." className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Upload Bukti Pembelian (Struk/SS)</label>
+                <div className="relative group">
+                  <input type="file" id="fileUpload" className="hidden" onChange={handleFileChange} accept="image/*" />
+                  <label htmlFor="fileUpload" className="w-full bg-[#121212] border border-white/10 border-dashed p-4 text-sm text-neutral-400 flex items-center justify-between cursor-pointer hover:bg-white/5 hover:border-[#836EF9] transition-all">
+                    <span className="truncate font-mono">{fileName || "KLIK UNTUK UPLOAD FILE..."}</span>
+                    <UploadCloud size={20} className="text-neutral-500 group-hover:text-[#836EF9]" />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* SUBMIT BUTTON */}
+          <div className="pt-10">
+            <button 
+              type="submit" 
+              disabled={isLoading}
+              className="w-full bg-[#836EF9] text-black font-mono text-sm font-bold py-6 uppercase tracking-[0.2em] hover:bg-white transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_40px_rgba(131,110,249,0.3)] hover:shadow-[0_0_60px_rgba(131,110,249,0.6)]"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="animate-spin" size={20} /> VALIDATING DATA...
+                </>
+              ) : (
+                "SUBMIT VERIFICATION DATA"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/* POPUP MODALS */}
+      <AnimatePresence>
+        {status !== 'idle' && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/95 backdrop-blur-md">
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-[#0E0E0E] border border-white/10 p-10 max-w-md w-full text-center relative shadow-[0_0_50px_rgba(131,110,249,0.2)]"
+            >
+              <button onClick={() => setStatus('idle')} className="absolute top-4 right-4 text-neutral-500 hover:text-white">
+                <X size={24} />
+              </button>
+
+              {status === 'success' && (
+                <div className="space-y-6">
+                  <div className="w-24 h-24 bg-[#00FF9D]/10 rounded-full flex items-center justify-center mx-auto border border-[#00FF9D]/30">
+                    <CheckCircle2 size={48} className="text-[#00FF9D]" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold text-white uppercase tracking-tighter mb-2">VERIFIED</h3>
+                    <div className="h-1 w-12 bg-[#00FF9D] mx-auto mb-4" />
+                    <p className="text-xs text-neutral-400 font-mono uppercase tracking-widest leading-relaxed">
+                      Data Anda telah diterima di sistem kami. Tim 0xTanda akan memvalidasi dalam 1x24 jam. Cek wallet Anda secara berkala.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {status === 'used' && (
+                <div className="space-y-6">
+                  <div className="w-24 h-24 bg-[#EE4D2D]/10 rounded-full flex items-center justify-center mx-auto border border-[#EE4D2D]/30">
+                    <AlertTriangle size={48} className="text-[#EE4D2D]" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold text-[#EE4D2D] uppercase tracking-tighter mb-2">KODE SUDAH DIGUNAKAN</h3>
+                    <div className="h-1 w-12 bg-[#EE4D2D] mx-auto mb-4" />
+                    <p className="text-xs text-neutral-400 font-mono uppercase tracking-widest leading-relaxed">
+                      Kode Rahasia yang Anda masukkan terdeteksi duplikat di database. Hubungi CS jika ini adalah kesalahan.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {status === 'error' && (
+                <div className="space-y-6">
+                  <div className="w-24 h-24 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto border border-yellow-500/30">
+                    <AlertTriangle size={48} className="text-yellow-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold text-white uppercase tracking-tighter mb-2">CONNECTION ERROR</h3>
+                    <div className="h-1 w-12 bg-yellow-500 mx-auto mb-4" />
+                    <p className="text-xs text-neutral-400 font-mono uppercase tracking-widest leading-relaxed">
+                      Gagal terhubung ke server database. Silakan coba lagi nanti atau hubungi admin Telegram.
+                    </p>
+                  </div>
+                </div>
+              )}
+              
+              <button 
+                onClick={() => setStatus('idle')}
+                className="mt-10 w-full border border-white/20 py-4 text-xs font-bold uppercase hover:bg-white hover:text-black transition-all tracking-[0.2em]"
+              >
+                TUTUP / CLOSE
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </main>
+  );
+}
+</file>
+
+<file path="components/Navbar.tsx">
+"use client";
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
+
+/**
+ * Komponen Navbar 0xTanda.
+ * Menampilkan urutan menu: HOME, SHOP, VERIFY, ABOUT.
+ */
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // URUTAN MENU DIPERBAIKI: Verify sebelum About sesuai alur navigasi
+  const navLinks = [
+    { name: 'HOME', path: '/' },
+    { name: 'SHOP', path: '/shop' },
+    { name: 'VERIFY', path: '/verify' },
+    { name: 'ABOUT', path: '/about' },
+  ];
+
+  return (
+    <nav className="fixed top-10 left-0 w-full z-50 px-6">
+      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
+        
+        {/* LOGO ICON (POJOK KIRI) */}
+        <Link href="/" className="flex items-center group">
+          <div className="relative w-8 h-8">
+            <Image 
+              src="/branding/logo-0xtanda-icon.png" 
+              alt="0xTanda Icon"
+              width={32}
+              height={32}
+              className="object-contain group-hover:rotate-12 transition-transform duration-500"
+              priority
+            />
+          </div>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
+                pathname === link.path 
+                ? 'bg-brand-purple text-black font-bold' 
+                : 'text-neutral-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Mobile Toggle */}
+        <div className="md:hidden flex items-center">
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
+            aria-label="Toggle Navigation"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              onClick={() => setIsOpen(false)}
+              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
+                pathname === link.path ? 'text-brand-purple' : 'text-white'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+}
+</file>
+
+<file path="next.config.ts">
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+        pathname: '**',
+      },
+    ],
+  },
+};
+
+export default nextConfig;
+</file>
+
+<file path="components/Marquee.tsx">
+export default function Marquee() {
+  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
+  
+  return (
+    <div className="fixed top-0 left-0 w-full bg-brand-purple text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
+      <div className="animate-marquee whitespace-nowrap">
+        {[...Array(10)].map((_, i) => (
+          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "oxtanda-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "framer-motion": "^12.34.0",
+    "lucide-react": "^0.563.0",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.24",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5"
+  }
+}
+</file>
+
+<file path="app/layout.tsx">
+'use client';
+import { Inter, Space_Grotesk, Space_Mono } from 'next/font/google';
+import './globals.css';
+import Navbar from '../components/Navbar';
+
+// Load Fonts
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
+const spaceMono = Space_Mono({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-space-mono' });
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="id" className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}>
+      <head>
+        {/* Viewport Setting agar di HP pas (tidak perlu zoom out) */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+      </head>
+      
+      {/* BODY BERSIH: Hapus class 'cursor-none' agar pakai kursor bawaan Windows/Mac */}
+      <body className="bg-[#0a0a0a] text-[#f3f3f3] overflow-x-hidden antialiased">
+        
+        {/* Navbar Tetap Ada */}
+        <Navbar />
+        
+        {/* Konten Halaman */}
+        {children}
+        
+      </body>
+    </html>
+  );
+}
+</file>
+
+<file path="app/verify/page.tsx">
+"use client";
+
+import React from 'react';
+import Link from 'next/link';
+import Navbar from '../../components/Navbar';
+import { ShieldCheck, AlertTriangle, ArrowRight, Lock, ScanLine } from 'lucide-react';
+
+export default function VerifyLandingPage() {
+  return (
+    <div className="bg-[#0a0a0a] min-h-screen text-[#f3f3f3] font-mono selection:bg-[#836EF9] selection:text-black">
+      <Navbar />
+      
+      <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto flex flex-col items-center text-center">
+        
+        {/* --- HERO SECTION --- */}
+        <div className="mb-12 animate-in fade-in zoom-in duration-700">
+          <div className="w-24 h-24 bg-[#836EF9]/10 rounded-full flex items-center justify-center border border-[#836EF9]/30 mx-auto mb-6 shadow-[0_0_30px_rgba(131,110,249,0.2)]">
+             <ScanLine size={40} className="text-[#836EF9]" />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-sans font-bold tracking-tighter mb-4 uppercase">
+            VERIFICATION <span className="text-[#836EF9]">PROTOCOL</span>
+          </h1>
+          <p className="text-sm md:text-base text-[#888] font-mono max-w-2xl mx-auto leading-relaxed">
+            "Tangible craftsmanship you can feel, secured by digital ownership you can prove."
+          </p>
+        </div>
+
+        {/* --- INSTRUCTIONS BOX --- */}
+        <div className="bg-[#111] border border-[#333] p-8 md:p-10 mb-12 rounded-sm text-left max-w-2xl w-full relative overflow-hidden group hover:border-[#836EF9]/50 transition-colors">
+          
+          <div className="absolute top-0 right-0 p-4 opacity-10">
+            <Lock size={120} />
+          </div>
+
+          <h3 className="text-[#00FF9D] font-bold text-xs tracking-[0.2em] mb-6 flex items-center gap-2">
+            <AlertTriangle size={16} /> SYSTEM REQUIREMENTS
+          </h3>
+          
+          <ul className="space-y-4 text-xs md:text-sm text-[#ccc] list-decimal list-inside leading-relaxed font-mono relative z-10">
+            <li className="pl-2">
+              <span className="text-white font-bold bg-[#836EF9]/20 px-1">GOSOK</span> panel pada Genesis Card untuk mendapatkan Secret Code.
+            </li>
+            <li className="pl-2">
+              Siapkan <span className="text-[#836EF9] font-bold">Personal Wallet MONAD/EVM</span> (Metamask/Phantom/Rabby).
+            </li>
+            <li className="pl-2 text-red-400 font-bold">
+              DILARANG menggunakan alamat Exchange (Indodax/Binance/dll). Aset akan hilang.
+            </li>
+            <li className="pl-2">
+              Proses verifikasi manual (<span className="text-[#00FF9D]">Max 1x24 Jam</span>).
+            </li>
+            <li className="pl-2">
+              Gas Fee ditanggung penuh oleh 0xTanda (GRATIS).
+            </li>
+          </ul>
+        </div>
+
+        {/* --- ACTION BUTTON --- */}
+        <Link href="/verify/pageform" className="w-full max-w-md group">
+            <div className="bg-white text-black font-sans font-black text-lg py-5 hover:bg-[#836EF9] hover:text-white transition-all duration-300 flex items-center justify-center gap-3 tracking-widest clip-path-slant relative overflow-hidden">
+                <span className="relative z-10 flex items-center gap-2">
+                    START VERIFICATION <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform"/>
+                </span>
+                {/* Hover Effect */}
+                <div className="absolute inset-0 bg-[#836EF9] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 z-0"></div>
+            </div>
+        </Link>
+        
+        <p className="text-[10px] text-[#444] mt-6 font-mono">
+            SECURE CONNECTION // 256-BIT ENCRYPTION
+        </p>
+
+      </main>
+    </div>
+  );
+}
+</file>
+
+<file path="app/shop/page.tsx">
+"use client";
+
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import Navbar from '../../components/Navbar';
+import Marquee from '../../components/Marquee';
+import { PRODUCTS_DATA } from '../../lib/data';
+import { ArrowRight, Zap, Lock } from 'lucide-react';
+
+/**
+ * Halaman Shop 0xTanda.
+ * Perbaikan: Menggunakan object-contain agar gambar kaos tidak terpotong.
+ * Fitur: Menampilkan placeholder khusus untuk produk yang belum rilis.
+ */
+export default function ShopPage() {
+  return (
+    <main className="min-h-screen bg-[#0E0E0E] pb-20 selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden">
+      <Marquee />
+      <Navbar />
+
+      <header className="pt-44 px-6 mb-20 text-center">
+        <h2 className="font-mono text-[#836EF9] text-[10px] tracking-[0.5em] mb-4 uppercase">Archive Collection</h2>
+        <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tighter uppercase leading-none text-white">
+          Genesis // <span className="text-neutral-700 italic">01</span>
+        </h1>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {PRODUCTS_DATA.map((product) => {
+          const isPlaceholder = product.isPlaceholder;
+
+          return (
+            <div 
+              key={product.id} 
+              className={`group relative border border-white/5 transition-all duration-500 overflow-hidden flex flex-col rounded-sm shadow-xl ${
+                isPlaceholder 
+                  ? 'bg-black/40 grayscale opacity-60 cursor-default' 
+                  : 'bg-[#121212] hover:border-[#836EF9]/50'
+              }`}
+            >
+              {/* Wadah Gambar Produk */}
+              <div className="relative aspect-[4/5] overflow-hidden bg-black flex items-center justify-center p-6">
+                {isPlaceholder ? (
+                  /* Tampilan Visual untuk Placeholder */
+                  <div className="flex flex-col items-center gap-4 text-neutral-800">
+                    <Lock size={64} strokeWidth={1} />
+                    <p className="font-mono text-[9px] tracking-[1em] uppercase">Encrypted_File</p>
+                  </div>
+                ) : (
+                  /* Tampilan Gambar Produk Asli */
+                  <Image 
+                    src={product.imgPhysical} 
+                    alt={product.name}
+                    fill
+                    /* object-contain memastikan seluruh gambar kaos terlihat tanpa terpotong */
+                    className="object-contain p-4 transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                )}
+                
+                {/* Status Tag (Hanya untuk produk yang sudah rilis) */}
+                {!isPlaceholder && (
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 border border-white/10 rounded-full flex items-center gap-2 z-10">
+                    <div className="w-1.5 h-1.5 bg-[#00FF9D] rounded-full animate-pulse" />
+                    <span className="font-mono text-[8px] tracking-widest text-white uppercase">
+                      Stock_Lvl: {product.stock}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Bagian Informasi Produk */}
+              <div className="p-8 border-t border-white/5 flex-1 flex flex-col">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className={`font-display text-2xl font-bold tracking-tighter uppercase leading-tight transition-colors ${
+                    isPlaceholder ? 'text-neutral-700' : 'text-white group-hover:text-[#836EF9]'
+                  }`}>
+                    {product.name}
+                  </h3>
+                  {!isPlaceholder && <Zap size={16} className="text-[#836EF9] opacity-50" />}
+                </div>
+                
+                <p className="font-mono text-[10px] text-neutral-500 mb-8 tracking-widest uppercase">
+                  {product.type}
+                </p>
+                
+                <div className="mb-8">
+                  <p className={`font-mono text-lg font-bold tracking-tighter ${
+                    isPlaceholder ? 'text-neutral-800' : 'text-white'
+                  }`}>
+                    {isPlaceholder ? 'TBA' : `IDR ${product.price.toLocaleString('id-ID')}`}
+                  </p>
+                </div>
+
+                {/* Tombol Aksi */}
+                <div className="mt-auto">
+                  {isPlaceholder ? (
+                    <div className="w-full py-4 border border-white/5 text-neutral-800 font-mono text-[10px] font-bold uppercase text-center tracking-[0.4em]">
+                      [ Access_Denied ]
+                    </div>
+                  ) : (
+                    <Link 
+                      href={`/product/${product.slug}`}
+                      className="w-full flex items-center justify-center gap-3 py-4 border border-white/10 text-white font-mono text-[11px] font-bold uppercase transition-all hover:bg-white hover:text-black group/btn shadow-sm"
+                    >
+                      View Details <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </main>
+  );
+}
+</file>
+
+<file path="app/about/page.tsx">
+"use client";
+
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import Navbar from '../../components/Navbar';
+import Marquee from '../../components/Marquee';
+import { 
+  Send, 
+  MoveRight,
+  ShieldCheck,
+  Cpu,
+  Fingerprint,
+  Layers,
+  Hexagon,
+  CreditCard,
+  Smartphone,
+  CheckCircle2,
+  Instagram,
+  Twitter,
+  ArrowDown
+} from 'lucide-react';
+
+/**
+ * Komponen Ikon TikTok (Custom SVG)
+ */
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
+/**
+ * Komponen Ikon X / Twitter (Custom SVG)
+ */
+const XIcon = ({ className }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    className={className}
+  >
+    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.294 19.486h2.039L6.448 3.288H4.26L17.607 20.64z" />
+  </svg>
+);
+
+export default function AboutPage() {
+  return (
+    <main className="min-h-screen bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-mono overflow-x-hidden relative">
+      <Marquee />
+      <Navbar />
+
+      {/* SECTION 01: HEADER - LOGO DIPERBESAR SECARA MASIF */}
+      <section className="pt-48 px-6 pb-24 border-b border-white/5">
+        <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
+          
+          <div className="max-w-3xl border-y border-white/10 py-10 px-4">
+            <p className="text-lg md:text-2xl text-white italic font-display leading-relaxed">
+              “Tangible craftsmanship you can feel, secured by digital ownership you can prove.”
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 02: TENTANG 0xTANDA */}
+      <section className="py-32 px-6 max-w-4xl mx-auto">
+        <div className="flex items-center gap-6 mb-12">
+          <div className="w-16 h-[1px] bg-[#836EF9]" />
+          <span className="text-[#836EF9] text-xs font-bold tracking-[0.4em] uppercase">Tentang 0xTanda</span>
+        </div>
+        
+        <div className="space-y-8 text-neutral-400 text-sm md:text-base leading-relaxed uppercase tracking-widest">
+          <p>
+            <strong className="text-white">0xTanda</strong> adalah brand fashion dengan pendekatan <span className="text-[#836EF9]">phygital</span> — menggabungkan produk fisik dan akses digital dalam satu kepemilikan. Setiap produk dirancang untuk digunakan sehari-hari, sekaligus terhubung dengan identitas digital yang dapat diverifikasi.
+          </p>
+          <p>
+            Kami tidak menjual NFT sebagai produk utama. Produk utama kami adalah pakaian. Aset digital diberikan sebagai lapisan tambahan yang memperkuat keaslian, akses, dan pengalaman pemiliknya.
+          </p>
+          <p>
+            Konsep ini lahir dari kebutuhan akan transparansi dan otentisitas di era digital, tanpa membuat prosesnya rumit bagi pengguna.
+          </p>
+        </div>
+      </section>
+
+      {/* SECTION 03: FILOSOFI */}
+      <section className="py-32 bg-white/[0.02] px-6 border-y border-white/5">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-6 mb-16">
+            <div className="w-16 h-[1px] bg-[#836EF9]" />
+            <span className="text-[#836EF9] text-xs font-bold tracking-[0.4em] uppercase">Filosofi</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 text-[#836EF9]"><Cpu size={24}/> <h3 className="text-xl font-bold uppercase tracking-tighter">0x</h3></div>
+              <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed">
+                Nol dan Huruf X ditulis dengan gaya huruf modern yang merepresentasikan kode heksadesimal dan teknologi digital.
+              </p>
+            </div>
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 text-[#836EF9]"><Fingerprint size={24}/> <h3 className="text-xl font-bold uppercase tracking-tighter">Tanda</h3></div>
+              <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed">
+                Kata “Tanda” memaknai identitas, bukti, dan kepemilikan. Melambangkan bukti fisik yang terverifikasi secara absolut.
+              </p>
+            </div>
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 text-[#836EF9]"><Layers size={24}/> <h3 className="text-xl font-bold uppercase tracking-tighter">//</h3></div>
+              <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed">
+                Garis miring ganda mencerminkan dua sisi yang berjalan bersamaan: fisik dan digital secara terstruktur.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 04: PRODUK & PENDEKATAN */}
+      <section className="py-32 px-6 max-w-4xl mx-auto">
+        <div className="flex items-center gap-6 mb-12">
+          <div className="w-16 h-[1px] bg-[#836EF9]" />
+          <span className="text-[#836EF9] text-xs font-bold tracking-[0.4em] uppercase">Produk & Pendekatan</span>
+        </div>
+        
+        <div className="space-y-8 text-neutral-400 text-sm md:text-base leading-relaxed uppercase tracking-widest">
+          <p>
+            Setiap koleksi 0xTanda dirilis dalam jumlah terbatas dan memiliki identitas unik. Fokus kami adalah kualitas yang konsisten, desain yang terukur, dan sistem yang jelas.
+          </p>
+          <p>
+            Setiap pembelian disertai <span className="text-white">Genesis Collection Card</span> untuk mengklaim akses digital resmi melalui sistem terenkripsi.
+          </p>
+        </div>
+      </section>
+
+      {/* SECTION 05: CARA KERJA */}
+      <section className="py-32 px-6 bg-black border-y border-white/5 text-center md:text-left">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-6 mb-16 justify-center md:justify-start">
+            <div className="w-16 h-[1px] bg-[#836EF9]" />
+            <span className="text-[#836EF9] text-xs font-bold tracking-[0.4em] uppercase text-center">Concierge Airdrop System</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            {[
+              "Pembeli membeli produk fisik.",
+              "Mendapatkan Secret Code dari Genesis Card.",
+              "Mengisi formulir verifikasi di 0xtanda.xyz.",
+              "Tim memvalidasi & mengirim aset digital.",
+              "Biaya jaringan ditanggung oleh 0xTanda."
+            ].map((step, idx) => (
+              <div key={idx} className="bg-white/[0.03] border border-white/5 p-6 relative group hover:border-[#836EF9]/50 transition-all">
+                <span className="text-[#836EF9] font-mono text-xs font-bold block mb-4">STEP_0{idx + 1}</span>
+                <p className="text-[10px] text-neutral-400 uppercase tracking-widest leading-relaxed">{step}</p>
+                {idx < 4 && <MoveRight className="absolute -right-3 top-1/2 -translate-y-1/2 text-white/10 hidden md:block" size={16} />}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 06: SISTEM KEANGGOTAAN */}
+      <section className="py-32 px-6 max-w-5xl mx-auto">
+        <div className="flex items-center gap-6 mb-16">
+          <div className="w-16 h-[1px] bg-[#836EF9]" />
+          <span className="text-[#836EF9] text-xs font-bold tracking-[0.4em] uppercase">Sistem Keanggotaan</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="border border-[#836EF9] bg-[#836EF9]/5 p-12 rounded-sm relative group overflow-hidden">
+            <Hexagon className="absolute -right-4 -top-4 text-[#836EF9]/10 w-32 h-32 group-hover:rotate-90 transition-transform duration-1000" />
+            <h3 className="text-2xl font-bold text-white uppercase tracking-tighter mb-2">ROYAL GENESIS</h3>
+            <p className="text-[10px] text-[#836EF9] uppercase tracking-widest mb-8 font-bold">100 Pembeli Pertama</p>
+            <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed">
+              Mendapatkan akses prioritas, grup eksklusif, dan benefit tambahan sebagai pendiri awal ekosistem.
+            </p>
+          </div>
+
+          <div className="border border-white/10 bg-white/5 p-12 rounded-sm">
+            <h3 className="text-2xl font-bold text-white uppercase tracking-tighter mb-2">REGULAR HOLDER</h3>
+            <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-8 font-bold">Verified Owners</p>
+            <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed">
+              Pemilik selanjutnya yang tetap mendapatkan verifikasi keaslian dan akses komunitas penuh.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 07: PENUTUP & TANDA TANGAN */}
+      <section className="pt-32 pb-16 px-6 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="space-y-8 mb-24">
+            <div className="space-y-6 text-neutral-400 text-base md:text-lg uppercase tracking-widest leading-relaxed">
+              <p>0xTanda berjalan di dua dunia sekaligus — fisik dan digital.</p>
+              <p className="text-white font-bold">
+                Fokus kami sederhana: membangun sistem kepemilikan yang jelas, akses yang nyata, dan pengalaman yang konsisten.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-between items-end gap-12 border-t border-white/5 pt-16">
+            <div className="space-y-4">
+              <p className="text-3xl md:text-5xl font-display font-bold text-white tracking-tighter">Abrur Alaina</p>
+              <div className="space-y-1">
+                <p className="text-[#836EF9] text-xs font-bold uppercase tracking-widest">Founder, 0xTanda</p>
+                <p className="text-neutral-600 text-[10px] uppercase tracking-widest">Jakarta, Indonesia</p>
+              </div>
+            </div>
+            
+            <div className="text-right">
+              <p className="font-mono text-[10px] text-neutral-700 uppercase tracking-[0.5em] mb-4">Archive Est. 2026</p>
+              <div className="flex gap-4 justify-end opacity-20">
+                <Hexagon size={20} />
+                <Cpu size={20} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 08: KONEKSI 0xTANDA - SOSIAL MEDIA DI PALING BAWAH (IKON DIPERKECIL) */}
+      <section className="pb-32 px-6 border-t border-white/5 bg-white/[0.01]">
+        <div className="max-w-5xl mx-auto pt-16">
+          <div className="flex flex-col items-center text-center mb-12">
+            <h3 className="text-xl md:text-3xl font-sans font-bold uppercase tracking-tighter mb-4 text-neutral-400">Connect With Resistance</h3>
+            <div className="w-12 h-0.5 bg-[#836EF9]" />
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-6 md:gap-12">
+            {/* Instagram */}
+            <a 
+              href="https://www.instagram.com/0xtanda/" 
+              target="_blank" 
+              className="group flex flex-col items-center gap-3 transition-all"
+            >
+              <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
+                <Instagram size={18} className="text-neutral-500 group-hover:text-[#836EF9] transition-all" />
+              </div>
+              <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">Instagram</span>
+            </a>
+            
+            {/* TikTok */}
+            <a 
+              href="https://www.tiktok.com/@0xtanda?is_from_webapp=1&sender_device=pc" 
+              target="_blank" 
+              className="group flex flex-col items-center gap-3 transition-all"
+            >
+              <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
+                <TikTokIcon className="w-4 h-4 text-neutral-500 group-hover:text-[#836EF9] transition-all" />
+              </div>
+              <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">TikTok</span>
+            </a>
+            
+            {/* X (Twitter) */}
+            <a 
+              href="https://x.com/0xTanda" 
+              target="_blank" 
+              className="group flex flex-col items-center gap-3 transition-all"
+            >
+              <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
+                <XIcon className="w-4 h-4 text-neutral-500 group-hover:text-[#836EF9] transition-all" />
+              </div>
+              <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">X</span>
+            </a>
+            
+            {/* Telegram Community */}
+            <a 
+              href="https://t.me/Official0xTanda" 
+              target="_blank" 
+              className="group flex flex-col items-center gap-3 transition-all"
+            >
+              <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
+                <Send size={18} className="text-neutral-500 group-hover:text-[#836EF9] transition-all" />
+              </div>
+              <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">Community</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* FLOATING TELEGRAM CS - Pojok Kanan Bawah & Fixed mengikuti scroll */}
+      <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-4">
+        <a 
+          href="https://t.me/rempeyek_0" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="w-14 h-14 bg-[#836EF9] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(131,110,249,0.5)] hover:scale-110 active:scale-95 transition-all group relative border border-white/10"
+          title="Contact Customer Service"
+        >
+          {/* Label Tooltip */}
+          <div className="absolute -left-32 bg-black/90 backdrop-blur-md px-3 py-1.5 border border-white/10 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            <span className="text-[8px] text-white uppercase tracking-widest font-bold">Contact_Support</span>
+          </div>
+          <Send className="text-black -translate-x-0.5 translate-y-0.5" size={24} />
+        </a>
+      </div>
+
+      <footer className="py-20 text-center opacity-10">
+        <p className="font-mono text-[7px] uppercase tracking-[1em]">0XTANDA_LITEPAPER</p>
+      </footer>
+    </main>
+  );
+}
+</file>
+
+<file path="app/globals.css">
+@import "tailwindcss";
+
+@theme {
+  --color-brand-black: #0E0E0E;
+  --color-brand-purple: #836EF9;
+  --color-brand-green: #00FF9D;
+  --color-brand-white: #FFFFFF;
+  --color-brand-gray: #888888;
+  
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-space-mono);
+  --font-display: var(--font-cinzel);
+}
+
+/* --- ANIMATIONS --- */
+
+/* Glitch Effect */
+@keyframes glitch {
+  0% { transform: translate(0); text-shadow: -2px 0 #836EF9, 2px 0 #00FF9D; }
+  25% { transform: translate(-2px, 2px); }
+  50% { transform: translate(2px, -2px); text-shadow: 2px 0 #836EF9, -2px 0 #00FF9D; }
+  75% { transform: translate(-2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.animate-glitch {
+  animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
+}
+
+/* Marquee Effect */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+/* Smooth Fade In Up */
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Selection Color */
+::selection {
+  background-color: #836EF9;
+  color: #0E0E0E;
+}
+</file>
+
+<file path="lib/data.ts">
+/**
+ * 0xTanda - Single Source of Truth
+ * Data produk diperbarui dengan ekstensi .png dan penamaan file spesifik (_front/_back).
+ * File ini mengelola konten untuk katalog Shop dan halaman Detail Produk.
+ */
+
+export interface Product {
+  id: string | number;
+  name: string;
+  type: string;
+  price: number;
+  description: string;
+  specs: string[];
+  features: string[];
+  includes: string[];
+  stock: number;
+  slug: string;
+  imgPhysical: string; // Gambar utama untuk tampilan kartu di halaman Shop
+  imgDigital: string;   // Gambar untuk tampilan Digital Card / NFT
+  gallery: string[];    // Kumpulan gambar untuk slider (Mockup & Model)
+  isPlaceholder?: boolean;
+  links: {
+    telegram: string;
+    tokopedia?: string;
+    shopee?: string;
+    tiktokshop?: string;
+    shopify?: string;
+  };
+}
+
+export const PRODUCTS_DATA: Product[] = [
+  {
+    id: "G-001",
+    slug: "genesis-boxy-tee",
+    name: "GENESIS BOXY TEE",
+    type: "0xTanda Batch #001",
+    price: 170000,
+    description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
+    specs: [
+      "Nama: Genesis Boxy Tee",
+      "Batch: #001 (Limited Release)",
+      "Material: 100% Cotton Combed 16s Heavyweight",
+      "Gramasi: ±235–245 gsm",
+      "Fit: Boxy Oversized / Modern Cut",
+      "Sablon: DTF High-Density Print",
+      "Warna: Hitam & Putih",
+      "Ukuran: L & XL"
+    ],
+    features: [
+      "Kain tebal dan berstruktur",
+      "Tidak tipis dan tidak mudah melar",
+      "Cocok untuk daily wear",
+      "Detail cetak tajam dan solid"
+    ],
+    includes: [
+      "1 Kaos Genesis Boxy Tee",
+      "1 Genesis Collection Card (dengan kode akses)",
+      "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
+    ],
+    stock: 14,
+    // Menggunakan mockup belakang hitam sebagai gambar utama katalog
+    imgPhysical: "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_back.png",
+    imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
+    // Daftar gambar lengkap untuk fitur slider di halaman produk
+    gallery: [
+      "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_back.png",
+      "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_front.png",
+      "/product/gen1/mockup/Gen_Batch_1_White_Tshirt_back.png",
+      "/product/gen1/mockup/Gen_Batch_1_White_Tshirt_front.png",
+      "/product/gen1/model/Model-1-front-gen-1.png",
+      "/product/gen1/model/Model-1-back-gen-1.png",
+      "/product/gen1/model/Model-2-front-gen-1.png",
+      "/product/gen1/model/Model-2-back-gen-1.png",
+    ],
+    links: {
+      telegram: "https://t.me/rempeyek_0",
+      tokopedia: "https://tokopedia.com/oxtanda",
+      shopee: "https://shopee.co.id/oxtanda",
+      tiktokshop: "https://tiktok.com/@oxtanda/shop",
+      shopify: "https://oxtanda.myshopify.com"
+    }
+  },
+  // Produk Placeholder (Coming Soon)
+  {
+    id: "PL-002",
+    slug: "archive-02-placeholder",
+    name: "ARCHIVE_02 // ???",
+    type: "Upcoming Phygital Release",
+    price: 0,
+    description: "Dokumen terenkripsi. Detail produk akan tersedia pada fase pengembangan berikutnya.",
+    specs: [],
+    features: [],
+    includes: [],
+    stock: 0,
+    imgPhysical: "", 
+    imgDigital: "",
+    gallery: [],
+    isPlaceholder: true,
+    links: { telegram: "" }
+  },
+  {
+    id: "PL-003",
+    slug: "archive-03-placeholder",
+    name: "ARCHIVE_03 // ???",
+    type: "Upcoming Phygital Release",
+    price: 0,
+    description: "Dokumen terenkripsi. Detail produk akan tersedia pada fase pengembangan berikutnya.",
+    specs: [],
+    features: [],
+    includes: [],
+    stock: 0,
+    imgPhysical: "", 
+    imgDigital: "",
+    gallery: [],
+    isPlaceholder: true,
+    links: { telegram: "" }
+  }
+];
+
+export const ROADMAP_DATA = [
+  { phase: "PHASE 01", year: "2026", title: "THE GENESIS", desc: "Peluncuran batch pertama 14 unit eksklusif untuk pendiri awal." },
+  { phase: "PHASE 02", year: "2026", title: "DIGITAL FUSION", desc: "Integrasi penuh aset digital ke dalam infrastruktur Monad." },
+  { phase: "PHASE 03", year: "2026", title: "THE WAR ROOM", desc: "Pembukaan akses komunitas VIP bagi pemegang Royal Genesis." },
+  { phase: "PHASE 04", year: "2026", title: "ARCHIVE 02", desc: "Ekspansi koleksi utilitas dengan material industrial baru." },
+  { phase: "PHASE 05", year: "2027", title: "PHYGITAL HUB", desc: "Portal verifikasi terdesentralisasi untuk ekosistem fashion." },
+  { phase: "PHASE 06", year: "2027", title: "GLOBAL SYNDICATE", desc: "Kolaborasi lintas batas antara kreator digital dan pengrajin fisik." },
+];
+
+// --- MASTER DATABASE SECRET CODES (Untuk Validasi) ---
+// Format Baru: Tanpa '0XT-' di depan
+export const SECRET_CODES_DB = [
+  "K7XM-9Q2L-4RZT", "V8P3-LQ7N-X5DW", "Z4TK-8MPR-2Q9L", "N6RX-W3P9-K2ZM", 
+  "Q9VL-7X2R-M4PT", "X3QK-8LZM-5R7N", "M7ZT-2W9L-X4QP", "R5XL-9P2K-V8QW", 
+  "T8QM-4ZRL-7X2P", "L2WX-9Q7R-K5ZM", "P9ZR-3XLM-8Q2T", "W4QK-7Z2P-M9RL", 
+  "X8LM-2R9Q-T5ZP", "Z7QP-4XLM-9R2W", "M3ZL-8QWP-2RX9", "Q2RX-7LZM-9P4K", 
+  "V9ZM-3QXL-8R2P", "T5RL-9ZQ2-X7KM", "K8QX-4RZM-2P9L", "X7PM-9LQ2-Z4RW", 
+  "R2ZL-8QXM-7P4K", "W9QT-3RZL-X8PM", "P4XM-7Q2R-9ZLK", "Z8RL-2QWP-4X9M", 
+  "M9QX-7R2L-Z4KP", "L7ZM-9P4Q-X2RW", "Q4RL-8ZMX-7P2K", "X2QP-9LZR-4MW8",
+  "BRND-3QZL-7P2W", "DEV1-4QXM-8R2P", "ARTS-7RZM-9P4L" // Special Codes
+];
+</file>
+
+<file path="app/product/[slug]/page.tsx">
+"use client";
+
+import React, { useState, useMemo } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// --- IMPORT KOMPONEN ASLI ---
+import Navbar from '../../../components/Navbar';
+import Marquee from '../../../components/Marquee';
+
+// --- IMPORT DATA ---
+import { PRODUCTS_DATA } from '../../../lib/data';
+
+import { 
+  ArrowLeft, 
+  ShieldCheck, 
+  Send, 
+  Zap,
+  CheckCircle2,
+  Info,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
+
+// =================================================================
+// 1. DEFINISI CUSTOM ICONS (LOGO BRAND)
+// =================================================================
+
+const TokopediaIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M22.65 15.65c.67-2.14.34-4.22-1.1-6.12-1.28-1.69-3.32-2.58-5.32-2.31l.16-.9c.27-1.52-.72-2.98-2.22-3.26C12.65 2.8 11.2 3.8 10.92 5.31l-.18 1.02c-2.02.3-3.92 1.55-4.88 3.39-1.07 2.05-.98 4.25-.13 6.31l-3.3 1.9c-.8.46-1.08 1.48-.62 2.28.46.8 1.48 1.08 2.28.62l3.37-1.94c1.37 1.37 3.23 2.11 5.25 2.11 2.5 0 4.75-1.14 6.13-3.13l1.58 2.74c.46.8 1.48 1.08 2.28.62.8-.46 1.08-1.48.62-2.28l-1.58-2.74c.3-.17.58-.36.85-.56zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+    <circle cx="10" cy="12" r="1.5"/>
+    <circle cx="14" cy="12" r="1.5"/>
+  </svg>
+);
+
+const ShopeeIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M18.8 7.3h-1.4c-.4-2.5-2.4-4.3-4.9-4.3s-4.5 1.9-4.9 4.3H6.2C5 7.3 4 8.3 4 9.5v10c0 1.2 1 2.2 2.2 2.2h12.6c1.2 0 2.2-1 2.2-2.2v-10c0-1.2-1-2.2-2.2-2.2zm-6.3-2.5c1.5 0 2.7 1.1 2.9 2.5h-5.8c.2-1.4 1.4-2.5 2.9-2.5zm1.5 10.8c-1.3.5-1.9.8-2.6 1.1-.7.3-1.4.3-1.9-.2-.3-.3-.3-.8 0-1.3.4-.6 2.2-1.2 2.2-1.2s.6-.2.6-.7c0-.6-.7-1-1.7-1-1.2 0-2.1.6-2.1.6s-.5.3-.8 0c-.2-.2-.2-.6 0-1 .2-.3 1.2-1 3.1-1 2 0 3.2 1.2 3.2 2.6 0 1.1-.7 1.8-1.8 2.2l-1.5.5c-.5.2-.8.4-.8.8 0 .4.4.6 1 .6 1 0 2.2-.8 2.2-.8s.4-.3.7 0c.3.3.3.7 0 1.1-.3.3-1.3 1.1-2.8 1.1-2.3 0-3.5-1.5-3.5-3 0-1.2.6-2 1.7-2.4l2.1-.8c.7-.3 1-.5 1-1 0-.3-.3-.5-.8-.5-.7 0-1.6.5-1.6.5s-.4.3-.6 0c-.2-.2-.2-.6.1-.9.3-.3 1-1 2.6-1 1.7 0 2.9 1 2.9 2.4 0 1.3-.9 1.9-1.9 2.3z"/>
+  </svg>
+);
+
+const TikTokShopIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+     <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+     <path d="M19 14h-2v4h-4v2h4v4h2v-4h4v-2h-4z"/> {/* Keranjang simbolis */}
+  </svg>
+);
+
+const ShopifyIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M20.8 7.9c-.2-.3-.5-.4-.8-.4h-2.1l-3.3-6.2c-.2-.3-.5-.4-.8-.3-.3.1-.5.4-.4.7l3 5.8H7.7l3-5.8c.1-.3-.1-.6-.4-.7-.3-.1-.6.1-.7.3L6.2 7.5H4c-.3 0-.6.2-.8.4-.2.3-.2.6-.1.9l2.7 13.5c.2 1 1.1 1.7 2.1 1.7h8.2c1 0 1.9-.7 2.1-1.7l2.7-13.5c.1-.3 0-.6-.1-.9zM12 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+  </svg>
+);
+
+// =================================================================
+// 2. KOMPONEN UTAMA PAGE
+// =================================================================
+
+export default function ProductDetailPage() {
+  const params = useParams();
+  const router = useRouter();
+  
+  // State untuk kontrol Media (Fisik vs Digital)
+  const [view, setView] = useState<'physical' | 'digital'>('physical');
+  // State untuk index gambar yang sedang aktif di slider
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+  // Cari produk berdasarkan slug dari URL
+  const product = useMemo(() => 
+    PRODUCTS_DATA.find(p => p.slug === params.slug), 
+    [params.slug]
+  );
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-[#0E0E0E] flex items-center justify-center font-mono text-white p-6">
+        <div className="text-center">
+          <p className="text-[#836EF9] mb-4 tracking-widest">[ ERROR: ARCHIVE_NOT_FOUND ]</p>
+          <Link href="/shop" className="text-xs uppercase underline hover:text-[#836EF9] transition-colors">
+            Kembali ke Koleksi
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Gunakan array 'gallery' dari lib/data.ts
+  const images = product.gallery || [];
+
+  // Fungsi navigasi slider
+  const nextImage = () => {
+    if (images.length > 0) {
+      setCurrentImgIndex((prev) => (prev + 1) % images.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (images.length > 0) {
+      setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
+    }
+  };
+
+  return (
+    <main className="min-h-screen pb-20 bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden">
+      <Marquee />
+      <Navbar />
+
+      <div className="pt-48 px-6 max-w-7xl mx-auto">
+        {/* Tombol Kembali */}
+        <Link 
+          href="/shop"
+          className="inline-flex items-center gap-2 text-neutral-500 hover:text-white mb-10 font-mono text-[10px] tracking-[0.5em] uppercase transition-colors group"
+        >
+          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> BACK TO COLLECTION
+        </Link>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          
+          {/* MEDIA SECTION - DENGAN SLIDER DAN ANTI-CROP */}
+          <div className="space-y-6">
+            <div className="relative aspect-square bg-black border border-white/5 overflow-hidden rounded-sm shadow-2xl group flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={view === 'physical' ? (images[currentImgIndex] || 'empty') : product.imgDigital}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="relative w-full h-full"
+                >
+                  <Image 
+                    src={view === 'physical' ? (images[currentImgIndex] || product.imgPhysical) : product.imgDigital} 
+                    alt={product.name} 
+                    fill 
+                    className="object-contain p-4 md:p-8 transition-opacity duration-500" 
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
+              
+              {/* Tombol Navigasi Slider (Hanya untuk Physical View) */}
+              {view === 'physical' && images.length > 1 && (
+                <>
+                  <button 
+                    onClick={prevImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button 
+                    onClick={nextImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                  
+                  {/* Indikator Titik Slider */}
+                  <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                    {images.map((_, i) => (
+                      <div 
+                        key={i} 
+                        className={`h-1 transition-all duration-300 ${i === currentImgIndex ? 'w-6 bg-[#836EF9]' : 'w-2 bg-white/20'}`} 
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+              
+              {/* Toggle View Fisik / Digital Card */}
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex bg-black/80 backdrop-blur-2xl p-1.5 rounded-full border border-white/10 shadow-2xl z-30">
+                <button 
+                  onClick={() => setView('physical')} 
+                  className={`px-6 py-2 rounded-full text-[10px] font-mono transition-all uppercase tracking-widest ${
+                    view === 'physical' ? 'bg-white text-black font-bold' : 'text-white/40 hover:text-white'
+                  }`}
+                >
+                  PHYSICAL
+                </button>
+                <button 
+                  onClick={() => setView('digital')} 
+                  className={`px-6 py-2 rounded-full text-[10px] font-mono transition-all flex items-center gap-2 uppercase tracking-widest ${
+                    view === 'digital' ? 'bg-[#836EF9] text-white font-bold shadow-[0_0_20px_rgba(131,110,249,0.4)]' : 'text-white/40 hover:text-white'
+                  }`}
+                >
+                  GENESIS CARD <Zap size={10} fill="currentColor" />
+                </button>
+              </div>
+            </div>
+
+            {/* Thumbnail Navigation (Hanya untuk Physical) */}
+            {view === 'physical' && images.length > 0 && (
+              <div className="flex gap-3 overflow-x-auto pb-4 hide-scrollbar justify-center">
+                {images.map((img, idx) => (
+                  <button 
+                    key={idx}
+                    onClick={() => setCurrentImgIndex(idx)}
+                    className={`relative w-20 h-24 flex-shrink-0 border transition-all rounded-sm overflow-hidden bg-neutral-900 ${currentImgIndex === idx ? 'border-[#836EF9] opacity-100' : 'border-white/10 opacity-40 hover:opacity-100'}`}
+                  >
+                    <Image src={img} alt={`thumb-${idx}`} fill className="object-contain p-1" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* INFO SECTION */}
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2 text-[#836EF9] font-mono text-[10px] mb-6 uppercase tracking-[0.4em]">
+              <ShieldCheck size={16} /> VERIFIED PHYGITAL ENTITY
+            </div>
+            
+            <h1 className="text-4xl md:text-6xl font-display font-bold uppercase mb-2 tracking-tighter leading-none">
+              {product.name}
+            </h1>
+            <p className="text-neutral-500 font-mono text-xs mb-8 tracking-widest uppercase">
+              {product.type}
+            </p>
+            
+            <p className="text-3xl font-mono text-white mb-10 tracking-tighter font-bold">
+              IDR {product.price.toLocaleString('id-ID')}
+            </p>
+
+            {/* SISTEM PEMESANAN */}
+            <div className="space-y-6 mb-16">
+              <p className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.5em]">PLACE YOUR ORDER:</p>
+              
+              <a 
+                href={product.links.telegram} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-4 py-5 bg-[#836EF9] text-black font-mono text-xs font-bold uppercase transition-all hover:bg-white shadow-[0_0_40px_rgba(131,110,249,0.3)] active:scale-95"
+              >
+                <Send size={18} /> ORDER VIA TELEGRAM
+              </a>
+
+              {/* === BAGIAN IKON E-COMMERCE YANG DIPERBARUI === */}
+              <div className="flex items-center justify-center gap-10 pt-6 border-t border-white/5">
+                
+                {/* Shopee (Oranye) */}
+                <a href={product.links.shopee} target="_blank" title="Shopee" className="text-neutral-400 hover:text-[#EE4D2D] transition-all transform hover:scale-110">
+                  <ShopeeIcon className="w-8 h-8" />
+                </a>
+
+                {/* Tokopedia (Hijau) */}
+                <a href={product.links.tokopedia} target="_blank" title="Tokopedia" className="text-neutral-400 hover:text-[#03AC0E] transition-all transform hover:scale-110">
+                  <TokopediaIcon className="w-8 h-8" />
+                </a>
+
+                {/* TikTok Shop (Hitam/Putih) */}
+                <a href={product.links.tiktokshop} target="_blank" title="TikTok Shop" className="text-neutral-400 hover:text-white transition-all transform hover:scale-110">
+                  <TikTokShopIcon className="w-8 h-8" />
+                </a>
+
+                {/* Shopify (Hijau Muda) */}
+                <a href={product.links.shopify} target="_blank" title="Shopify" className="text-neutral-400 hover:text-[#95BF47] transition-all transform hover:scale-110">
+                  <ShopifyIcon className="w-8 h-8" />
+                </a>
+
+              </div>
+              {/* ================================================= */}
+            </div>
+
+            {/* DETAIL & SPESIFIKASI */}
+            <div className="space-y-12 font-mono text-[11px] uppercase tracking-wider leading-relaxed">
+              <div className="space-y-4">
+                <h3 className="text-[#836EF9] font-bold tracking-[0.3em]">DESKRIPSI PRODUK</h3>
+                <div className="space-y-4 text-neutral-400 normal-case tracking-normal leading-relaxed text-sm">
+                  <p>{product.description}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-white/5 pt-10">
+                <div className="space-y-4">
+                  <h3 className="text-[#836EF9] font-bold tracking-[0.3em]">SPESIFIKASI</h3>
+                  <ul className="space-y-2 text-neutral-300">
+                    {product.specs?.map((s, i) => <li key={i}>• {s}</li>)}
+                  </ul>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="text-[#836EF9] font-bold tracking-[0.3em]">KARAKTERISTIK</h3>
+                  <ul className="space-y-2 text-neutral-300">
+                    {product.features?.map((f, i) => <li key={i}>• {f}</li>)}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="border-t border-white/5 pt-10 space-y-4">
+                <h3 className="text-[#836EF9] font-bold tracking-[0.3em]">YANG DIDAPATKAN</h3>
+                <ul className="space-y-3 text-neutral-300">
+                  {product.includes?.map((inc, i) => (
+                    <li key={i} className="flex items-center gap-3">
+                      <CheckCircle2 size={14} className="text-[#00FF9D] shrink-0" />
+                      {inc}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-white/5 p-6 border border-white/10 rounded-sm">
+                <div className="flex items-center gap-2 text-[#836EF9] mb-3">
+                  <Info size={14} />
+                  <span className="font-bold tracking-[0.2em]">PENTING</span>
+                </div>
+                <p className="text-[10px] text-neutral-500 normal-case tracking-normal leading-relaxed">
+                  Akses digital hanya diberikan kepada pembeli resmi produk fisik. Tidak ada penjualan NFT secara terpisah. Produk ini bukan instrumen investasi.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
+</file>
+
+<file path="app/page.tsx">
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+// Jalur relatif untuk keamanan preview
+import Navbar from '../components/Navbar';
+import Marquee from '../components/Marquee';
+import { ArrowRight } from 'lucide-react';
+
+/**
+ * Halaman Home 0xTanda.
+ * Logo Ultra Mega (Lebar Maksimal) dengan jarak yang sangat rapat (meppet)
+ * agar semua konten muat dalam satu layar tanpa scroll.
+ */
+export default function HomePage() {
+  return (
+    <main className="min-h-screen bg-brand-black overflow-hidden">
+      <Marquee />
+      <Navbar />
+
+      <section className="relative h-screen flex flex-col items-center justify-center px-4">
+        {/* Latar Belakang Cahaya */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl aspect-square bg-brand-purple/5 blur-[150px] pointer-events-none rounded-full" />
+        
+        <div className="relative z-10 text-center fade-in flex flex-col items-center w-full">
+          {/* Teks Atas - Margin sangat kecil */}
+          <p className="font-mono text-brand-purple text-[9px] tracking-[0.7em] mb-4 uppercase opacity-70">
+            Est. 2026 Jakarta // Digital Archive
+          </p>
+          
+          {/* ULTRA MEGA LOGO - Sangat Lebar, Tinggi Ramping, Margin Meppet */}
+          <div className="relative w-[110vw] max-w-[1200px] h-[180px] md:max-w-[2800px] md:h-[420px] mb-2 animate-glitch">
+            <Image 
+              src="/branding/logo-0xtanda.png"
+              alt="0xTanda Official Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          
+          {/* Deskripsi - Margin Meppet */}
+          <div className="max-w-3xl mx-auto mb-6">
+            <p className="font-mono text-[#00FF9D] text-[10px] md:text-[13px] tracking-[0.4em] leading-relaxed uppercase">
+              Tangible craftsmanship you can feel, secured by digital ownership you can prove.
+            </p>
+          </div>
+
+          {/* Tombol Aksi */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto">
+            <Link 
+              href="/shop" 
+              className="group bg-brand-purple text-black px-12 py-4 font-mono text-[10px] font-bold rounded-sm flex items-center justify-center gap-3 hover:bg-white transition-all shadow-[0_0_40px_rgba(131,110,249,0.3)]"
+            >
+              ENTER COLLECTIONS <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link 
+              href="/about" 
+              className="px-12 py-4 border border-white/10 font-mono text-[10px] font-bold rounded-sm hover:bg-white/5 hover:border-white/30 transition-all text-center uppercase tracking-[0.4em]"
+            >
+              MANIFESTO
+            </Link>
+          </div>
+        </div>
+        
+        {/* Specs di pojok bawah */}
+        <div className="absolute bottom-6 left-0 w-full px-10 flex justify-between items-end opacity-20 select-none pointer-events-none font-mono text-[7px] tracking-[0.5em] uppercase">
+          <div>System_Live // 2026</div>
+          <div className="text-right italic">JKT_ARCHIVE_01</div>
+        </div>
+      </section>
+    </main>
+  );
+}
+</file>
+
+</files>

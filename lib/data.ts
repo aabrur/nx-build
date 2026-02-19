@@ -42,7 +42,7 @@ export const PRODUCTS_DATA: Product[] = [
       "Material: 100% Cotton Combed 16s Heavyweight",
       "Gramasi: ±235–245 gsm",
       "Fit: Boxy Oversized / Modern Cut",
-      "Sablon: DFT High-Density Print",
+      "Sablon: DTF High-Density Print",
       "Warna: Hitam & Putih",
       "Ukuran: L & XL"
     ],

@@ -114,7 +114,7 @@ export default function ProductDetailPage() {
           href="/shop"
           className="inline-flex items-center gap-2 text-neutral-500 hover:text-white mb-10 font-mono text-[10px] tracking-[0.5em] uppercase transition-colors group"
         >
-          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> BACK TO ARCHIVE
+          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> BACK TO COLLECTION
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
