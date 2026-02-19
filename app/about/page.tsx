@@ -3,8 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-// Import framer-motion untuk animasi
-import { motion } from 'framer-motion'; 
+import { motion, Variants } from 'framer-motion'; 
 
 import Navbar from '../../components/Navbar';
 import Marquee from '../../components/Marquee';
@@ -55,17 +54,24 @@ const XIcon = ({ className }: { className?: string }) => (
 );
 
 // --- VARIAN ANIMASI FRAMER MOTION ---
-const fadeUpVariant = {
+const fadeUpVariant: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.8, 
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number] 
+    } 
+  }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15 // Jeda antar elemen anak
+      staggerChildren: 0.15
     }
   }
 };
