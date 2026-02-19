@@ -17,15 +17,47 @@ import {
   ArrowLeft, 
   ShieldCheck, 
   Send, 
-  ShoppingCart, 
   Zap,
   CheckCircle2,
   Info,
   ChevronLeft,
   ChevronRight,
-  Smartphone,
-  ExternalLink
 } from 'lucide-react';
+
+// =================================================================
+// 1. DEFINISI CUSTOM ICONS (LOGO BRAND)
+// =================================================================
+
+const TokopediaIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M22.65 15.65c.67-2.14.34-4.22-1.1-6.12-1.28-1.69-3.32-2.58-5.32-2.31l.16-.9c.27-1.52-.72-2.98-2.22-3.26C12.65 2.8 11.2 3.8 10.92 5.31l-.18 1.02c-2.02.3-3.92 1.55-4.88 3.39-1.07 2.05-.98 4.25-.13 6.31l-3.3 1.9c-.8.46-1.08 1.48-.62 2.28.46.8 1.48 1.08 2.28.62l3.37-1.94c1.37 1.37 3.23 2.11 5.25 2.11 2.5 0 4.75-1.14 6.13-3.13l1.58 2.74c.46.8 1.48 1.08 2.28.62.8-.46 1.08-1.48.62-2.28l-1.58-2.74c.3-.17.58-.36.85-.56zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+    <circle cx="10" cy="12" r="1.5"/>
+    <circle cx="14" cy="12" r="1.5"/>
+  </svg>
+);
+
+const ShopeeIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M18.8 7.3h-1.4c-.4-2.5-2.4-4.3-4.9-4.3s-4.5 1.9-4.9 4.3H6.2C5 7.3 4 8.3 4 9.5v10c0 1.2 1 2.2 2.2 2.2h12.6c1.2 0 2.2-1 2.2-2.2v-10c0-1.2-1-2.2-2.2-2.2zm-6.3-2.5c1.5 0 2.7 1.1 2.9 2.5h-5.8c.2-1.4 1.4-2.5 2.9-2.5zm1.5 10.8c-1.3.5-1.9.8-2.6 1.1-.7.3-1.4.3-1.9-.2-.3-.3-.3-.8 0-1.3.4-.6 2.2-1.2 2.2-1.2s.6-.2.6-.7c0-.6-.7-1-1.7-1-1.2 0-2.1.6-2.1.6s-.5.3-.8 0c-.2-.2-.2-.6 0-1 .2-.3 1.2-1 3.1-1 2 0 3.2 1.2 3.2 2.6 0 1.1-.7 1.8-1.8 2.2l-1.5.5c-.5.2-.8.4-.8.8 0 .4.4.6 1 .6 1 0 2.2-.8 2.2-.8s.4-.3.7 0c.3.3.3.7 0 1.1-.3.3-1.3 1.1-2.8 1.1-2.3 0-3.5-1.5-3.5-3 0-1.2.6-2 1.7-2.4l2.1-.8c.7-.3 1-.5 1-1 0-.3-.3-.5-.8-.5-.7 0-1.6.5-1.6.5s-.4.3-.6 0c-.2-.2-.2-.6.1-.9.3-.3 1-1 2.6-1 1.7 0 2.9 1 2.9 2.4 0 1.3-.9 1.9-1.9 2.3z"/>
+  </svg>
+);
+
+const TikTokShopIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+     <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+     <path d="M19 14h-2v4h-4v2h4v4h2v-4h4v-2h-4z"/> {/* Keranjang simbolis */}
+  </svg>
+);
+
+const ShopifyIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M20.8 7.9c-.2-.3-.5-.4-.8-.4h-2.1l-3.3-6.2c-.2-.3-.5-.4-.8-.3-.3.1-.5.4-.4.7l3 5.8H7.7l3-5.8c.1-.3-.1-.6-.4-.7-.3-.1-.6.1-.7.3L6.2 7.5H4c-.3 0-.6.2-.8.4-.2.3-.2.6-.1.9l2.7 13.5c.2 1 1.1 1.7 2.1 1.7h8.2c1 0 1.9-.7 2.1-1.7l2.7-13.5c.1-.3 0-.6-.1-.9zM12 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+  </svg>
+);
+
+// =================================================================
+// 2. KOMPONEN UTAMA PAGE
+// =================================================================
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -103,7 +135,6 @@ export default function ProductDetailPage() {
                     src={view === 'physical' ? (images[currentImgIndex] || product.imgPhysical) : product.imgDigital} 
                     alt={product.name} 
                     fill 
-                    // FIX: object-contain agar baju tidak terpotong
                     className="object-contain p-4 md:p-8 transition-opacity duration-500" 
                     priority
                   />
@@ -205,20 +236,31 @@ export default function ProductDetailPage() {
                 <Send size={18} /> ORDER VIA TELEGRAM
               </a>
 
+              {/* === BAGIAN IKON E-COMMERCE YANG DIPERBARUI === */}
               <div className="flex items-center justify-center gap-10 pt-6 border-t border-white/5">
+                
+                {/* Shopee (Oranye) */}
                 <a href={product.links.shopee} target="_blank" title="Shopee" className="text-neutral-400 hover:text-[#EE4D2D] transition-all transform hover:scale-110">
-                  <ShoppingCart size={24} />
+                  <ShopeeIcon className="w-8 h-8" />
                 </a>
+
+                {/* Tokopedia (Hijau) */}
                 <a href={product.links.tokopedia} target="_blank" title="Tokopedia" className="text-neutral-400 hover:text-[#03AC0E] transition-all transform hover:scale-110">
-                  <ShoppingCart size={24} />
+                  <TokopediaIcon className="w-8 h-8" />
                 </a>
+
+                {/* TikTok Shop (Hitam/Putih) */}
                 <a href={product.links.tiktokshop} target="_blank" title="TikTok Shop" className="text-neutral-400 hover:text-white transition-all transform hover:scale-110">
-                  <Smartphone size={24} />
+                  <TikTokShopIcon className="w-8 h-8" />
                 </a>
+
+                {/* Shopify (Hijau Muda) */}
                 <a href={product.links.shopify} target="_blank" title="Shopify" className="text-neutral-400 hover:text-[#95BF47] transition-all transform hover:scale-110">
-                  <ExternalLink size={24} />
+                  <ShopifyIcon className="w-8 h-8" />
                 </a>
+
               </div>
+              {/* ================================================= */}
             </div>
 
             {/* DETAIL & SPESIFIKASI */}
