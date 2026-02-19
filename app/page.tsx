@@ -51,7 +51,7 @@ export default function HomePage() {
               href="/shop" 
               className="group bg-brand-purple text-black px-12 py-4 font-mono text-[10px] font-bold rounded-sm flex items-center justify-center gap-3 hover:bg-white transition-all shadow-[0_0_40px_rgba(131,110,249,0.3)]"
             >
-              ENTER ARCHIVE <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              ENTER COLLECTIONS <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link 
               href="/about" 

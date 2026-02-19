@@ -226,7 +226,7 @@ export default function AboutPage() {
       <section className="pb-32 px-6 border-t border-white/5 bg-white/[0.01]">
         <div className="max-w-5xl mx-auto pt-16">
           <div className="flex flex-col items-center text-center mb-12">
-            <h3 className="text-xl md:text-3xl font-sans font-bold uppercase tracking-tighter mb-4 text-neutral-400">Connect With Archive</h3>
+            <h3 className="text-xl md:text-3xl font-sans font-bold uppercase tracking-tighter mb-4 text-neutral-400">Connect With Resistance</h3>
             <div className="w-12 h-0.5 bg-[#836EF9]" />
           </div>
 
@@ -264,7 +264,7 @@ export default function AboutPage() {
               <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
                 <XIcon className="w-4 h-4 text-neutral-500 group-hover:text-[#836EF9] transition-all" />
               </div>
-              <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">X_Archive</span>
+              <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">X</span>
             </a>
             
             {/* Telegram Community */}
@@ -285,7 +285,7 @@ export default function AboutPage() {
       {/* FLOATING TELEGRAM CS - Pojok Kanan Bawah & Fixed mengikuti scroll */}
       <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-4">
         <a 
-          href="https://t.me/Bob_Node88" 
+          href="https://t.me/rempeyek_0" 
           target="_blank" 
           rel="noopener noreferrer"
           className="w-14 h-14 bg-[#836EF9] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(131,110,249,0.5)] hover:scale-110 active:scale-95 transition-all group relative border border-white/10"
@@ -300,7 +300,7 @@ export default function AboutPage() {
       </div>
 
       <footer className="py-20 text-center opacity-10">
-        <p className="font-mono text-[7px] uppercase tracking-[1em]">0XTANDA_LITEPAPER_V1.0_SYSTEM_SECURED</p>
+        <p className="font-mono text-[7px] uppercase tracking-[1em]">0XTANDA_LITEPAPER</p>
       </footer>
     </main>
   );
