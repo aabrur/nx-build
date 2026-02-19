@@ -21,6 +21,7 @@ export interface Product {
   isPlaceholder?: boolean;
   links: {
     telegram: string;
+    whatsapp?: string; 
     tokopedia?: string;
     shopee?: string;
     tiktokshop?: string;
@@ -74,6 +75,7 @@ export const PRODUCTS_DATA: Product[] = [
     ],
     links: {
       telegram: "https://t.me/rempeyek_0",
+      whatsapp: "https://wa.me/6281398621530",
       tokopedia: "https://tokopedia.com/oxtanda",
       shopee: "https://shopee.co.id/oxtanda",
       tiktokshop: "https://tiktok.com/@oxtanda/shop",
