@@ -60,14 +60,12 @@ export const PRODUCTS_DATA: Product[] = [
     ],
     stock: 14,
     // Menggunakan mockup belakang hitam sebagai gambar utama katalog
-    imgPhysical: "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_back.png",
+    imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
     // Daftar gambar lengkap untuk fitur slider di halaman produk
     gallery: [
-      "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_back.png",
-      "/product/gen1/mockup/Gen_Batch_1_Black_Tshirt_front.png",
-      "/product/gen1/mockup/Gen_Batch_1_White_Tshirt_back.png",
-      "/product/gen1/mockup/Gen_Batch_1_White_Tshirt_front.png",
+      "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
+      "/product/gen1/mockup/Batch_1_Gen_1_White_Genesis_Boxy_Tee.png",
       "/product/gen1/model/Model-1-front-gen-1.png",
       "/product/gen1/model/Model-1-back-gen-1.png",
       "/product/gen1/model/Model-2-front-gen-1.png",
