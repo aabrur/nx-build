@@ -18,6 +18,7 @@ export interface Product {
   imgPhysical: string; // Gambar utama untuk tampilan kartu di halaman Shop
   imgDigital: string;   // Gambar untuk tampilan Digital Card / NFT
   gallery: string[];    // Kumpulan gambar untuk slider (Mockup & Model)
+  sizeChart?: string;   // Gambar panduan ukuran (Size Chart)
   isPlaceholder?: boolean;
   links: {
     telegram: string;
@@ -62,6 +63,8 @@ export const PRODUCTS_DATA: Product[] = [
     // Menggunakan mockup belakang hitam sebagai gambar utama katalog
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
+    // Gambar Size chart
+    sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
     // Daftar gambar lengkap untuk fitur slider di halaman produk
     gallery: [
       "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
