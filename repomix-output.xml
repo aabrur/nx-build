@@ -71,6 +71,7 @@ public/product/gen1/model/Model-1-front-gen-1.png
 public/product/gen1/model/Model-2-back-gen-1.png
 public/product/gen1/model/Model-2-front-gen-1.png
 public/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png
+public/product/gen1/Size_Chart_Batch_1_Gen_1.jpg
 public/window.svg
 README.md
 tailwind.config.ts
@@ -1693,6 +1694,9 @@ import {
   Info,
   ChevronLeft,
   ChevronRight,
+  Maximize2,
+  X,
+  Ruler
 } from 'lucide-react';
 
 // =================================================================
@@ -1715,14 +1719,14 @@ const TokopediaIcon = ({ className }: { className?: string }) => (
 
 const ShopeeIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M18.8 7.3h-1.4c-.4-2.5-2.4-4.3-4.9-4.3s-4.5 1.9-4.9 4.3H6.2C5 7.3 4 8.3 4 9.5v10c0 1.2 1 2.2 2.2 2.2h12.6c1.2 0 2.2-1 2.2-2.2v-10c0-1.2-1-2.2-2.2-2.2zm-6.3-2.5c1.5 0 2.7 1.1 2.9 2.5h-5.8c.2-1.4 1.4-2.5 2.9-2.5zm1.5 10.8c-1.3.5-1.9.8-2.6 1.1-.7.3-1.4.3-1.9-.2-.3-.3-.3-.8 0-1.3.4-.6 2.2-1.2 2.2-1.2s.6-.2.6-.7c0-.6-.7-1-1.7-1-1.2 0-2.1.6-2.1.6s-.5.3-.8 0c-.2-.2-.2-.6 0-1 .2-.3 1.2-1 3.1-1 2 0 3.2 1.2 3.2 2.6 0 1.1-.7 1.8-1.8 2.2l-1.5.5c-.5.2-.8.4-.8.8 0 .4.4.6 1 .6 1 0 2.2-.8 2.2-.8s.4-.3.7 0c.3.3.3.7 0 1.1-.3.3-1.3 1.1-2.8 1.1-2.3 0-3.5-1.5-3.5-3 0-1.2.6-2 1.7-2.4l2.1-.8c.7-.3 1-.5 1-1 0-.3-.3-.5-.8-.5-.7 0-1.6.5-1.6.5s-.4.3-.6 0c-.2-.2-.2-.6.1-.9.3-.3 1-1 2.6-1 1.7 0 2.9 1 2.9 2.4 0 1.3-.9 1.9-1.9 2.3z"/>
+    <path d="M18.8 7.3h-1.4c-.4-2.5-2.4-4.3-4.9-4.3s-4.5 1.9-4.9 4.3H6.2C5 7.3 4 8.3 4 9.5v10c0 1.2 1 2.2 2.2 2.2h12.6c1.2 0 2.2-1 2.2-2.2v-10c0-1.2-1-2.2-2.2-2.2zm-6.3-2.5c1.5 0 2.7 1.1 2.9 2.5h-5.8c.2-1.4 1.4-2.5 2.9-2.5zm1.5 10.8c-1.3.5-1.9.8-2.6 1.1-.7.3-1.4.3-1.9-.2-.3-.3-.8 0-1.3.4-.6 2.2-1.2 2.2-1.2s.6-.2.6-.7c0-.6-.7-1-1.7-1-1.2 0-2.1.6-2.1.6s-.5.3-.8 0c-.2-.2-.2-.6 0-1 .2-.3 1.2-1 3.1-1 2 0 3.2 1.2 3.2 2.6 0 1.1-.7 1.8-1.8 2.2l-1.5.5c-.5.2-.8.4-.8.8 0 .4.4.6 1 .6 1 0 2.2-.8 2.2-.8s.4-.3.7 0c.3.3.3.7 0 1.1-.3.3-1.3 1.1-2.8 1.1-2.3 0-3.5-1.5-3.5-3 0-1.2.6-2 1.7-2.4l2.1-.8c.7-.3 1-.5 1-1 0-.3-.3-.5-.8-.5-.7 0-1.6.5-1.6.5s-.4.3-.6 0c-.2-.2-.2-.6.1-.9.3-.3 1-1 2.6-1 1.7 0 2.9 1 2.9 2.4 0 1.3-.9 1.9-1.9 2.3z"/>
   </svg>
 );
 
 const TikTokShopIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-     <path d="M19 14h-2v4h-4v2h4v4h2v-4h4v-2h-4z"/> {/* Keranjang simbolis */}
+     <path d="M19 14h-2v4h-4v2h4v4h2v-4h4v-2h-4z"/>
   </svg>
 );
 
@@ -1740,12 +1744,12 @@ export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
   
-  // State untuk kontrol Media (Fisik vs Digital)
   const [view, setView] = useState<'physical' | 'digital'>('physical');
-  // State untuk index gambar yang sedang aktif di slider
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
-  // Cari produk berdasarkan slug dari URL
+  // === STATE UNTUK LIGHTBOX (ZOOM) ===
+  const [lightboxData, setLightboxData] = useState<{ images: string[], currentIndex: number } | null>(null);
+
   const product = useMemo(() => 
     PRODUCTS_DATA.find(p => p.slug === params.slug), 
     [params.slug]
@@ -1764,47 +1768,88 @@ export default function ProductDetailPage() {
     );
   }
 
-  // Gunakan array 'gallery' dari lib/data.ts
   const images = product.gallery || [];
 
-  // Fungsi navigasi slider
-  const nextImage = () => {
+  // Navigasi Slider Utama
+  const nextImage = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     if (images.length > 0) {
       setCurrentImgIndex((prev) => (prev + 1) % images.length);
     }
   };
 
-  const prevImage = () => {
+  const prevImage = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     if (images.length > 0) {
       setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
     }
   };
 
+  // Navigasi Slider Lightbox (Zoom)
+  const lightboxNext = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (lightboxData && lightboxData.images.length > 1) {
+      setLightboxData({ ...lightboxData, currentIndex: (lightboxData.currentIndex + 1) % lightboxData.images.length });
+    }
+  };
+
+  const lightboxPrev = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (lightboxData && lightboxData.images.length > 1) {
+      setLightboxData({ ...lightboxData, currentIndex: (lightboxData.currentIndex - 1 + lightboxData.images.length) % lightboxData.images.length });
+    }
+  };
+
+  // Fungsi saat drag/geser selesai di Lightbox
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleDragEnd = (e: any, { offset }: any) => {
+    if (offset.x < -50) lightboxNext(); // Geser ke kiri (Next)
+    else if (offset.x > 50) lightboxPrev(); // Geser ke kanan (Prev)
+  };
+
+  // Buka Lightbox
+  const openLightbox = () => {
+    if (view === 'physical') {
+      setLightboxData({ images, currentIndex: currentImgIndex });
+    } else {
+      setLightboxData({ images: [product.imgDigital], currentIndex: 0 });
+    }
+  };
+
   return (
-    <main className="min-h-screen pb-20 bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden">
+    <main className="min-h-screen pb-20 bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden relative">
       <Marquee />
       <Navbar />
 
       <div className="pt-48 px-6 max-w-7xl mx-auto">
-        {/* Tombol Kembali */}
         <Link 
           href="/shop"
           className="inline-flex items-center gap-2 text-neutral-500 hover:text-white mb-10 font-mono text-[10px] tracking-[0.5em] uppercase transition-colors group"
         >
-          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> BACK TO COLLECTION
+          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> BACK TO ARCHIVE
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           
-          {/* MEDIA SECTION - DENGAN SLIDER DAN ANTI-CROP */}
+          {/* MEDIA SECTION - DENGAN SLIDER, KLIK ZOOM, DAN SIZE CHART */}
           <div className="space-y-6">
-            <div className="relative aspect-square bg-black border border-white/5 overflow-hidden rounded-sm shadow-2xl group flex items-center justify-center">
+            
+            {/* Main Image Viewer */}
+            <div 
+              className="relative aspect-square bg-black border border-white/5 overflow-hidden rounded-sm shadow-2xl group flex items-center justify-center cursor-zoom-in"
+              onClick={openLightbox}
+            >
+              {/* Ikon Zoom di pojok */}
+              <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md p-2 rounded-full border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                <Maximize2 size={16} className="text-white" />
+              </div>
+
               <AnimatePresence mode="wait">
                 <motion.div
                   key={view === 'physical' ? (images[currentImgIndex] || 'empty') : product.imgDigital}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="relative w-full h-full"
                 >
@@ -1812,13 +1857,12 @@ export default function ProductDetailPage() {
                     src={view === 'physical' ? (images[currentImgIndex] || product.imgPhysical) : product.imgDigital} 
                     alt={product.name} 
                     fill 
-                    className="object-contain p-4 md:p-8 transition-opacity duration-500" 
+                    className="object-contain p-4 md:p-8" 
                     priority
                   />
                 </motion.div>
               </AnimatePresence>
               
-              {/* Tombol Navigasi Slider (Hanya untuk Physical View) */}
               {view === 'physical' && images.length > 1 && (
                 <>
                   <button 
@@ -1834,7 +1878,6 @@ export default function ProductDetailPage() {
                     <ChevronRight size={20} />
                   </button>
                   
-                  {/* Indikator Titik Slider */}
                   <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                     {images.map((_, i) => (
                       <div 
@@ -1846,8 +1889,11 @@ export default function ProductDetailPage() {
                 </>
               )}
               
-              {/* Toggle View Fisik / Digital Card */}
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex bg-black/80 backdrop-blur-2xl p-1.5 rounded-full border border-white/10 shadow-2xl z-30">
+              {/* Toggle Fisik/Digital */}
+              <div 
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex bg-black/80 backdrop-blur-2xl p-1.5 rounded-full border border-white/10 shadow-2xl z-30"
+                onClick={(e) => e.stopPropagation()} 
+              >
                 <button 
                   onClick={() => setView('physical')} 
                   className={`px-6 py-2 rounded-full text-[10px] font-mono transition-all uppercase tracking-widest ${
@@ -1867,7 +1913,7 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            {/* Thumbnail Navigation (Hanya untuk Physical) */}
+            {/* Thumbnail Navigation (Fisik) */}
             {view === 'physical' && images.length > 0 && (
               <div className="flex gap-3 overflow-x-auto pb-4 hide-scrollbar justify-center">
                 {images.map((img, idx) => (
@@ -1881,6 +1927,39 @@ export default function ProductDetailPage() {
                 ))}
               </div>
             )}
+
+            {/* === SIZE CHART SECTION === */}
+            {product.sizeChart && (
+              <div className="mt-8 bg-[#121212] border border-white/5 rounded-sm p-6 relative group">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-[#836EF9] text-[10px] font-mono font-bold tracking-[0.3em] flex items-center gap-2 uppercase">
+                    <Ruler size={16} /> PANDUAN UKURAN (SIZE CHART)
+                  </h3>
+                  <button 
+                    onClick={() => setLightboxData({ images: [product.sizeChart as string], currentIndex: 0 })}
+                    className="text-neutral-500 hover:text-white transition-colors"
+                  >
+                    <Maximize2 size={16} />
+                  </button>
+                </div>
+                {/* Size Chart Image */}
+                <div 
+                  className="relative w-full aspect-[4/3] bg-black rounded-sm overflow-hidden cursor-zoom-in border border-white/5"
+                  onClick={() => setLightboxData({ images: [product.sizeChart as string], currentIndex: 0 })}
+                >
+                  <Image 
+                    src={product.sizeChart} 
+                    alt="Size Chart 0xTanda" 
+                    fill 
+                    className="object-contain group-hover:scale-105 transition-transform duration-700" 
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                     <span className="font-mono text-xs font-bold tracking-widest uppercase bg-black/80 px-4 py-2 rounded-full border border-white/10">Klik untuk Zoom</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
           </div>
 
           {/* INFO SECTION */}
@@ -1913,46 +1992,33 @@ export default function ProductDetailPage() {
                 <Send size={18} /> ORDER VIA TELEGRAM
               </a>
 
-              {/* === BAGIAN IKON E-COMMERCE YANG DIPERBARUI (DITAMBAH WHATSAPP) === */}
               <div className="flex items-center justify-center gap-8 pt-6 border-t border-white/5 flex-wrap">
-                
-                {/* WhatsApp (Hijau Terang) */}
                 {product.links.whatsapp && (
                   <a href={product.links.whatsapp} target="_blank" title="WhatsApp" className="text-neutral-400 hover:text-[#25D366] transition-all transform hover:scale-110">
                     <WhatsAppIcon className="w-8 h-8" />
                   </a>
                 )}
-
-                {/* Shopee (Oranye) */}
                 {product.links.shopee && (
                   <a href={product.links.shopee} target="_blank" title="Shopee" className="text-neutral-400 hover:text-[#EE4D2D] transition-all transform hover:scale-110">
                     <ShopeeIcon className="w-8 h-8" />
                   </a>
                 )}
-
-                {/* Tokopedia (Hijau) */}
                 {product.links.tokopedia && (
                   <a href={product.links.tokopedia} target="_blank" title="Tokopedia" className="text-neutral-400 hover:text-[#03AC0E] transition-all transform hover:scale-110">
                     <TokopediaIcon className="w-8 h-8" />
                   </a>
                 )}
-
-                {/* TikTok Shop (Hitam/Putih) */}
                 {product.links.tiktokshop && (
                   <a href={product.links.tiktokshop} target="_blank" title="TikTok Shop" className="text-neutral-400 hover:text-white transition-all transform hover:scale-110">
                     <TikTokShopIcon className="w-8 h-8" />
                   </a>
                 )}
-
-                {/* Shopify (Hijau Muda) */}
                 {product.links.shopify && (
                   <a href={product.links.shopify} target="_blank" title="Shopify" className="text-neutral-400 hover:text-[#95BF47] transition-all transform hover:scale-110">
                     <ShopifyIcon className="w-8 h-8" />
                   </a>
                 )}
-
               </div>
-              {/* ================================================= */}
             </div>
 
             {/* DETAIL & SPESIFIKASI */}
@@ -2004,6 +2070,92 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* ================================================================= */}
+      {/* LIGHTBOX (FULLSCREEN ZOOM & SWIPE)                                */}
+      {/* ================================================================= */}
+      <AnimatePresence>
+        {lightboxData && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-10"
+            onClick={() => setLightboxData(null)}
+          >
+            {/* Tombol Tutup */}
+            <button 
+              className="absolute top-6 right-6 z-[210] p-2 bg-white/10 rounded-full hover:bg-[#836EF9] hover:text-black transition-all"
+              onClick={() => setLightboxData(null)}
+            >
+              <X size={24} />
+            </button>
+
+            {/* Container Gambar (Bisa di-drag/geser) */}
+            <div 
+              className="relative w-full h-full max-w-5xl flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()} 
+            >
+              <motion.div
+                key={lightboxData.currentIndex}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="relative w-full h-full cursor-grab active:cursor-grabbing"
+                drag="x" 
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDragEnd={handleDragEnd}
+              >
+                <Image 
+                  src={lightboxData.images[lightboxData.currentIndex]} 
+                  alt="Zoomed" 
+                  fill 
+                  className="object-contain" 
+                  priority
+                  draggable="false" 
+                />
+              </motion.div>
+
+              {/* Tombol Navigasi Lightbox (Hanya jika gambar > 1) */}
+              {lightboxData.images.length > 1 && (
+                <>
+                  <button 
+                    onClick={lightboxPrev}
+                    className="absolute left-0 md:-left-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all"
+                  >
+                    <ChevronLeft size={40} />
+                  </button>
+                  <button 
+                    onClick={lightboxNext}
+                    className="absolute right-0 md:-right-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all"
+                  >
+                    <ChevronRight size={40} />
+                  </button>
+
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+                    {lightboxData.images.map((_, i) => (
+                      <div 
+                        key={i} 
+                        className={`h-1.5 rounded-full transition-all duration-300 ${i === lightboxData.currentIndex ? 'w-8 bg-[#836EF9]' : 'w-2 bg-white/30'}`} 
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {/* Teks Instruksi Swipe */}
+              {lightboxData.images.length > 1 && (
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 text-[10px] font-mono tracking-widest text-neutral-500 uppercase bg-black/50 px-4 py-1 rounded-full pointer-events-none hidden md:block">
+                  Swipe / Geser untuk melihat gambar lain
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </main>
   );
 }
@@ -2030,6 +2182,7 @@ export interface Product {
   imgPhysical: string; // Gambar utama untuk tampilan kartu di halaman Shop
   imgDigital: string;   // Gambar untuk tampilan Digital Card / NFT
   gallery: string[];    // Kumpulan gambar untuk slider (Mockup & Model)
+  sizeChart?: string;   // Gambar panduan ukuran (Size Chart)
   isPlaceholder?: boolean;
   links: {
     telegram: string;
@@ -2074,6 +2227,8 @@ export const PRODUCTS_DATA: Product[] = [
     // Menggunakan mockup belakang hitam sebagai gambar utama katalog
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
+    // Gambar Size chart
+    sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
     // Daftar gambar lengkap untuk fitur slider di halaman produk
     gallery: [
       "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",

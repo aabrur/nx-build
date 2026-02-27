@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Navbar from '../../../components/Navbar';
-import Marquee from '../../../components/Marquee';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { 
   ShieldCheck, 
   Wallet, 
@@ -17,9 +18,105 @@ import {
   Smartphone,
   Mail,
   ShoppingBag,
-  Lock
+  Menu
 } from 'lucide-react';
 
+// ==========================================
+// KOMPONEN: MARQUEE
+// ==========================================
+function Marquee() {
+  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
+  
+  return (
+    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
+      <div className="animate-marquee whitespace-nowrap flex">
+        {[...Array(10)].map((_, i) => (
+          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// KOMPONEN: NAVBAR
+// ==========================================
+function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const navLinks = [
+    { name: 'HOME', path: '/' },
+    { name: 'SHOP', path: '/shop' },
+    { name: 'VERIFY', path: '/verify' },
+    { name: 'ABOUT', path: '/about' },
+  ];
+
+  return (
+    <nav className="fixed top-10 left-0 w-full z-50 px-6">
+      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
+        
+        {/* LOGO ICON */}
+        <Link href="/" className="flex items-center group">
+          <div className="relative w-8 h-8 bg-white/5 rounded-full overflow-hidden flex items-center justify-center">
+            {/* Menggunakan text fallback jika image belum tersedia di environment */}
+            <span className="text-[10px] font-bold text-white group-hover:scale-110 transition-transform">0x</span>
+          </div>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
+                pathname === link.path 
+                ? 'bg-[#836EF9] text-black font-bold' 
+                : 'text-neutral-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Mobile Toggle */}
+        <div className="md:hidden flex items-center">
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
+            aria-label="Toggle Navigation"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              onClick={() => setIsOpen(false)}
+              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
+                pathname === link.path ? 'text-[#836EF9]' : 'text-white'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+}
+
+// ==========================================
+// HALAMAN UTAMA: VERIFY FORM PAGE
+// ==========================================
 export default function VerifyFormPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error' | 'used'>('idle');
@@ -42,7 +139,26 @@ export default function VerifyFormPage() {
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Logika Auto-Format Khusus untuk Secret Code (XXXX-XXXX-XXXX)
+    if (name === 'secretCode') {
+      // 1. Hapus semua karakter selain huruf dan angka, lalu jadikan huruf besar
+      let rawValue = value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+      
+      // 2. Batasi maksimal 12 karakter alfanumerik (nanti ditambah 2 strip jadi 14)
+      if (rawValue.length > 12) {
+        rawValue = rawValue.substring(0, 12);
+      }
+
+      // 3. Sisipkan strip (-) setiap 4 karakter
+      const formattedValue = rawValue.match(/.{1,4}/g)?.join('-') || '';
+
+      setFormData({ ...formData, [name]: formattedValue });
+    } else {
+      // Untuk input lain, simpan seperti biasa
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,24 +189,23 @@ export default function VerifyFormPage() {
         return;
     }
 
+    // Tambahan Validasi Secret Code harus lengkap (14 karakter: 12 huruf/angka + 2 strip)
+    if (formData.secretCode.length < 14) {
+        alert("SECRET CODE TIDAK LENGKAP!\nPastikan Anda memasukkan 12 digit kode dengan benar.");
+        return;
+    }
+
     setIsLoading(true);
 
     try {
       // Mengirim data ke Google Script
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        // Menggunakan mode no-cors seringkali diperlukan untuk Google Script jika client-side, 
-        // tapi ini akan membuat kita tidak bisa membaca response JSON.
-        // Jika script Anda support CORS, gunakan standard fetch.
-        // Untuk MVP ini, kita gunakan pendekatan redirect 'follow' atau standard.
         body: JSON.stringify(formData),
       });
 
       // CATATAN PENTING:
       // Google Apps Script sering memblokir pembacaan response JSON langsung karena CORS.
-      // Jika error "SyntaxError", biasanya data SUDAH MASUK tapi browser memblokir response-nya.
-      // Di sini kita coba parse, jika gagal kita asumsikan sukses (untuk UX).
-      
       const result = await response.json();
 
       if (result.status === 'success') {
@@ -104,7 +219,6 @@ export default function VerifyFormPage() {
     } catch (error) {
       console.error("Submission Error:", error);
       // Fallback: Jika data terkirim tapi response diblokir browser (CORS issue umum di GAS)
-      // Kita anggap sukses agar user tidak bingung, admin tetap verifikasi manual.
       setStatus('success'); 
     } finally {
       setIsLoading(false);
@@ -112,11 +226,11 @@ export default function VerifyFormPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-mono overflow-x-hidden">
+    <main className="min-h-screen bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-mono overflow-x-hidden relative">
       <Marquee />
       <Navbar />
 
-      <div className="pt-32 px-6 pb-20 max-w-4xl mx-auto">
+      <div className="pt-32 px-6 pb-20 max-w-4xl mx-auto relative z-10">
         
         {/* HEADER & INSTRUCTION */}
         <div className="text-center mb-12">
@@ -161,29 +275,32 @@ export default function VerifyFormPage() {
               
               <div className="grid gap-10">
                 {/* SECRET CODE */}
-                <div className="space-y-3">
+                <div className="space-y-3 relative z-10">
                   <label className="text-xs text-[#836EF9] font-bold uppercase tracking-[0.2em] flex items-center gap-2">
                     <Key size={14}/> SECRET CODE (GENESIS CARD)
                   </label>
                   <input 
                     type="text" 
                     name="secretCode"
+                    value={formData.secretCode}
+                    maxLength={14}
                     required
                     placeholder="XXXX-XXXX-XXXX" 
                     className="w-full bg-black border-2 border-[#836EF9] p-6 text-xl md:text-3xl font-sans font-bold text-white placeholder:text-white/10 focus:shadow-[0_0_30px_rgba(131,110,249,0.4)] focus:outline-none transition-all uppercase tracking-widest text-center rounded-sm"
                     onChange={handleInputChange}
                   />
-                  <p className="text-[9px] text-neutral-500 uppercase tracking-widest text-center">*Masukkan Kode persis sesuai kartu</p>
+                  <p className="text-[9px] text-neutral-500 uppercase tracking-widest text-center">*Format otomatis disesuaikan</p>
                 </div>
 
                 {/* WALLET ADDRESS */}
-                <div className="space-y-3">
+                <div className="space-y-3 relative z-10">
                   <label className="text-xs text-[#00FF9D] font-bold uppercase tracking-[0.2em] flex items-center gap-2">
                     <Wallet size={14}/> WALLET MONAD ADDRESS
                   </label>
                   <input 
                     type="text" 
                     name="walletAddress"
+                    value={formData.walletAddress}
                     required
                     placeholder="0x..." 
                     className="w-full bg-black border-2 border-[#00FF9D]/50 p-6 text-sm md:text-xl font-mono text-[#00FF9D] placeholder:text-[#00FF9D]/20 focus:border-[#00FF9D] focus:shadow-[0_0_30px_rgba(0,255,157,0.2)] focus:outline-none transition-all rounded-sm"
@@ -203,11 +320,11 @@ export default function VerifyFormPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Nama Lengkap</label>
-                <input type="text" name="nama" required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+                <input type="text" name="nama" value={formData.nama} required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Jenis Kelamin</label>
-                <select name="gender" className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors appearance-none" onChange={handleInputChange}>
+                <select name="gender" value={formData.gender} className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors appearance-none" onChange={handleInputChange}>
                   <option value="Pria">PRIA</option>
                   <option value="Wanita">WANITA</option>
                 </select>
@@ -216,19 +333,19 @@ export default function VerifyFormPage() {
                 <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Email</label>
                 <div className="relative">
                   <Mail className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20" size={16} />
-                  <input type="email" name="email" required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+                  <input type="email" name="email" value={formData.email} required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
                 </div>
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] text-neutral-500 uppercase tracking-widest">No. HP / WhatsApp</label>
                 <div className="relative">
                   <Smartphone className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20" size={16} />
-                  <input type="tel" name="noHp" required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+                  <input type="tel" name="noHp" value={formData.noHp} required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
                 </div>
               </div>
               <div className="space-y-2 md:col-span-2">
                 <label className="text-[10px] text-neutral-500 uppercase tracking-widest">ID Telegram (Opsional - Untuk Group War Room)</label>
-                <input type="text" name="telegramId" placeholder="@username" className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+                <input type="text" name="telegramId" value={formData.telegramId} placeholder="@username" className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
               </div>
             </div>
           </div>
@@ -242,7 +359,7 @@ export default function VerifyFormPage() {
               <div className="space-y-2 md:col-span-2">
                 <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Pilih Artefak (Produk)</label>
                 <div className="relative">
-                  <select name="productName" className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-[#836EF9] font-bold focus:border-white/50 focus:outline-none transition-colors appearance-none uppercase" onChange={handleInputChange}>
+                  <select name="productName" value={formData.productName} className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-[#836EF9] font-bold focus:border-white/50 focus:outline-none transition-colors appearance-none uppercase" onChange={handleInputChange}>
                     <option value="GENESIS BOXY TEE">GENESIS BOXY TEE [BATCH #001]</option>
                     <option value="-" disabled>ARCHIVE 02 (LOCKED)</option>
                   </select>
@@ -253,7 +370,7 @@ export default function VerifyFormPage() {
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Order ID (E-Commerce/Manual)</label>
-                <input type="text" name="orderId" placeholder="Contoh: 230919ABC..." className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+                <input type="text" name="orderId" value={formData.orderId} placeholder="Contoh: 230919ABC..." className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Upload Bukti Pembelian (Struk/SS)</label>
