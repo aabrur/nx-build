@@ -59,7 +59,7 @@ export const PRODUCTS_DATA: Product[] = [
       "1 Genesis Collection Card (dengan kode akses)",
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
-    stock: 14,
+    stock: 12,
     // Menggunakan mockup belakang hitam sebagai gambar utama katalog
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
