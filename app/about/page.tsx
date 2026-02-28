@@ -1,12 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, Variants } from 'framer-motion'; 
 
-import Navbar from '../../components/Navbar';
-import Marquee from '../../components/Marquee';
 import { 
   Send, 
   MoveRight,
@@ -20,8 +19,103 @@ import {
   CheckCircle2,
   Instagram,
   Twitter,
-  ArrowDown
+  ArrowDown,
+  Menu,
+  X
 } from 'lucide-react';
+
+// ==========================================
+// KOMPONEN: MARQUEE
+// ==========================================
+function Marquee() {
+  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
+  
+  return (
+    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
+      <div className="animate-marquee whitespace-nowrap flex">
+        {[...Array(10)].map((_, i) => (
+          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// KOMPONEN: NAVBAR
+// ==========================================
+function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const navLinks = [
+    { name: 'HOME', path: '/' },
+    { name: 'SHOP', path: '/shop' },
+    { name: 'VERIFY', path: '/verify' },
+    { name: 'ABOUT', path: '/about' },
+  ];
+
+  return (
+    <nav className="fixed top-10 left-0 w-full z-50 px-6">
+      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
+        
+        {/* LOGO ICON */}
+        <Link href="/" className="flex items-center group">
+          <div className="relative w-8 h-8 bg-white/5 rounded-full overflow-hidden flex items-center justify-center">
+            {/* Fallback styling in case image is missing in preview */}
+            <span className="text-[10px] font-bold text-white group-hover:scale-110 transition-transform">0x</span>
+          </div>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
+                pathname === link.path 
+                ? 'bg-[#836EF9] text-black font-bold' 
+                : 'text-neutral-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Mobile Toggle */}
+        <div className="md:hidden flex items-center">
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
+            aria-label="Toggle Navigation"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              onClick={() => setIsOpen(false)}
+              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
+                pathname === link.path ? 'text-[#836EF9]' : 'text-white'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+}
 
 /**
  * Komponen Ikon TikTok (Custom SVG)
@@ -222,8 +316,45 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* SECTION 05: CARA KERJA */}
-      <section className="py-32 px-6 bg-black border-y border-white/5 text-center md:text-left overflow-hidden">
+      {/* SECTION 05: LINGKUNGAN & KEBERLANJUTAN (NEW SECTION) */}
+      <section className="py-32 bg-black px-6 border-y border-white/5 relative overflow-hidden">
+        {/* Subtle Green Glow Background */}
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[300px] bg-[#00FF9D]/5 blur-[120px] pointer-events-none rounded-full" />
+
+        <div className="max-w-4xl mx-auto relative z-10">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUpVariant}
+            className="flex items-center gap-6 mb-12"
+          >
+            <div className="w-16 h-[1px] bg-[#00FF9D]" />
+            <span className="text-[#00FF9D] text-xs font-bold tracking-[0.4em] uppercase">Lingkungan & Keberlanjutan</span>
+          </motion.div>
+          
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            className="space-y-8 text-neutral-400 text-sm md:text-base leading-relaxed uppercase tracking-widest"
+          >
+            <motion.p variants={fadeUpVariant}>
+              Di tengah industri yang bergerak serba cepat dan sering kali mengabaikan dampaknya terhadap bumi, kami memilih untuk melambat. <strong className="text-white">0xTanda berdiri sebagai antitesis dari budaya fast fashion.</strong> Kami percaya bahwa penciptaan karya dan eksklusivitas tidak seharusnya mengorbankan ekosistem lingkungan hidup.
+            </motion.p>
+            <motion.p variants={fadeUpVariant}>
+              Oleh karena itu, setiap lini pakaian kami diproduksi melalui sistem batch yang sangat terkendali (<span className="text-[#00FF9D]">controlled quantities</span>). Dengan menerapkan prinsip produksi yang ketat, kami secara sadar menekan jejak karbon dan memastikan tidak ada limbah tekstil berlebih (<span className="text-[#00FF9D]">zero deadstock</span>). Kami menciptakan pakaian tangguh yang dirancang untuk bertahan melewati ujian waktu, bukan untuk sekadar menjadi sampah di musim berikutnya.
+            </motion.p>
+            <motion.p variants={fadeUpVariant}>
+              Dengan slogan <span className="text-white italic normal-case tracking-normal">“Tangible craftsmanship you can feel, secured by digital ownership you can prove.”</span> 0xTanda berkomitmen pada kualitas yang bertahan, sistem yang jelas, dan pertumbuhan yang terukur. Kami percaya bahwa keberlanjutan bukan hanya soal bahan, tetapi juga tentang bagaimana produk dirancang, diproduksi, dan dimiliki.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* SECTION 06: CARA KERJA */}
+      <section className="py-32 px-6 bg-white/[0.02] border-b border-white/5 text-center md:text-left overflow-hidden">
         <div className="max-w-5xl mx-auto">
           <motion.div 
             initial="hidden"
@@ -265,7 +396,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 06: SISTEM KEANGGOTAAN */}
+      {/* SECTION 07: SISTEM KEANGGOTAAN */}
       <section className="py-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial="hidden"
@@ -312,7 +443,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* SECTION 07: PENUTUP & TANDA TANGAN */}
+      {/* SECTION 08: PENUTUP & TANDA TANGAN */}
       <section className="pt-32 pb-16 px-6 border-t border-white/5">
         <motion.div 
           initial="hidden"
@@ -350,7 +481,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* SECTION 08: KONEKSI 0xTANDA */}
+      {/* SECTION 09: KONEKSI 0xTANDA */}
       <section className="pb-32 px-6 border-t border-white/5 bg-white/[0.01]">
         <motion.div 
           initial="hidden"
@@ -360,7 +491,7 @@ export default function AboutPage() {
           className="max-w-5xl mx-auto pt-16"
         >
           <motion.div variants={fadeUpVariant} className="flex flex-col items-center text-center mb-12">
-            <h3 className="text-xl md:text-3xl font-sans font-bold uppercase tracking-tighter mb-4 text-neutral-400">Connect With Resistance</h3>
+            <h3 className="text-xl md:text-3xl font-sans font-bold uppercase tracking-tighter mb-4 text-neutral-400">Connect With Archive</h3>
             <div className="w-12 h-0.5 bg-[#836EF9]" />
           </motion.div>
 
@@ -401,7 +532,7 @@ export default function AboutPage() {
               <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
                 <XIcon className="w-4 h-4 text-neutral-500 group-hover:text-[#836EF9] transition-all" />
               </div>
-              <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">X</span>
+              <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">X_Archive</span>
             </motion.a>
             
             {/* Telegram Community */}
@@ -420,10 +551,10 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* FLOATING TELEGRAM CS - Pojok Kanan Bawah & Fixed mengikuti scroll */}
+      {/* FLOATING TELEGRAM CS */}
       <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-4">
         <a 
-          href="https://t.me/rempeyek_0" 
+          href="https://t.me/Bob_Node88" 
           target="_blank" 
           rel="noopener noreferrer"
           className="w-14 h-14 bg-[#836EF9] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(131,110,249,0.5)] hover:scale-110 active:scale-95 transition-all group relative border border-white/10"
@@ -438,7 +569,7 @@ export default function AboutPage() {
       </div>
 
       <footer className="py-20 text-center opacity-10">
-        <p className="font-mono text-[7px] uppercase tracking-[1em]">0XTANDA_LITEPAPER</p>
+        <p className="font-mono text-[7px] uppercase tracking-[1em]">0XTANDA_LITEPAPER_V1.0_SYSTEM_SECURED</p>
       </footer>
     </main>
   );
