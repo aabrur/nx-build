@@ -61,9 +61,15 @@ function Navbar() {
         
         {/* LOGO ICON */}
         <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8 bg-white/5 rounded-full overflow-hidden flex items-center justify-center">
-            {/* Fallback styling in case image is missing in preview */}
-            <span className="text-[10px] font-bold text-white group-hover:scale-110 transition-transform">0x</span>
+          <div className="relative w-8 h-8">
+            <Image 
+              src="/branding/logo-0xtanda-icon.png" 
+              alt="0xTanda Icon"
+              width={32}
+              height={32}
+              className="object-contain group-hover:rotate-12 transition-transform duration-500"
+              priority
+            />
           </div>
         </Link>
 
@@ -176,7 +182,7 @@ export default function AboutPage() {
       <Marquee />
       <Navbar />
 
-      {/* SECTION 01: HEADER - LOGO DIPERBESAR SECARA MASIF */}
+      {/* SECTION 01: HEADER */}
       <section className="pt-48 px-6 pb-24 border-b border-white/5 relative overflow-hidden">
         {/* Latar Belakang Cahaya Animasi */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[300px] bg-[#836EF9]/5 blur-[120px] pointer-events-none rounded-full" />
@@ -201,7 +207,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* SECTION 02: TENTANG 0xTANDA */}
+      {/* SECTION 02: TENTANG 0xTANDA (UPDATED TEXT) */}
       <section className="py-32 px-6 max-w-4xl mx-auto">
         <motion.div 
           initial="hidden"
@@ -222,13 +228,13 @@ export default function AboutPage() {
           className="space-y-8 text-neutral-400 text-sm md:text-base leading-relaxed uppercase tracking-widest"
         >
           <motion.p variants={fadeUpVariant}>
-            <strong className="text-white">0xTanda</strong> adalah brand fashion dengan pendekatan <span className="text-[#836EF9]">phygital</span> — menggabungkan produk fisik dan akses digital dalam satu kepemilikan. Setiap produk dirancang untuk digunakan sehari-hari, sekaligus terhubung dengan identitas digital yang dapat diverifikasi.
+            Di era di mana segala hal dengan mudah diduplikasi dan dipalsukan, <strong className="text-white">0xTanda</strong> mengambil peran definitif sebagai infrastruktur otentisitas. Kami bukan sekadar label pakaian; kami adalah pelopor <span className="text-[#836EF9]">Phygital Streetwear</span> yang bertugas menjembatani kualitas fisik dunia nyata dengan kepastian teknologi. Peran mutlak kami adalah merancang garmen dengan presisi craftsmanship tingkat tinggi, lalu menyegel keasliannya melalui lapisan <span className="text-[#836EF9]">Digital Twin</span> (kembaran digital). Kami membangun ekosistem di mana setiap entitas fisik yang Anda kenakan senantiasa memiliki rekam jejak yang tak terhapus di Blockchain.
           </motion.p>
           <motion.p variants={fadeUpVariant}>
-            Kami tidak menjual NFT sebagai produk utama. Produk utama kami adalah pakaian. Aset digital diberikan sebagai lapisan tambahan yang memperkuat keaslian, akses, dan pengalaman pemiliknya.
+            Lantas, mengapa harus memilih 0xTanda? Karena Anda menolak tunduk pada kultur mode instan yang rapuh dan tanpa nilai historis. Anda memilih kami karena Anda menginginkan lebih dari sekadar pakaian—Anda menuntut pembuktian. Lapisan digital (NFT) yang kami sertakan bukanlah instrumen investasi kripto atau alat spekulasi, melainkan wujud apresiasi <span className="text-white">collector art</span> yang menjaga hak kepemilikan Anda secara transparan.
           </motion.p>
-          <motion.p variants={fadeUpVariant}>
-            Konsep ini lahir dari kebutuhan akan transparansi dan otentisitas di era digital, tanpa membuat prosesnya rumit bagi pengguna.
+          <motion.p variants={fadeUpVariant} className="text-white">
+            Bersama 0xTanda, Anda tidak hanya sekadar mengenakan apa yang nyaman dirasakan, tetapi juga mengamankan sebuah mahakarya, memiliki, dan berkembang seiring waktu.
           </motion.p>
         </motion.div>
       </section>
@@ -311,12 +317,12 @@ export default function AboutPage() {
             Setiap koleksi 0xTanda dirilis dalam jumlah terbatas dan memiliki identitas unik. Fokus kami adalah kualitas yang konsisten, desain yang terukur, dan sistem yang jelas.
           </motion.p>
           <motion.p variants={fadeUpVariant}>
-            Setiap pembelian disertai <span className="text-white">Genesis Collection Card</span> untuk mengklaim akses digital resmi melalui sistem terenkripsi.
+            Setiap pembelian disertai <span className="text-white">Genesis Collection Card</span> untuk mengklaim <span className="text[#836EF9]">Digital Twin</span> resmi melalui sistem terenkripsi.
           </motion.p>
         </motion.div>
       </section>
 
-      {/* SECTION 05: LINGKUNGAN & KEBERLANJUTAN (NEW SECTION) */}
+      {/* SECTION 05: LINGKUNGAN & KEBERLANJUTAN */}
       <section className="py-32 bg-black px-6 border-y border-white/5 relative overflow-hidden">
         {/* Subtle Green Glow Background */}
         <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[300px] bg-[#00FF9D]/5 blur-[120px] pointer-events-none rounded-full" />
@@ -406,7 +412,7 @@ export default function AboutPage() {
           className="flex items-center gap-6 mb-16"
         >
           <div className="w-16 h-[1px] bg-[#836EF9]" />
-          <span className="text-[#836EF9] text-xs font-bold tracking-[0.4em] uppercase">Sistem Keanggotaan</span>
+          <span className="text-[#836EF9] text-xs font-bold tracking-[0.4em] uppercase">Sistem Holder</span>
         </motion.div>
 
         <motion.div 
@@ -422,10 +428,10 @@ export default function AboutPage() {
             className="border border-[#836EF9] bg-[#836EF9]/5 p-12 rounded-sm relative group overflow-hidden"
           >
             <Hexagon className="absolute -right-4 -top-4 text-[#836EF9]/10 w-32 h-32 group-hover:rotate-90 transition-transform duration-1000" />
-            <h3 className="text-2xl font-bold text-white uppercase tracking-tighter mb-2 relative z-10">ROYAL GENESIS</h3>
-            <p className="text-[10px] text-[#836EF9] uppercase tracking-widest mb-8 font-bold relative z-10">100 Pembeli Pertama</p>
+            <h3 className="text-2xl font-bold text-white uppercase tracking-tighter mb-2 relative z-10">ROYAL RESISTANCE</h3>
+            <p className="text-[10px] text-[#836EF9] uppercase tracking-widest mb-8 font-bold relative z-10">200 Pembeli Pertama</p>
             <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed relative z-10">
-              Mendapatkan akses prioritas, grup eksklusif, dan benefit tambahan sebagai pendiri awal ekosistem.
+              Mendapatkan akses prioritas, diskon 10%, dan benefit tambahan sebagai bagian awal ekosistem.
             </p>
           </motion.div>
 
@@ -437,7 +443,7 @@ export default function AboutPage() {
             <h3 className="text-2xl font-bold text-white uppercase tracking-tighter mb-2 relative z-10">REGULAR HOLDER</h3>
             <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-8 font-bold relative z-10">Verified Owners</p>
             <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed relative z-10">
-              Pemilik selanjutnya yang tetap mendapatkan verifikasi keaslian dan akses komunitas penuh.
+              Pemilik selanjutnya yang tetap mendapatkan hak kepemilikan karya, keaslian, diskon 5%, dan akses komunitas penuh.
             </p>
           </motion.div>
         </motion.div>
@@ -456,7 +462,7 @@ export default function AboutPage() {
             <div className="space-y-6 text-neutral-400 text-base md:text-lg uppercase tracking-widest leading-relaxed">
               <p>0xTanda berjalan di dua dunia sekaligus — fisik dan digital.</p>
               <p className="text-white font-bold">
-                Fokus kami sederhana: membangun sistem kepemilikan yang jelas, akses yang nyata, dan pengalaman yang konsisten.
+                Fokus kami sederhana: membangun sistem kepemilikan yang jelas, akses yang nyata, Kosisten, dan pengalaman yang menarik.
               </p>
             </div>
           </motion.div>
@@ -491,7 +497,7 @@ export default function AboutPage() {
           className="max-w-5xl mx-auto pt-16"
         >
           <motion.div variants={fadeUpVariant} className="flex flex-col items-center text-center mb-12">
-            <h3 className="text-xl md:text-3xl font-sans font-bold uppercase tracking-tighter mb-4 text-neutral-400">Connect With Archive</h3>
+            <h3 className="text-xl md:text-3xl font-sans font-bold uppercase tracking-tighter mb-4 text-neutral-400">Connect With Resistance</h3>
             <div className="w-12 h-0.5 bg-[#836EF9]" />
           </motion.div>
 
@@ -532,7 +538,7 @@ export default function AboutPage() {
               <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
                 <XIcon className="w-4 h-4 text-neutral-500 group-hover:text-[#836EF9] transition-all" />
               </div>
-              <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">X_Archive</span>
+              <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">X</span>
             </motion.a>
             
             {/* Telegram Community */}
