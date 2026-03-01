@@ -9,6 +9,7 @@ export interface Product {
   name: string;
   type: string;
   price: number;
+  originalPrice?: number; // Menambahkan opsi harga asli (untuk harga coret)
   description: string;
   specs: string[];
   features: string[];
@@ -37,6 +38,7 @@ export const PRODUCTS_DATA: Product[] = [
     name: "GENESIS BOXY TEE",
     type: "0xTanda Batch #001",
     price: 170000,
+    originalPrice: 249000, // HARGA CORET (ASLI) DITAMBAHKAN DI SINI
     description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
     specs: [
       "Nama: Genesis Boxy Tee",
@@ -60,12 +62,9 @@ export const PRODUCTS_DATA: Product[] = [
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
     stock: 12,
-    // Menggunakan mockup belakang hitam sebagai gambar utama katalog
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
-    // Gambar Size chart
     sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
-    // Daftar gambar lengkap untuk fitur slider di halaman produk
     gallery: [
       "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
       "/product/gen1/mockup/Batch_1_Gen_1_White_Genesis_Boxy_Tee.png",
@@ -130,7 +129,6 @@ export const ROADMAP_DATA = [
 ];
 
 // --- MASTER DATABASE SECRET CODES (Untuk Validasi) ---
-// Format Baru: Tanpa '0XT-' di depan
 export const SECRET_CODES_DB = [
   "K7XM-9Q2L-4RZT", "V8P3-LQ7N-X5DW", "Z4TK-8MPR-2Q9L", "N6RX-W3P9-K2ZM", 
   "Q9VL-7X2R-M4PT", "X3QK-8LZM-5R7N", "M7ZT-2W9L-X4QP", "R5XL-9P2K-V8QW", 

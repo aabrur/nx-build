@@ -1262,16 +1262,91 @@ export default function ShopPage() {
 }
 </file>
 
+<file path="app/page.tsx">
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+// Jalur relatif untuk keamanan preview
+import Navbar from '../components/Navbar';
+import Marquee from '../components/Marquee';
+import { ArrowRight } from 'lucide-react';
+
+/**
+ * Halaman Home 0xTanda.
+ * Logo Ultra Mega (Lebar Maksimal) dengan jarak yang sangat rapat (meppet)
+ * agar semua konten muat dalam satu layar tanpa scroll.
+ */
+export default function HomePage() {
+  return (
+    <main className="min-h-screen bg-brand-black overflow-hidden">
+      <Marquee />
+      <Navbar />
+
+      <section className="relative h-screen flex flex-col items-center justify-center px-4">
+        {/* Latar Belakang Cahaya */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl aspect-square bg-brand-purple/5 blur-[150px] pointer-events-none rounded-full" />
+        
+        <div className="relative z-10 text-center fade-in flex flex-col items-center w-full">
+          {/* Teks Atas - Margin sangat kecil */}
+          <p className="font-mono text-brand-purple text-[9px] tracking-[0.7em] mb-4 uppercase opacity-70">
+            Est. 2026 Jakarta // Digital Archive
+          </p>
+          
+          {/* ULTRA MEGA LOGO - Sangat Lebar, Tinggi Ramping, Margin Meppet */}
+          <div className="relative w-[110vw] max-w-[1200px] h-[180px] md:max-w-[2800px] md:h-[420px] mb-2 animate-glitch">
+            <Image 
+              src="/branding/logo-0xtanda.png"
+              alt="0xTanda Official Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          
+          {/* Deskripsi - Margin Meppet */}
+          <div className="max-w-3xl mx-auto mb-6">
+            <p className="font-mono text-[#00FF9D] text-[10px] md:text-[13px] tracking-[0.4em] leading-relaxed uppercase">
+              Tangible craftsmanship you can feel, secured by digital ownership you can prove.
+            </p>
+          </div>
+
+          {/* Tombol Aksi */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto">
+            <Link 
+              href="/shop" 
+              className="group bg-brand-purple text-black px-12 py-4 font-mono text-[10px] font-bold rounded-sm flex items-center justify-center gap-3 hover:bg-white transition-all shadow-[0_0_40px_rgba(131,110,249,0.3)]"
+            >
+              ENTER COLLECTIONS <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link 
+              href="/about" 
+              className="px-12 py-4 border border-white/10 font-mono text-[10px] font-bold rounded-sm hover:bg-white/5 hover:border-white/30 transition-all text-center uppercase tracking-[0.4em]"
+            >
+              MANIFESTO
+            </Link>
+          </div>
+        </div>
+        
+        {/* Specs di pojok bawah */}
+        <div className="absolute bottom-6 left-0 w-full px-10 flex justify-between items-end opacity-20 select-none pointer-events-none font-mono text-[7px] tracking-[0.5em] uppercase">
+          <div>System_Live // 2026</div>
+          <div className="text-right italic">JKT_ARCHIVE_01</div>
+        </div>
+      </section>
+    </main>
+  );
+}
+</file>
+
 <file path="app/about/page.tsx">
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, Variants } from 'framer-motion'; 
 
-import Navbar from '../../components/Navbar';
-import Marquee from '../../components/Marquee';
 import { 
   Send, 
   MoveRight,
@@ -1285,8 +1360,109 @@ import {
   CheckCircle2,
   Instagram,
   Twitter,
-  ArrowDown
+  ArrowDown,
+  Menu,
+  X
 } from 'lucide-react';
+
+// ==========================================
+// KOMPONEN: MARQUEE
+// ==========================================
+function Marquee() {
+  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
+  
+  return (
+    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
+      <div className="animate-marquee whitespace-nowrap flex">
+        {[...Array(10)].map((_, i) => (
+          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// KOMPONEN: NAVBAR
+// ==========================================
+function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const navLinks = [
+    { name: 'HOME', path: '/' },
+    { name: 'SHOP', path: '/shop' },
+    { name: 'VERIFY', path: '/verify' },
+    { name: 'ABOUT', path: '/about' },
+  ];
+
+  return (
+    <nav className="fixed top-10 left-0 w-full z-50 px-6">
+      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
+        
+        {/* LOGO ICON */}
+        <Link href="/" className="flex items-center group">
+          <div className="relative w-8 h-8">
+            <Image 
+              src="/branding/logo-0xtanda-icon.png" 
+              alt="0xTanda Icon"
+              width={32}
+              height={32}
+              className="object-contain group-hover:rotate-12 transition-transform duration-500"
+              priority
+            />
+          </div>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
+                pathname === link.path 
+                ? 'bg-[#836EF9] text-black font-bold' 
+                : 'text-neutral-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Mobile Toggle */}
+        <div className="md:hidden flex items-center">
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
+            aria-label="Toggle Navigation"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              onClick={() => setIsOpen(false)}
+              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
+                pathname === link.path ? 'text-[#836EF9]' : 'text-white'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+}
 
 /**
  * Komponen Ikon TikTok (Custom SVG)
@@ -1347,7 +1523,7 @@ export default function AboutPage() {
       <Marquee />
       <Navbar />
 
-      {/* SECTION 01: HEADER - LOGO DIPERBESAR SECARA MASIF */}
+      {/* SECTION 01: HEADER */}
       <section className="pt-48 px-6 pb-24 border-b border-white/5 relative overflow-hidden">
         {/* Latar Belakang Cahaya Animasi */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[300px] bg-[#836EF9]/5 blur-[120px] pointer-events-none rounded-full" />
@@ -1372,7 +1548,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* SECTION 02: TENTANG 0xTANDA */}
+      {/* SECTION 02: TENTANG 0xTANDA (UPDATED TEXT) */}
       <section className="py-32 px-6 max-w-4xl mx-auto">
         <motion.div 
           initial="hidden"
@@ -1393,13 +1569,13 @@ export default function AboutPage() {
           className="space-y-8 text-neutral-400 text-sm md:text-base leading-relaxed uppercase tracking-widest"
         >
           <motion.p variants={fadeUpVariant}>
-            <strong className="text-white">0xTanda</strong> adalah brand fashion dengan pendekatan <span className="text-[#836EF9]">phygital</span> — menggabungkan produk fisik dan akses digital dalam satu kepemilikan. Setiap produk dirancang untuk digunakan sehari-hari, sekaligus terhubung dengan identitas digital yang dapat diverifikasi.
+            Di era di mana segala hal dengan mudah diduplikasi dan dipalsukan, <strong className="text-white">0xTanda</strong> mengambil peran definitif sebagai infrastruktur otentisitas. Kami bukan sekadar label pakaian; kami adalah pelopor <span className="text-[#836EF9]">Phygital Streetwear</span> yang bertugas menjembatani kualitas fisik dunia nyata dengan kepastian teknologi. Peran mutlak kami adalah merancang garmen dengan presisi craftsmanship tingkat tinggi, lalu menyegel keasliannya melalui lapisan <span className="text-[#836EF9]">Digital Twin</span> (kembaran digital). Kami membangun ekosistem di mana setiap entitas fisik yang Anda kenakan senantiasa memiliki rekam jejak yang tak terhapus di Blockchain.
           </motion.p>
           <motion.p variants={fadeUpVariant}>
-            Kami tidak menjual NFT sebagai produk utama. Produk utama kami adalah pakaian. Aset digital diberikan sebagai lapisan tambahan yang memperkuat keaslian, akses, dan pengalaman pemiliknya.
+            Lantas, mengapa harus memilih 0xTanda? Karena Anda menolak tunduk pada kultur mode instan yang rapuh dan tanpa nilai historis. Anda memilih kami karena Anda menginginkan lebih dari sekadar pakaian—Anda menuntut pembuktian. Lapisan digital (NFT) yang kami sertakan bukanlah instrumen investasi kripto atau alat spekulasi, melainkan wujud apresiasi <span className="text-white">collector art</span> yang menjaga hak kepemilikan Anda secara transparan.
           </motion.p>
-          <motion.p variants={fadeUpVariant}>
-            Konsep ini lahir dari kebutuhan akan transparansi dan otentisitas di era digital, tanpa membuat prosesnya rumit bagi pengguna.
+          <motion.p variants={fadeUpVariant} className="text-white">
+            Bersama 0xTanda, Anda tidak hanya sekadar mengenakan apa yang nyaman dirasakan, tetapi juga mengamankan sebuah mahakarya, memiliki, dan berkembang seiring waktu.
           </motion.p>
         </motion.div>
       </section>
@@ -1482,13 +1658,50 @@ export default function AboutPage() {
             Setiap koleksi 0xTanda dirilis dalam jumlah terbatas dan memiliki identitas unik. Fokus kami adalah kualitas yang konsisten, desain yang terukur, dan sistem yang jelas.
           </motion.p>
           <motion.p variants={fadeUpVariant}>
-            Setiap pembelian disertai <span className="text-white">Genesis Collection Card</span> untuk mengklaim akses digital resmi melalui sistem terenkripsi.
+            Setiap pembelian disertai <span className="text-white">Genesis Collection Card</span> untuk mengklaim <span className="text[#836EF9]">Digital Twin</span> resmi melalui sistem terenkripsi.
           </motion.p>
         </motion.div>
       </section>
 
-      {/* SECTION 05: CARA KERJA */}
-      <section className="py-32 px-6 bg-black border-y border-white/5 text-center md:text-left overflow-hidden">
+      {/* SECTION 05: LINGKUNGAN & KEBERLANJUTAN */}
+      <section className="py-32 bg-black px-6 border-y border-white/5 relative overflow-hidden">
+        {/* Subtle Green Glow Background */}
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[300px] bg-[#00FF9D]/5 blur-[120px] pointer-events-none rounded-full" />
+
+        <div className="max-w-4xl mx-auto relative z-10">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUpVariant}
+            className="flex items-center gap-6 mb-12"
+          >
+            <div className="w-16 h-[1px] bg-[#00FF9D]" />
+            <span className="text-[#00FF9D] text-xs font-bold tracking-[0.4em] uppercase">Lingkungan & Keberlanjutan</span>
+          </motion.div>
+          
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            className="space-y-8 text-neutral-400 text-sm md:text-base leading-relaxed uppercase tracking-widest"
+          >
+            <motion.p variants={fadeUpVariant}>
+              Di tengah industri yang bergerak serba cepat dan sering kali mengabaikan dampaknya terhadap bumi, kami memilih untuk melambat. <strong className="text-white">0xTanda berdiri sebagai antitesis dari budaya fast fashion.</strong> Kami percaya bahwa penciptaan karya dan eksklusivitas tidak seharusnya mengorbankan ekosistem lingkungan hidup.
+            </motion.p>
+            <motion.p variants={fadeUpVariant}>
+              Oleh karena itu, setiap lini pakaian kami diproduksi melalui sistem batch yang sangat terkendali (<span className="text-[#00FF9D]">controlled quantities</span>). Dengan menerapkan prinsip produksi yang ketat, kami secara sadar menekan jejak karbon dan memastikan tidak ada limbah tekstil berlebih (<span className="text-[#00FF9D]">zero deadstock</span>). Kami menciptakan pakaian tangguh yang dirancang untuk bertahan melewati ujian waktu, bukan untuk sekadar menjadi sampah di musim berikutnya.
+            </motion.p>
+            <motion.p variants={fadeUpVariant}>
+              Dengan slogan <span className="text-white italic normal-case tracking-normal">“Tangible craftsmanship you can feel, secured by digital ownership you can prove.”</span> 0xTanda berkomitmen pada kualitas yang bertahan, sistem yang jelas, dan pertumbuhan yang terukur. Kami percaya bahwa keberlanjutan bukan hanya soal bahan, tetapi juga tentang bagaimana produk dirancang, diproduksi, dan dimiliki.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* SECTION 06: CARA KERJA */}
+      <section className="py-32 px-6 bg-white/[0.02] border-b border-white/5 text-center md:text-left overflow-hidden">
         <div className="max-w-5xl mx-auto">
           <motion.div 
             initial="hidden"
@@ -1530,7 +1743,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 06: SISTEM KEANGGOTAAN */}
+      {/* SECTION 07: SISTEM KEANGGOTAAN */}
       <section className="py-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial="hidden"
@@ -1540,7 +1753,7 @@ export default function AboutPage() {
           className="flex items-center gap-6 mb-16"
         >
           <div className="w-16 h-[1px] bg-[#836EF9]" />
-          <span className="text-[#836EF9] text-xs font-bold tracking-[0.4em] uppercase">Sistem Keanggotaan</span>
+          <span className="text-[#836EF9] text-xs font-bold tracking-[0.4em] uppercase">Sistem Holder</span>
         </motion.div>
 
         <motion.div 
@@ -1556,10 +1769,10 @@ export default function AboutPage() {
             className="border border-[#836EF9] bg-[#836EF9]/5 p-12 rounded-sm relative group overflow-hidden"
           >
             <Hexagon className="absolute -right-4 -top-4 text-[#836EF9]/10 w-32 h-32 group-hover:rotate-90 transition-transform duration-1000" />
-            <h3 className="text-2xl font-bold text-white uppercase tracking-tighter mb-2 relative z-10">ROYAL GENESIS</h3>
-            <p className="text-[10px] text-[#836EF9] uppercase tracking-widest mb-8 font-bold relative z-10">100 Pembeli Pertama</p>
+            <h3 className="text-2xl font-bold text-white uppercase tracking-tighter mb-2 relative z-10">ROYAL RESISTANCE</h3>
+            <p className="text-[10px] text-[#836EF9] uppercase tracking-widest mb-8 font-bold relative z-10">200 Pembeli Pertama</p>
             <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed relative z-10">
-              Mendapatkan akses prioritas, grup eksklusif, dan benefit tambahan sebagai pendiri awal ekosistem.
+              Mendapatkan akses prioritas, diskon 10%, dan benefit tambahan sebagai bagian awal ekosistem.
             </p>
           </motion.div>
 
@@ -1571,13 +1784,13 @@ export default function AboutPage() {
             <h3 className="text-2xl font-bold text-white uppercase tracking-tighter mb-2 relative z-10">REGULAR HOLDER</h3>
             <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-8 font-bold relative z-10">Verified Owners</p>
             <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed relative z-10">
-              Pemilik selanjutnya yang tetap mendapatkan verifikasi keaslian dan akses komunitas penuh.
+              Pemilik selanjutnya yang tetap mendapatkan hak kepemilikan karya, keaslian, diskon 5%, dan akses komunitas penuh.
             </p>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* SECTION 07: PENUTUP & TANDA TANGAN */}
+      {/* SECTION 08: PENUTUP & TANDA TANGAN */}
       <section className="pt-32 pb-16 px-6 border-t border-white/5">
         <motion.div 
           initial="hidden"
@@ -1590,7 +1803,7 @@ export default function AboutPage() {
             <div className="space-y-6 text-neutral-400 text-base md:text-lg uppercase tracking-widest leading-relaxed">
               <p>0xTanda berjalan di dua dunia sekaligus — fisik dan digital.</p>
               <p className="text-white font-bold">
-                Fokus kami sederhana: membangun sistem kepemilikan yang jelas, akses yang nyata, dan pengalaman yang konsisten.
+                Fokus kami sederhana: membangun sistem kepemilikan yang jelas, akses yang nyata, Kosisten, dan pengalaman yang menarik.
               </p>
             </div>
           </motion.div>
@@ -1615,7 +1828,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* SECTION 08: KONEKSI 0xTANDA */}
+      {/* SECTION 09: KONEKSI 0xTANDA */}
       <section className="pb-32 px-6 border-t border-white/5 bg-white/[0.01]">
         <motion.div 
           initial="hidden"
@@ -1685,10 +1898,10 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* FLOATING TELEGRAM CS - Pojok Kanan Bawah & Fixed mengikuti scroll */}
+      {/* FLOATING TELEGRAM CS */}
       <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-4">
         <a 
-          href="https://t.me/rempeyek_0" 
+          href="https://t.me/Bob_Node88" 
           target="_blank" 
           rel="noopener noreferrer"
           className="w-14 h-14 bg-[#836EF9] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(131,110,249,0.5)] hover:scale-110 active:scale-95 transition-all group relative border border-white/10"
@@ -1703,84 +1916,8 @@ export default function AboutPage() {
       </div>
 
       <footer className="py-20 text-center opacity-10">
-        <p className="font-mono text-[7px] uppercase tracking-[1em]">0XTANDA_LITEPAPER</p>
+        <p className="font-mono text-[7px] uppercase tracking-[1em]">0XTANDA_LITEPAPER_V1.0_SYSTEM_SECURED</p>
       </footer>
-    </main>
-  );
-}
-</file>
-
-<file path="app/page.tsx">
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-// Jalur relatif untuk keamanan preview
-import Navbar from '../components/Navbar';
-import Marquee from '../components/Marquee';
-import { ArrowRight } from 'lucide-react';
-
-/**
- * Halaman Home 0xTanda.
- * Logo Ultra Mega (Lebar Maksimal) dengan jarak yang sangat rapat (meppet)
- * agar semua konten muat dalam satu layar tanpa scroll.
- */
-export default function HomePage() {
-  return (
-    <main className="min-h-screen bg-brand-black overflow-hidden">
-      <Marquee />
-      <Navbar />
-
-      <section className="relative h-screen flex flex-col items-center justify-center px-4">
-        {/* Latar Belakang Cahaya */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl aspect-square bg-brand-purple/5 blur-[150px] pointer-events-none rounded-full" />
-        
-        <div className="relative z-10 text-center fade-in flex flex-col items-center w-full">
-          {/* Teks Atas - Margin sangat kecil */}
-          <p className="font-mono text-brand-purple text-[9px] tracking-[0.7em] mb-4 uppercase opacity-70">
-            Est. 2026 Jakarta // Digital Archive
-          </p>
-          
-          {/* ULTRA MEGA LOGO - Sangat Lebar, Tinggi Ramping, Margin Meppet */}
-          <div className="relative w-[110vw] max-w-[1200px] h-[180px] md:max-w-[2800px] md:h-[420px] mb-2 animate-glitch">
-            <Image 
-              src="/branding/logo-0xtanda.png"
-              alt="0xTanda Official Logo"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-          
-          {/* Deskripsi - Margin Meppet */}
-          <div className="max-w-3xl mx-auto mb-6">
-            <p className="font-mono text-[#00FF9D] text-[10px] md:text-[13px] tracking-[0.4em] leading-relaxed uppercase">
-              Tangible craftsmanship you can feel, secured by digital ownership you can prove.
-            </p>
-          </div>
-
-          {/* Tombol Aksi */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto">
-            <Link 
-              href="/shop" 
-              className="group bg-brand-purple text-black px-12 py-4 font-mono text-[10px] font-bold rounded-sm flex items-center justify-center gap-3 hover:bg-white transition-all shadow-[0_0_40px_rgba(131,110,249,0.3)]"
-            >
-              ENTER COLLECTIONS <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link 
-              href="/about" 
-              className="px-12 py-4 border border-white/10 font-mono text-[10px] font-bold rounded-sm hover:bg-white/5 hover:border-white/30 transition-all text-center uppercase tracking-[0.4em]"
-            >
-              MANIFESTO
-            </Link>
-          </div>
-        </div>
-        
-        {/* Specs di pojok bawah */}
-        <div className="absolute bottom-6 left-0 w-full px-10 flex justify-between items-end opacity-20 select-none pointer-events-none font-mono text-[7px] tracking-[0.5em] uppercase">
-          <div>System_Live // 2026</div>
-          <div className="text-right italic">JKT_ARCHIVE_01</div>
-        </div>
-      </section>
     </main>
   );
 }
@@ -2340,7 +2477,7 @@ export const PRODUCTS_DATA: Product[] = [
       "1 Genesis Collection Card (dengan kode akses)",
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
-    stock: 14,
+    stock: 12,
     // Menggunakan mockup belakang hitam sebagai gambar utama katalog
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",

@@ -1,17 +1,10 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-
-// --- IMPORT KOMPONEN ASLI ---
-import Navbar from '../../../components/Navbar';
-import Marquee from '../../../components/Marquee';
-
-// --- IMPORT DATA ---
-import { PRODUCTS_DATA } from '../../../lib/data';
 
 import { 
   ArrowLeft, 
@@ -24,11 +17,198 @@ import {
   ChevronRight,
   Maximize2,
   X,
-  Ruler
+  Ruler,
+  Menu,
+  Lock
 } from 'lucide-react';
 
+// ==========================================
+// DATA: PRODUCTS_DATA INLINE
+// ==========================================
+const PRODUCTS_DATA = [
+  {
+    id: "G-001",
+    slug: "genesis-boxy-tee",
+    name: "GENESIS BOXY TEE",
+    type: "0xTanda Batch #001",
+    price: 170000,
+    originalPrice: 249000, // HARGA CORET DITAMBAHKAN DI SINI
+    description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
+    specs: [
+      "Nama: Genesis Boxy Tee",
+      "Batch: #001 (Limited Release)",
+      "Material: 100% Cotton Combed 16s Heavyweight",
+      "Gramasi: ±235–245 gsm",
+      "Fit: Boxy Oversized / Modern Cut",
+      "Sablon: DTF High-Density Print",
+      "Warna: Hitam & Putih",
+      "Ukuran: L & XL"
+    ],
+    features: [
+      "Kain tebal dan berstruktur",
+      "Tidak tipis dan tidak mudah melar",
+      "Cocok untuk daily wear",
+      "Detail cetak tajam dan solid"
+    ],
+    includes: [
+      "1 Kaos Genesis Boxy Tee",
+      "1 Genesis Collection Card (dengan kode akses)",
+      "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
+    ],
+    stock: 12,
+    imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
+    imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
+    sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
+    gallery: [
+      "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
+      "/product/gen1/mockup/Batch_1_Gen_1_White_Genesis_Boxy_Tee.png",
+      "/product/gen1/model/Model-1-front-gen-1.png",
+      "/product/gen1/model/Model-1-back-gen-1.png",
+      "/product/gen1/model/Model-2-front-gen-1.png",
+      "/product/gen1/model/Model-2-back-gen-1.png",
+    ],
+    links: {
+      telegram: "https://t.me/rempeyek_0",
+      whatsapp: "https://wa.me/6281398621530",
+      tokopedia: "https://tokopedia.com/oxtanda",
+      shopee: "https://shopee.co.id/oxtanda",
+      tiktokshop: "https://tiktok.com/@oxtanda/shop",
+      shopify: "https://oxtanda.myshopify.com"
+    }
+  },
+  {
+    id: "PL-002",
+    slug: "archive-02-placeholder",
+    name: "ARCHIVE_02 // ???",
+    type: "Upcoming Phygital Release",
+    price: 0,
+    description: "Dokumen terenkripsi. Detail produk akan tersedia pada fase pengembangan berikutnya.",
+    specs: [],
+    features: [],
+    includes: [],
+    stock: 0,
+    imgPhysical: "", 
+    imgDigital: "",
+    gallery: [],
+    isPlaceholder: true,
+    links: { telegram: "" }
+  },
+  {
+    id: "PL-003",
+    slug: "archive-03-placeholder",
+    name: "ARCHIVE_03 // ???",
+    type: "Upcoming Phygital Release",
+    price: 0,
+    description: "Dokumen terenkripsi. Detail produk akan tersedia pada fase pengembangan berikutnya.",
+    specs: [],
+    features: [],
+    includes: [],
+    stock: 0,
+    imgPhysical: "", 
+    imgDigital: "",
+    gallery: [],
+    isPlaceholder: true,
+    links: { telegram: "" }
+  }
+];
+
+// ==========================================
+// KOMPONEN: MARQUEE
+// ==========================================
+function Marquee() {
+  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
+  
+  return (
+    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
+      <div className="animate-marquee whitespace-nowrap flex">
+        {[...Array(10)].map((_, i) => (
+          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// KOMPONEN: NAVBAR
+// ==========================================
+function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const navLinks = [
+    { name: 'HOME', path: '/' },
+    { name: 'SHOP', path: '/shop' },
+    { name: 'VERIFY', path: '/verify' },
+    { name: 'ABOUT', path: '/about' },
+  ];
+
+  return (
+    <nav className="fixed top-10 left-0 w-full z-50 px-6">
+      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
+        
+        <Link href="/" className="flex items-center group">
+          <div className="relative w-8 h-8">
+            <Image 
+              src="/branding/logo-0xtanda-icon.png" 
+              alt="0xTanda Icon"
+              width={32}
+              height={32}
+              className="object-contain group-hover:rotate-12 transition-transform duration-500"
+              priority
+            />
+          </div>
+        </Link>
+
+        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
+                pathname === link.path 
+                ? 'bg-[#836EF9] text-black font-bold' 
+                : 'text-neutral-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        <div className="md:hidden flex items-center">
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
+            aria-label="Toggle Navigation"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              onClick={() => setIsOpen(false)}
+              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
+                pathname === link.path ? 'text-[#836EF9]' : 'text-white'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+}
+
 // =================================================================
-// 1. DEFINISI CUSTOM ICONS (LOGO BRAND TERMASUK WHATSAPP)
+// DEFINISI CUSTOM ICONS
 // =================================================================
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -65,9 +245,8 @@ const ShopifyIcon = ({ className }: { className?: string }) => (
 );
 
 // =================================================================
-// 2. KOMPONEN UTAMA PAGE
+// HALAMAN UTAMA: PRODUCT DETAIL
 // =================================================================
-
 export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -75,7 +254,6 @@ export default function ProductDetailPage() {
   const [view, setView] = useState<'physical' | 'digital'>('physical');
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
-  // === STATE UNTUK LIGHTBOX (ZOOM) ===
   const [lightboxData, setLightboxData] = useState<{ images: string[], currentIndex: number } | null>(null);
 
   const product = useMemo(() => 
@@ -96,24 +274,24 @@ export default function ProductDetailPage() {
     );
   }
 
+  // Kalkulasi Diskon Otomatis
+  let discountPercentage = 0;
+  if (product.originalPrice && product.originalPrice > product.price) {
+    discountPercentage = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+  }
+
   const images = product.gallery || [];
 
-  // Navigasi Slider Utama
   const nextImage = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
-    if (images.length > 0) {
-      setCurrentImgIndex((prev) => (prev + 1) % images.length);
-    }
+    if (images.length > 0) setCurrentImgIndex((prev) => (prev + 1) % images.length);
   };
 
   const prevImage = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
-    if (images.length > 0) {
-      setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
-    }
+    if (images.length > 0) setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // Navigasi Slider Lightbox (Zoom)
   const lightboxNext = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     if (lightboxData && lightboxData.images.length > 1) {
@@ -128,14 +306,12 @@ export default function ProductDetailPage() {
     }
   };
 
-  // Fungsi saat drag/geser selesai di Lightbox
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDragEnd = (e: any, { offset }: any) => {
-    if (offset.x < -50) lightboxNext(); // Geser ke kiri (Next)
-    else if (offset.x > 50) lightboxPrev(); // Geser ke kanan (Prev)
+    if (offset.x < -50) lightboxNext(); 
+    else if (offset.x > 50) lightboxPrev();
   };
 
-  // Buka Lightbox
   const openLightbox = () => {
     if (view === 'physical') {
       setLightboxData({ images, currentIndex: currentImgIndex });
@@ -159,15 +335,12 @@ export default function ProductDetailPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           
-          {/* MEDIA SECTION - DENGAN SLIDER, KLIK ZOOM, DAN SIZE CHART */}
+          {/* MEDIA SECTION */}
           <div className="space-y-6">
-            
-            {/* Main Image Viewer */}
             <div 
               className="relative aspect-square bg-black border border-white/5 overflow-hidden rounded-sm shadow-2xl group flex items-center justify-center cursor-zoom-in"
               onClick={openLightbox}
             >
-              {/* Ikon Zoom di pojok */}
               <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md p-2 rounded-full border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity z-20">
                 <Maximize2 size={16} className="text-white" />
               </div>
@@ -193,104 +366,61 @@ export default function ProductDetailPage() {
               
               {view === 'physical' && images.length > 1 && (
                 <>
-                  <button 
-                    onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl"
-                  >
+                  <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl">
                     <ChevronLeft size={20} />
                   </button>
-                  <button 
-                    onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl"
-                  >
+                  <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl">
                     <ChevronRight size={20} />
                   </button>
                   
                   <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                     {images.map((_, i) => (
-                      <div 
-                        key={i} 
-                        className={`h-1 transition-all duration-300 ${i === currentImgIndex ? 'w-6 bg-[#836EF9]' : 'w-2 bg-white/20'}`} 
-                      />
+                      <div key={i} className={`h-1 transition-all duration-300 ${i === currentImgIndex ? 'w-6 bg-[#836EF9]' : 'w-2 bg-white/20'}`} />
                     ))}
                   </div>
                 </>
               )}
               
-              {/* Toggle Fisik/Digital */}
-              <div 
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex bg-black/80 backdrop-blur-2xl p-1.5 rounded-full border border-white/10 shadow-2xl z-30"
-                onClick={(e) => e.stopPropagation()} 
-              >
-                <button 
-                  onClick={() => setView('physical')} 
-                  className={`px-6 py-2 rounded-full text-[10px] font-mono transition-all uppercase tracking-widest ${
-                    view === 'physical' ? 'bg-white text-black font-bold' : 'text-white/40 hover:text-white'
-                  }`}
-                >
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex bg-black/80 backdrop-blur-2xl p-1.5 rounded-full border border-white/10 shadow-2xl z-30" onClick={(e) => e.stopPropagation()}>
+                <button onClick={() => setView('physical')} className={`px-6 py-2 rounded-full text-[10px] font-mono transition-all uppercase tracking-widest ${view === 'physical' ? 'bg-white text-black font-bold' : 'text-white/40 hover:text-white'}`}>
                   PHYSICAL
                 </button>
-                <button 
-                  onClick={() => setView('digital')} 
-                  className={`px-6 py-2 rounded-full text-[10px] font-mono transition-all flex items-center gap-2 uppercase tracking-widest ${
-                    view === 'digital' ? 'bg-[#836EF9] text-white font-bold shadow-[0_0_20px_rgba(131,110,249,0.4)]' : 'text-white/40 hover:text-white'
-                  }`}
-                >
+                <button onClick={() => setView('digital')} className={`px-6 py-2 rounded-full text-[10px] font-mono transition-all flex items-center gap-2 uppercase tracking-widest ${view === 'digital' ? 'bg-[#836EF9] text-white font-bold shadow-[0_0_20px_rgba(131,110,249,0.4)]' : 'text-white/40 hover:text-white'}`}>
                   GENESIS CARD <Zap size={10} fill="currentColor" />
                 </button>
               </div>
             </div>
 
-            {/* Thumbnail Navigation (Fisik) */}
             {view === 'physical' && images.length > 0 && (
               <div className="flex gap-3 overflow-x-auto pb-4 hide-scrollbar justify-center">
                 {images.map((img, idx) => (
-                  <button 
-                    key={idx}
-                    onClick={() => setCurrentImgIndex(idx)}
-                    className={`relative w-20 h-24 flex-shrink-0 border transition-all rounded-sm overflow-hidden bg-neutral-900 ${currentImgIndex === idx ? 'border-[#836EF9] opacity-100' : 'border-white/10 opacity-40 hover:opacity-100'}`}
-                  >
+                  <button key={idx} onClick={() => setCurrentImgIndex(idx)} className={`relative w-20 h-24 flex-shrink-0 border transition-all rounded-sm overflow-hidden bg-neutral-900 ${currentImgIndex === idx ? 'border-[#836EF9] opacity-100' : 'border-white/10 opacity-40 hover:opacity-100'}`}>
                     <Image src={img} alt={`thumb-${idx}`} fill className="object-contain p-1" />
                   </button>
                 ))}
               </div>
             )}
 
-            {/* === SIZE CHART SECTION === */}
             {product.sizeChart && (
               <div className="mt-8 bg-[#121212] border border-white/5 rounded-sm p-6 relative group">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-[#836EF9] text-[10px] font-mono font-bold tracking-[0.3em] flex items-center gap-2 uppercase">
                     <Ruler size={16} /> PANDUAN UKURAN (SIZE CHART)
                   </h3>
-                  <button 
-                    onClick={() => setLightboxData({ images: [product.sizeChart as string], currentIndex: 0 })}
-                    className="text-neutral-500 hover:text-white transition-colors"
-                  >
+                  <button onClick={() => setLightboxData({ images: [product.sizeChart as string], currentIndex: 0 })} className="text-neutral-500 hover:text-white transition-colors">
                     <Maximize2 size={16} />
                   </button>
                 </div>
-                {/* Size Chart Image */}
-                <div 
-                  className="relative w-full aspect-[4/3] bg-black rounded-sm overflow-hidden cursor-zoom-in border border-white/5"
-                  onClick={() => setLightboxData({ images: [product.sizeChart as string], currentIndex: 0 })}
-                >
-                  <Image 
-                    src={product.sizeChart} 
-                    alt="Size Chart 0xTanda" 
-                    fill 
-                    className="object-contain group-hover:scale-105 transition-transform duration-700" 
-                  />
+                <div className="relative w-full aspect-[4/3] bg-black rounded-sm overflow-hidden cursor-zoom-in border border-white/5" onClick={() => setLightboxData({ images: [product.sizeChart as string], currentIndex: 0 })}>
+                  <Image src={product.sizeChart} alt="Size Chart 0xTanda" fill className="object-contain group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
                      <span className="font-mono text-xs font-bold tracking-widest uppercase bg-black/80 px-4 py-2 rounded-full border border-white/10">Klik untuk Zoom</span>
                   </div>
                 </div>
               </div>
             )}
-
           </div>
 
-          {/* INFO SECTION */}
           <div className="flex flex-col">
             <div className="flex items-center gap-2 text-[#836EF9] font-mono text-[10px] mb-6 uppercase tracking-[0.4em]">
               <ShieldCheck size={16} /> VERIFIED PHYGITAL ENTITY
@@ -303,20 +433,27 @@ export default function ProductDetailPage() {
               {product.type}
             </p>
             
-            <p className="text-3xl font-mono text-white mb-10 tracking-tighter font-bold">
-              IDR {product.price.toLocaleString('id-ID')}
-            </p>
+            {/* --- BAGIAN HARGA (DENGAN HARGA CORET) --- */}
+            <div className="mb-10">
+              {discountPercentage > 0 && (
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="font-mono text-lg md:text-xl text-neutral-500 line-through">
+                    IDR {product.originalPrice?.toLocaleString('id-ID')}
+                  </span>
+                  <span className="font-mono text-[10px] bg-[#00FF9D] text-black px-2 py-1 rounded-sm font-bold tracking-wider shadow-[0_0_15px_rgba(0,255,157,0.3)]">
+                    LIMITED {discountPercentage}% OFF
+                  </span>
+                </div>
+              )}
+              <p className="text-3xl md:text-5xl font-mono text-white tracking-tighter font-bold">
+                IDR {product.price.toLocaleString('id-ID')}
+              </p>
+            </div>
 
-            {/* SISTEM PEMESANAN */}
             <div className="space-y-6 mb-16">
               <p className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.5em]">PLACE YOUR ORDER:</p>
               
-              <a 
-                href={product.links.telegram} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-4 py-5 bg-[#836EF9] text-black font-mono text-xs font-bold uppercase transition-all hover:bg-white shadow-[0_0_40px_rgba(131,110,249,0.3)] active:scale-95"
-              >
+              <a href={product.links.telegram} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-4 py-5 bg-[#836EF9] text-black font-mono text-xs font-bold uppercase transition-all hover:bg-white shadow-[0_0_40px_rgba(131,110,249,0.3)] active:scale-95">
                 <Send size={18} /> ORDER VIA TELEGRAM
               </a>
 
@@ -349,7 +486,6 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            {/* DETAIL & SPESIFIKASI */}
             <div className="space-y-12 font-mono text-[11px] uppercase tracking-wider leading-relaxed">
               <div className="space-y-4">
                 <h3 className="text-[#836EF9] font-bold tracking-[0.3em]">DESKRIPSI PRODUK</h3>
@@ -399,9 +535,6 @@ export default function ProductDetailPage() {
         </div>
       </div>
 
-      {/* ================================================================= */}
-      {/* LIGHTBOX (FULLSCREEN ZOOM & SWIPE)                                */}
-      {/* ================================================================= */}
       <AnimatePresence>
         {lightboxData && (
           <motion.div
@@ -411,79 +544,35 @@ export default function ProductDetailPage() {
             className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-10"
             onClick={() => setLightboxData(null)}
           >
-            {/* Tombol Tutup */}
-            <button 
-              className="absolute top-6 right-6 z-[210] p-2 bg-white/10 rounded-full hover:bg-[#836EF9] hover:text-black transition-all"
-              onClick={() => setLightboxData(null)}
-            >
+            <button className="absolute top-6 right-6 z-[210] p-2 bg-white/10 rounded-full hover:bg-[#836EF9] hover:text-black transition-all" onClick={() => setLightboxData(null)}>
               <X size={24} />
             </button>
 
-            {/* Container Gambar (Bisa di-drag/geser) */}
-            <div 
-              className="relative w-full h-full max-w-5xl flex items-center justify-center"
-              onClick={(e) => e.stopPropagation()} 
-            >
-              <motion.div
-                key={lightboxData.currentIndex}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-                className="relative w-full h-full cursor-grab active:cursor-grabbing"
-                drag="x" 
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={1}
-                onDragEnd={handleDragEnd}
-              >
-                <Image 
-                  src={lightboxData.images[lightboxData.currentIndex]} 
-                  alt="Zoomed" 
-                  fill 
-                  className="object-contain" 
-                  priority
-                  draggable="false" 
-                />
+            <div className="relative w-full h-full max-w-5xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+              <motion.div key={lightboxData.currentIndex} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.2 }} className="relative w-full h-full cursor-grab active:cursor-grabbing" drag="x" dragConstraints={{ left: 0, right: 0 }} dragElastic={1} onDragEnd={handleDragEnd}>
+                <Image src={lightboxData.images[lightboxData.currentIndex]} alt="Zoomed" fill className="object-contain" priority draggable="false" />
               </motion.div>
 
-              {/* Tombol Navigasi Lightbox (Hanya jika gambar > 1) */}
               {lightboxData.images.length > 1 && (
                 <>
-                  <button 
-                    onClick={lightboxPrev}
-                    className="absolute left-0 md:-left-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all"
-                  >
+                  <button onClick={lightboxPrev} className="absolute left-0 md:-left-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all">
                     <ChevronLeft size={40} />
                   </button>
-                  <button 
-                    onClick={lightboxNext}
-                    className="absolute right-0 md:-right-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all"
-                  >
+                  <button onClick={lightboxNext} className="absolute right-0 md:-right-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all">
                     <ChevronRight size={40} />
                   </button>
 
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 z-20">
                     {lightboxData.images.map((_, i) => (
-                      <div 
-                        key={i} 
-                        className={`h-1.5 rounded-full transition-all duration-300 ${i === lightboxData.currentIndex ? 'w-8 bg-[#836EF9]' : 'w-2 bg-white/30'}`} 
-                      />
+                      <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === lightboxData.currentIndex ? 'w-8 bg-[#836EF9]' : 'w-2 bg-white/30'}`} />
                     ))}
                   </div>
                 </>
-              )}
-
-              {/* Teks Instruksi Swipe */}
-              {lightboxData.images.length > 1 && (
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 text-[10px] font-mono tracking-widest text-neutral-500 uppercase bg-black/50 px-4 py-1 rounded-full pointer-events-none hidden md:block">
-                  Swipe / Geser untuk melihat gambar lain
-                </div>
               )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
     </main>
   );
 }
