@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   title: '0xTanda | Phygital Streetwear',
   description: 'Tangible craftsmanship you can feel, secured by digital ownership you can prove. Genesis Boxy Tee Batch #001.',
   metadataBase: new URL('https://0xtanda.xyz'), // URL utama website lu
+  
+  // 👇 BAGIAN INI YANG BIKIN GOOGLE NAMPILIN LOGO 👇
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
+  },
+
   openGraph: {
     title: '0xTanda | Phygital Streetwear',
     description: 'Tangible craftsmanship you can feel, secured by digital ownership you can prove.',
@@ -22,7 +30,6 @@ export const metadata: Metadata = {
     siteName: '0xTanda',
     images: [
       {
-        // Gambar ini yang bakal muncul di WA/Telegram. 
         url: '/branding/og-banner.jpg', 
         width: 1200,
         height: 630,
@@ -47,9 +54,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Viewport Setting agar di HP pas (tidak perlu zoom out) */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         
-        {/* 🟢 PASTE KODE DARI GOOGLE SEARCH CONSOLE DI BAWAH SINI 🟢 */}
+        {/* VERIFIKASI GOOGLE SEARCH CONSOLE */}
         <meta name="google-site-verification" content="AdsL5zatSrtTJ8kvkoh5wI1flrVIf0YXJ9-93uTbT8o" />
-
       </head>
       
       {/* BODY BERSIH: Hapus class 'cursor-none' agar pakai kursor bawaan Windows/Mac */}

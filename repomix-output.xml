@@ -47,7 +47,9 @@ app/icon.png
 app/layout.tsx
 app/page.tsx
 app/product/[slug]/page.tsx
+app/robots.ts
 app/shop/page.tsx
+app/sitemap.ts
 app/verify/page.tsx
 app/verify/pageform/page.tsx
 components/Marquee.tsx
@@ -80,6 +82,66 @@ tsconfig.json
 
 <files>
 This section contains the contents of the repository's files.
+
+<file path="app/robots.ts">
+import { MetadataRoute } from 'next';
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      // Mengizinkan semua bot search engine (Google, Bing, Yahoo, dll)
+      userAgent: '*',
+      allow: '/',
+      // Jika lo punya halaman rahasia, lo bisa memblokirnya dari Google:
+      // disallow: '/war-room', 
+    },
+    // Ini memberi tahu Google di mana letak peta website (sitemap) lo
+    sitemap: 'https://0xtanda.xyz/sitemap.xml',
+  };
+}
+</file>
+
+<file path="app/sitemap.ts">
+import { MetadataRoute } from 'next';
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://0xtanda.xyz';
+
+  return [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 1, // Prioritas tertinggi (Halaman Utama)
+    },
+    {
+      url: `${baseUrl}/shop`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9, // Prioritas kedua (Katalog)
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8, // Prioritas ketiga (Tentang)
+    },
+    {
+      url: `${baseUrl}/verify`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.5, // Prioritas lebih rendah
+    },
+    {
+      // Halaman detail produk spesifik (Genesis Boxy Tee)
+      url: `${baseUrl}/product/genesis-boxy-tee`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+  ];
+}
+</file>
 
 <file path="eslint.config.mjs">
 import { defineConfig, globalIgnores } from "eslint/config";
@@ -1065,6 +1127,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Viewport Setting agar di HP pas (tidak perlu zoom out) */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        
+        {/* 🟢 PASTE KODE DARI GOOGLE SEARCH CONSOLE DI BAWAH SINI 🟢 */}
+        <meta name="google-site-verification" content="AdsL5zatSrtTJ8kvkoh5wI1flrVIf0YXJ9-93uTbT8o" />
+
       </head>
       
       {/* BODY BERSIH: Hapus class 'cursor-none' agar pakai kursor bawaan Windows/Mac */}
