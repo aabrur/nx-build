@@ -46,6 +46,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Viewport Setting agar di HP pas (tidak perlu zoom out) */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        
+        {/* 🟢 PASTE KODE DARI GOOGLE SEARCH CONSOLE DI BAWAH SINI 🟢 */}
+        <meta name="google-site-verification" content="AdsL5zatSrtTJ8kvkoh5wI1flrVIf0YXJ9-93uTbT8o" />
+
       </head>
       
       {/* BODY BERSIH: Hapus class 'cursor-none' agar pakai kursor bawaan Windows/Mac */}
