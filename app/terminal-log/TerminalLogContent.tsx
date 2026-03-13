@@ -324,7 +324,7 @@ export default function TerminalLogContent() {
             <span className="text-[#836EF9]">Brand Phygital Fashion</span>{" "}
             Pertama Jakarta —{" "}
             <span className="text-neutral-400">
-              Baju yang Bisa Kamu Pakai di Dunia Nyata dan Metaverse
+              Baju yang Bisa Kamu Pakai di Dunia Nyata dan Digital
             </span>
           </motion.h1>
 
@@ -389,7 +389,7 @@ export default function TerminalLogContent() {
             </motion.p>
 
             <motion.p variants={fadeUp}>
-              Skena fashion hari ini dibanjiri oleh produk replika dan klaim kelangkaan palsu. 
+              Fashion hari ini dibanjiri oleh produk replika dan klaim kelangkaan palsu. 
               Membeli barang dengan sebutan "limited edition" tak jarang hanya strategi pemasaran tanpa transparansi. Phygital fashion datang untuk menata ulang standar tersebut: menciptakan batas yang absolut antara karya orisinal dan bajakan.
             </motion.p>
           </motion.div>
@@ -420,12 +420,12 @@ export default function TerminalLogContent() {
               {
                 icon: <Fingerprint size={20} />,
                 title: "Digital",
-                desc: "Sertifikat keaslian dalam bentuk token kriptografis yang tersimpan aman sebagai koleksi pribadimu.",
+                desc: "Sertifikat keaslian sekaligus keanggotaan dalam bentuk NFT yang tersimpan aman sebagai koleksi pribadimu.",
               },
               {
                 icon: <Layers size={20} />,
                 title: "Unified",
-                desc: "Sinergi mutlak: pakaian fisik yang kamu kenakan selaras dengan aset digital yang membuktikan keasliannya.",
+                desc: "Sinergi mutlak: pakaian fisik yang kamu kenakan selaras dengan digitalnya.",
               },
             ].map((item) => (
               <motion.div
@@ -473,7 +473,7 @@ export default function TerminalLogContent() {
             >
               Cara Kerja:{" "}
               <span className="text-[#836EF9]">
-                Dari Produk Fisik ke Aset Digital dalam 3 Langkah
+                Dari Produk Fisik ke NFT dalam 3 Langkah
               </span>
             </motion.h2>
             <motion.p
@@ -573,7 +573,7 @@ export default function TerminalLogContent() {
               <div className="absolute inset-0 bg-gradient-to-br from-[#836EF9]/10 to-transparent pointer-events-none" />
               <div className="relative w-full max-w-[240px] aspect-square">
                 <Image
-                  src="/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png"
+                  src="/product/gen1/nft/black&white-nft-collection-card.png"
                   alt="Genesis Collection Card 0xTanda — NFT Phygital Fashion"
                   fill
                   className="object-contain"
@@ -597,7 +597,7 @@ export default function TerminalLogContent() {
                   Genesis Boxy Tee
                 </h3>
                 <p className="text-[10px] text-neutral-400 uppercase tracking-widest leading-relaxed mb-8">
-                  Koleksi perdana 0xTanda. Dirilis secara eksklusif dan terbatas. Setiap unit ditemani oleh Genesis Collection Card sebagai kunci utama untuk mengamankan Digital Twin milikmu. Sebuah standar baru untuk kolektor skena fashion modern.
+                  Koleksi perdana 0xTanda. Dirilis secara eksklusif dan terbatas. Setiap unit ditemani oleh Genesis Collection Card sebagai kunci utama untuk mengamankan Digital Twin milikmu. Sebuah standar baru untuk kolektor fashion modern.
                 </p>
 
                 <div className="space-y-3 mb-8">
@@ -663,7 +663,7 @@ export default function TerminalLogContent() {
                 Verified Owners
               </p>
               <p className="text-[10px] text-neutral-400 uppercase tracking-widest leading-relaxed">
-                Pemegang koleksi yang tervalidasi. Mendapat kepastian atas keaslian produk, diskon 5%, dan posisi di dalam jaringan komunitas 0xTanda.
+                Pemegang koleksi yang tervalidasi. Mendapat kepastian atas keaslian produk, diskon 5%, dan ekosistem dalam jaringan komunitas 0xTanda.
               </p>
             </motion.div>
           </motion.div>
