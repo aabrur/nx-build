@@ -125,6 +125,7 @@ function Navbar() {
     { name: 'SHOP', path: '/shop' },
     { name: 'VERIFY', path: '/verify' },
     { name: 'ABOUT', path: '/about' },
+    { name: 'TERMINAL LOG', path: '/terminal-log' },
   ];
 
   return (

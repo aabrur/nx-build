@@ -8,18 +8,19 @@ import { Menu, X } from 'lucide-react';
 
 /**
  * Komponen Navbar 0xTanda.
- * Menampilkan urutan menu: HOME, SHOP, VERIFY, ABOUT.
+ * Menambahkan menu "TERMINAL LOG" untuk artikel/SEO.
  */
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  // URUTAN MENU DIPERBAIKI: Verify sebelum About sesuai alur navigasi
+  // DI SINI NAMA MENU SUDAH DIGANTI JADI "TERMINAL LOG"
   const navLinks = [
     { name: 'HOME', path: '/' },
     { name: 'SHOP', path: '/shop' },
     { name: 'VERIFY', path: '/verify' },
     { name: 'ABOUT', path: '/about' },
+    { name: 'TERMINAL LOG', path: '/terminal-log' }, // <--- UPDATE NAMA DI SINI
   ];
 
   return (
@@ -41,14 +42,15 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+        <div className="hidden lg:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
           {navLinks.map((link) => (
             <Link 
               key={link.path} 
               href={link.path}
               className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                pathname === link.path 
-                ? 'bg-brand-purple text-black font-bold' 
+                // Logika agar menu menyala walau user lagi baca artikel di sub-folder
+                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path
+                ? 'bg-[#836EF9] text-black font-bold' 
                 : 'text-neutral-400 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -58,7 +60,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center">
+        <div className="lg:hidden flex items-center">
           <button 
             onClick={() => setIsOpen(!isOpen)} 
             className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
@@ -71,14 +73,16 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 lg:hidden animate-glitch shadow-2xl">
           {navLinks.map((link) => (
             <Link 
               key={link.path} 
               href={link.path}
               onClick={() => setIsOpen(false)}
-              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
-                pathname === link.path ? 'text-brand-purple' : 'text-white'
+              className={`text-3xl font-display font-bold tracking-tighter transition-colors uppercase ${
+                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path 
+                ? 'text-[#836EF9]' 
+                : 'text-white'
               }`}
             >
               {link.name}

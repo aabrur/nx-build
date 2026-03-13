@@ -23,6 +23,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8, // Prioritas ketiga (Tentang)
     },
     {
+      url: `${baseUrl}/terminal-log`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly', // Sering diupdate untuk artikel baru
+      priority: 0.8, // Prioritas SEO tinggi untuk menjaring trafik organik
+    },
+    {
       url: `${baseUrl}/verify`,
       lastModified: new Date(),
       changeFrequency: 'yearly',
