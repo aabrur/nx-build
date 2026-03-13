@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Space_Grotesk, Space_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '../components/Navbar';
+import Marquee from '../components/Marquee'; // <-- Tambahan baru: Import Marquee
 
 // Load Fonts
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -12,11 +13,10 @@ const spaceMono = Space_Mono({ weight: ['400', '700'], subsets: ['latin'], varia
 // PENGATURAN META TAGS & OPEN GRAPH (UNTUK PREVIEW WA/TELEGRAM)
 // =================================================================
 export const metadata: Metadata = {
-  title: '0xTanda | Phygital Streetwear',
+  title: '0xTanda | Phygital Fashion',
   description: 'Tangible craftsmanship you can feel, secured by digital ownership you can prove. Genesis Boxy Tee Batch #001.',
-  metadataBase: new URL('https://0xtanda.xyz'), // URL utama website lu
+  metadataBase: new URL('https://www.0xtanda.xyz'),
   
-  // 👇 BAGIAN INI YANG BIKIN GOOGLE NAMPILIN LOGO 👇
   icons: {
     icon: '/icon.png',
     shortcut: '/icon.png',
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: '0xTanda | Phygital Streetwear',
+    title: '0xTanda | Phygital Fashion',
     description: 'Tangible craftsmanship you can feel, secured by digital ownership you can prove.',
-    url: 'https://0xtanda.xyz',
+    url: 'https://www.0xtanda.xyz',
     siteName: '0xTanda',
     images: [
       {
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '0xTanda | Phygital Streetwear',
+    title: '0xTanda | Phygital Fashion',
     description: 'Tangible craftsmanship you can feel, secured by digital ownership you can prove.',
-    images: ['/branding/logo-0xtanda.png'],
+    images: ['/branding/og-banner.jpg'],
   },
 };
 
@@ -51,17 +51,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="id" className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}>
       <head>
-        {/* Viewport Setting agar di HP pas (tidak perlu zoom out) */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-        
-        {/* VERIFIKASI GOOGLE SEARCH CONSOLE */}
         <meta name="google-site-verification" content="AdsL5zatSrtTJ8kvkoh5wI1flrVIf0YXJ9-93uTbT8o" />
       </head>
       
-      {/* BODY BERSIH: Hapus class 'cursor-none' agar pakai kursor bawaan Windows/Mac */}
       <body className="bg-[#0a0a0a] text-[#f3f3f3] overflow-x-hidden antialiased">
         
-        {/* Navbar Tetap Ada */}
+        {/* DUA KOMPONEN INI SEKARANG OTOMATIS MUNCUL DI SEMUA HALAMAN */}
+        <Marquee />
         <Navbar />
         
         {/* Konten Halaman */}

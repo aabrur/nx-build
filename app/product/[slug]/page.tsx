@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { useParams, useRouter, usePathname } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,7 +18,6 @@ import {
   Maximize2,
   X,
   Ruler,
-  Menu,
   Lock
 } from 'lucide-react';
 
@@ -71,9 +70,7 @@ const PRODUCTS_DATA = [
       telegram: "https://t.me/rempeyek_0",
       whatsapp: "https://wa.me/6281398621530",
       tokopedia: "https://www.tokopedia.com/0xtanda/0xtanda-genesis-boxy-tee-pria-wanita-unisex-dengan-nft-kaos-cotton-combed-16s-100-fit-boxy-oversized-modern-cut-bonus-genesis-collection-card-1734427428785194157",
-      shopee: "https://shopee.co.id/oxtanda",
-      tiktokshop: "https://vt.tokopedia.com/t/ZS9eT3ML7F2cK-6q8hd/",
-      shopify: "https://oxtanda.myshopify.com"
+      tiktokshop: "https://vt.tokopedia.com/t/ZS9eT3ML7F2cK-6q8hd/"
     }
   },
   {
@@ -112,102 +109,6 @@ const PRODUCTS_DATA = [
   }
 ];
 
-// ==========================================
-// KOMPONEN: MARQUEE
-// ==========================================
-function Marquee() {
-  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
-  
-  return (
-    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
-      <div className="animate-marquee whitespace-nowrap flex">
-        {[...Array(10)].map((_, i) => (
-          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ==========================================
-// KOMPONEN: NAVBAR
-// ==========================================
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-
-  const navLinks = [
-    { name: 'HOME', path: '/' },
-    { name: 'SHOP', path: '/shop' },
-    { name: 'VERIFY', path: '/verify' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'TERMINAL LOG', path: '/terminal-log' },
-  ];
-
-  return (
-    <nav className="fixed top-10 left-0 w-full z-50 px-6">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
-        
-        <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8">
-            <Image 
-              src="/branding/logo-0xtanda-icon.png" 
-              alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
-            />
-          </div>
-        </Link>
-
-        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                pathname === link.path 
-                ? 'bg-[#836EF9] text-black font-bold' 
-                : 'text-neutral-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        <div className="md:hidden flex items-center">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-
-      {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
-                pathname === link.path ? 'text-[#836EF9]' : 'text-white'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
-  );
-}
-
 // =================================================================
 // DEFINISI CUSTOM ICONS
 // =================================================================
@@ -226,22 +127,10 @@ const TokopediaIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const ShopeeIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M18.8 7.3h-1.4c-.4-2.5-2.4-4.3-4.9-4.3s-4.5 1.9-4.9 4.3H6.2C5 7.3 4 8.3 4 9.5v10c0 1.2 1 2.2 2.2 2.2h12.6c1.2 0 2.2-1 2.2-2.2v-10c0-1.2-1-2.2-2.2-2.2zm-6.3-2.5c1.5 0 2.7 1.1 2.9 2.5h-5.8c.2-1.4 1.4-2.5 2.9-2.5zm1.5 10.8c-1.3.5-1.9.8-2.6 1.1-.7.3-1.4.3-1.9-.2-.3-.3-.8 0-1.3.4-.6 2.2-1.2 2.2-1.2s.6-.2.6-.7c0-.6-.7-1-1.7-1-1.2 0-2.1.6-2.1.6s-.5.3-.8 0c-.2-.2-.2-.6 0-1 .2-.3 1.2-1 3.1-1 2 0 3.2 1.2 3.2 2.6 0 1.1-.7 1.8-1.8 2.2l-1.5.5c-.5.2-.8.4-.8.8 0 .4.4.6 1 .6 1 0 2.2-.8 2.2-.8s.4-.3.7 0c.3.3.3.7 0 1.1-.3.3-1.3 1.1-2.8 1.1-2.3 0-3.5-1.5-3.5-3 0-1.2.6-2 1.7-2.4l2.1-.8c.7-.3 1-.5 1-1 0-.3-.3-.5-.8-.5-.7 0-1.6.5-1.6.5s-.4.3-.6 0c-.2-.2-.2-.6.1-.9.3-.3 1-1 2.6-1 1.7 0 2.9 1 2.9 2.4 0 1.3-.9 1.9-1.9 2.3z"/>
-  </svg>
-);
-
 const TikTokShopIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
      <path d="M19 14h-2v4h-4v2h4v4h2v-4h4v-2h-4z"/>
-  </svg>
-);
-
-const ShopifyIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M20.8 7.9c-.2-.3-.5-.4-.8-.4h-2.1l-3.3-6.2c-.2-.3-.5-.4-.8-.3-.3.1-.5.4-.4.7l3 5.8H7.7l3-5.8c.1-.3-.1-.6-.4-.7-.3-.1-.6.1-.7.3L6.2 7.5H4c-.3 0-.6.2-.8.4-.2.3-.2.6-.1.9l2.7 13.5c.2 1 1.1 1.7 2.1 1.7h8.2c1 0 1.9-.7 2.1-1.7l2.7-13.5c.1-.3 0-.6-.1-.9zM12 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
   </svg>
 );
 
@@ -323,8 +212,7 @@ export default function ProductDetailPage() {
 
   return (
     <main className="min-h-screen pb-20 bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden relative">
-      <Marquee />
-      <Navbar />
+      {/* Navbar dan Marquee di-handle oleh app/layout.tsx */}
 
       <div className="pt-48 px-6 max-w-7xl mx-auto">
         <Link 
@@ -464,11 +352,6 @@ export default function ProductDetailPage() {
                     <WhatsAppIcon className="w-8 h-8" />
                   </a>
                 )}
-                {product.links.shopee && (
-                  <a href={product.links.shopee} target="_blank" title="Shopee" className="text-neutral-400 hover:text-[#EE4D2D] transition-all transform hover:scale-110">
-                    <ShopeeIcon className="w-8 h-8" />
-                  </a>
-                )}
                 {product.links.tokopedia && (
                   <a href={product.links.tokopedia} target="_blank" title="Tokopedia" className="text-neutral-400 hover:text-[#03AC0E] transition-all transform hover:scale-110">
                     <TokopediaIcon className="w-8 h-8" />
@@ -477,11 +360,6 @@ export default function ProductDetailPage() {
                 {product.links.tiktokshop && (
                   <a href={product.links.tiktokshop} target="_blank" title="TikTok Shop" className="text-neutral-400 hover:text-white transition-all transform hover:scale-110">
                     <TikTokShopIcon className="w-8 h-8" />
-                  </a>
-                )}
-                {product.links.shopify && (
-                  <a href={product.links.shopify} target="_blank" title="Shopify" className="text-neutral-400 hover:text-[#95BF47] transition-all transform hover:scale-110">
-                    <ShopifyIcon className="w-8 h-8" />
                   </a>
                 )}
               </div>

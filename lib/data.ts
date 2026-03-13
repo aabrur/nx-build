@@ -25,9 +25,7 @@ export interface Product {
     telegram: string;
     whatsapp?: string; 
     tokopedia?: string;
-    shopee?: string;
     tiktokshop?: string;
-    shopify?: string;
   };
 }
 
@@ -37,7 +35,7 @@ export const PRODUCTS_DATA: Product[] = [
     slug: "genesis-boxy-tee",
     name: "GENESIS BOXY TEE",
     type: "0xTanda Batch #001",
-    price: 170000,
+    price: 168000,
     originalPrice: 249000, // HARGA CORET (ASLI) DITAMBAHKAN DI SINI
     description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
     specs: [
@@ -76,10 +74,8 @@ export const PRODUCTS_DATA: Product[] = [
     links: {
       telegram: "https://t.me/rempeyek_0",
       whatsapp: "https://wa.me/6281398621530",
-      tokopedia: "https://tokopedia.com/oxtanda",
-      shopee: "https://shopee.co.id/oxtanda",
-      tiktokshop: "https://tiktok.com/@oxtanda/shop",
-      shopify: "https://oxtanda.myshopify.com"
+      tokopedia: "https://www.tokopedia.com/0xtanda/0xtanda-genesis-boxy-tee-pria-wanita-unisex-dengan-nft-kaos-cotton-combed-16s-100-fit-boxy-oversized-modern-cut-bonus-genesis-collection-card-1734427428785194157",
+      tiktokshop: "https://vt.tokopedia.com/t/ZS9eT3ML7F2cK-6q8hd/"
     }
   },
   // Produk Placeholder (Coming Soon)

@@ -1,10 +1,24 @@
 "use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { ArrowRight, Zap, Lock, Menu, X } from 'lucide-react';
+import React from 'react';
+import { ArrowRight, Zap, Lock } from 'lucide-react';
+
+// ============================================================================
+// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
+// CATATAN UNTUK COPAS: 
+// Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
+// HAPUS bagian mock ini dan gunakan import bawaan Next.js berikut:
+//
+// import Link from 'next/link';
+// import Image from 'next/image';
+// ============================================================================
+const Link = ({ href, children, className, onClick }: any) => (
+  <a href={href} className={className} onClick={onClick}>{children}</a>
+);
+const Image = ({ src, alt, className, sizes }: any) => (
+  <img src={src} alt={alt} className={className} sizes={sizes} />
+);
+// ============================================================================
 
 // ==========================================
 // DATA: PRODUCTS_DATA INLINE
@@ -16,7 +30,7 @@ const PRODUCTS_DATA = [
     name: "GENESIS BOXY TEE",
     type: "0xTanda Batch #001",
     price: 170000,
-    originalPrice: 249000, // HARGA CORET DITAMBAHKAN DI SINI
+    originalPrice: 249000, // HARGA CORET
     description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
     specs: [
       "Nama: Genesis Boxy Tee",
@@ -55,9 +69,7 @@ const PRODUCTS_DATA = [
       telegram: "https://t.me/rempeyek_0",
       whatsapp: "https://wa.me/6281398621530",
       tokopedia: "https://tokopedia.com/oxtanda",
-      shopee: "https://shopee.co.id/oxtanda",
       tiktokshop: "https://tiktok.com/@oxtanda/shop",
-      shopify: "https://oxtanda.myshopify.com"
     }
   },
   {
@@ -97,113 +109,12 @@ const PRODUCTS_DATA = [
 ];
 
 // ==========================================
-// KOMPONEN: MARQUEE
-// ==========================================
-function Marquee() {
-  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
-  
-  return (
-    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
-      <div className="animate-marquee whitespace-nowrap flex">
-        {[...Array(10)].map((_, i) => (
-          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ==========================================
-// KOMPONEN: NAVBAR
-// ==========================================
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-
-  const navLinks = [
-    { name: 'HOME', path: '/' },
-    { name: 'SHOP', path: '/shop' },
-    { name: 'VERIFY', path: '/verify' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'TERMINAL LOG', path: '/terminal-log' },
-  ];
-
-  return (
-    <nav className="fixed top-10 left-0 w-full z-50 px-6">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
-        
-        {/* LOGO ICON */}
-        <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8">
-            <Image 
-              src="/branding/logo-0xtanda-icon.png" 
-              alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
-            />
-          </div>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                pathname === link.path 
-                ? 'bg-[#836EF9] text-black font-bold' 
-                : 'text-neutral-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
-                pathname === link.path ? 'text-[#836EF9]' : 'text-white'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
-  );
-}
-
-// ==========================================
 // HALAMAN UTAMA: SHOP PAGE
 // ==========================================
 export default function ShopPage() {
   return (
     <main className="min-h-screen bg-[#0E0E0E] pb-20 selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden">
-      <Marquee />
-      <Navbar />
+      {/* Navbar dan Marquee sudah otomatis di-handle oleh app/layout.tsx dan telah dihapus dari sini */}
 
       <header className="pt-44 px-6 mb-20 text-center">
         <h2 className="font-mono text-[#836EF9] text-[10px] tracking-[0.5em] mb-4 uppercase">Archive Collection</h2>

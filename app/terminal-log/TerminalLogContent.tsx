@@ -1,9 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
+import React from "react";
 import { motion, Variants } from "framer-motion";
 import {
   ArrowRight,
@@ -16,105 +13,29 @@ import {
   Scan,
   CheckCircle2,
   MoveRight,
-  Menu,
-  X,
   Send,
   ExternalLink,
 } from "lucide-react";
 
-// ================================================================
-// KOMPONEN: MARQUEE
-// ================================================================
-function Marquee() {
-  const text =
-    "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
-  return (
-    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
-      <div className="animate-marquee whitespace-nowrap flex">
-        {[...Array(10)].map((_, i) => (
-          <span key={i} className="mx-4 italic tracking-widest">
-            {text}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ================================================================
-// KOMPONEN: NAVBAR (SUDAH DITAMBAHKAN ANIMATE-GLITCH DI MOBILE)
-// ================================================================
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-  const navLinks = [
-    { name: "HOME", path: "/" },
-    { name: "SHOP", path: "/shop" },
-    { name: "VERIFY", path: "/verify" },
-    { name: "ABOUT", path: "/about" },
-    { name: "TERMINAL LOG", path: "/terminal-log" },
-  ];
-  return (
-    <nav className="fixed top-10 left-0 w-full z-50 px-6">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
-        <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8">
-            <Image
-              src="/branding/logo-0xtanda-icon.png"
-              alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
-            />
-          </div>
-        </Link>
-        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              href={link.path}
-              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                pathname === link.path
-                  ? "bg-[#836EF9] text-black font-bold"
-                  : "text-neutral-400 hover:text-white hover:bg-white/5"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-        <div className="md:hidden flex items-center">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-      
-      {/* MOBILE MENU - SUDAH ADA ANIMATE-GLITCH */}
-      {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`text-4xl font-bold tracking-tighter transition-colors uppercase ${
-                pathname === link.path ? "text-[#836EF9]" : "text-white"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
-  );
-}
+// ============================================================================
+// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
+// CATATAN UNTUK COPAS: 
+// Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
+// HAPUS bagian mock ini dan gunakan import bawaan Next.js berikut:
+//
+// import Link from 'next/link';
+// import Image from 'next/image';
+// ============================================================================
+const Link = ({ href, children, className, onClick }: any) => (
+  <a href={href} className={className} onClick={onClick}>{children}</a>
+);
+const Image = ({ src, alt, className, fill }: any) => {
+  if (fill) {
+    return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full ${className || ''}`} />;
+  }
+  return <img src={src} alt={alt} className={className} />;
+};
+// ============================================================================
 
 // ================================================================
 // FRAMER MOTION VARIANTS
@@ -251,20 +172,20 @@ export default function TerminalLogContent() {
             author: {
               "@type": "Organization",
               name: "0xTanda",
-              url: "https://0xtanda.xyz",
+              url: "https://www.0xtanda.xyz",
             },
             publisher: {
               "@type": "Organization",
               name: "0xTanda",
               logo: {
                 "@type": "ImageObject",
-                url: "https://0xtanda.xyz/branding/logo-0xtanda.png",
+                url: "https://www.0xtanda.xyz/branding/logo-0xtanda.png",
               },
             },
             datePublished: "2026-03-01",
             dateModified: new Date().toISOString().split("T")[0],
-            image: "https://0xtanda.xyz/branding/og-banner.jpg",
-            url: "https://0xtanda.xyz/terminal-log",
+            image: "https://www.0xtanda.xyz/branding/og-banner.jpg",
+            url: "https://www.0xtanda.xyz/terminal-log",
             inLanguage: "id-ID",
             keywords:
               "phygital fashion Jakarta, baju NFT Indonesia, fashion blockchain Indonesia, 0xTanda",
@@ -272,8 +193,7 @@ export default function TerminalLogContent() {
         }}
       />
 
-      <Marquee />
-      <Navbar />
+      {/* Navbar dan Marquee di-handle oleh app/layout.tsx */}
 
       {/* ============================================================
           HERO — H1 + META ARTIKEL
