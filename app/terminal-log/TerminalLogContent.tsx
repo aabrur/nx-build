@@ -42,7 +42,7 @@ function Marquee() {
 }
 
 // ================================================================
-// KOMPONEN: NAVBAR
+// KOMPONEN: NAVBAR (SUDAH DITAMBAHKAN ANIMATE-GLITCH DI MOBILE)
 // ================================================================
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -94,8 +94,10 @@ function Navbar() {
           </button>
         </div>
       </div>
+      
+      {/* MOBILE MENU - SUDAH ADA ANIMATE-GLITCH */}
       {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden shadow-2xl">
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -171,13 +173,13 @@ const HOW_IT_WORKS = [
     step: "01",
     icon: <Package size={20} />,
     title: "Beli Produk Fisik",
-    desc: "Kamu memesan dan menerima garmen fisik 0xTanda — baju berkualitas tinggi dengan craftsmanship nyata yang bisa kamu pakai sehari-hari di Jakarta.",
+    desc: "Kamu memesan dan menerima garmen fisik 0xTanda — baju berkualitas tinggi dengan craftsmanship nyata yang dirancang untuk daily wear.",
   },
   {
     step: "02",
     icon: <Scan size={20} />,
     title: "Ambil Secret Code",
-    desc: "Di dalam packaging, kamu menemukan Genesis Collection Card eksklusif berisi Secret Code terenkripsi yang terhubung langsung ke aset digital milikmu.",
+    desc: "Di dalam packaging, kamu menemukan Genesis Collection Card eksklusif berisi Secret Code terenkripsi yang terhubung langsung ke identitas digital produkmu.",
   },
   {
     step: "03",
@@ -198,23 +200,23 @@ const COMPARISON = [
   },
   {
     label: "Anti-Pemalsuan",
-    tanda: "NFC chip + Smart Contract = mustahil dipalsukan",
+    tanda: "Digital Twin + Smart Contract = keaslian absolut",
     biasa: "Hologram stiker yang mudah ditiru",
   },
   {
-    label: "Kelangkaan Terverifikasi",
-    tanda: "Supply terkunci di blockchain — jumlah pasti real-time",
-    biasa: "Klaim 'limited edition' tanpa bukti angka",
+    label: "Sistem Rilis",
+    tanda: "Supply terkunci di blockchain (Zero Deadstock)",
+    biasa: "Klaim 'limited edition' tanpa transparansi",
   },
   {
     label: "Nilai Historis",
-    tanda: "Riwayat kepemilikan tersimpan selamanya on-chain",
+    tanda: "Riwayat kepemilikan tersimpan selamanya",
     biasa: "Tidak ada rekam jejak setelah dibeli",
   },
   {
     label: "Akses Komunitas",
-    tanda: "Holder mendapat akses eksklusif & early drop",
-    biasa: "Tidak ada benefit pasca-pembelian",
+    tanda: "Holder mendapat akses eksklusif & prioritas rilis",
+    biasa: "Tidak ada interaksi pasca-pembelian",
   },
 ];
 
@@ -331,13 +333,12 @@ export default function TerminalLogContent() {
             variants={fadeUp}
             className="text-sm md:text-base text-neutral-400 leading-relaxed tracking-widest uppercase max-w-3xl"
           >
-            Di Jakarta, brand fashion baru lahir setiap hari. Tapi tidak ada
-            satu pun yang bisa menjawab satu pertanyaan sederhana ini:{" "}
+            Di ranah streetwear modern, koleksi baru bermunculan setiap saat. Tapi tidak ada
+            satu pun yang bisa menjawab pertanyaan mendasar ini:{" "}
             <strong className="text-white">
-              apakah baju yang kamu beli benar-benar milikmu — secara permanen,
-              terverifikasi, dan tidak bisa dipalsukan?
+              apakah pakaian fisik yang kamu kenakan benar-benar terverifikasi sebagai milikmu secara mutlak, tanpa celah pemalsuan?
             </strong>{" "}
-            0xTanda dibangun untuk menjawab itu.
+            0xTanda dibangun untuk menjawab hal itu.
           </motion.p>
         </motion.div>
       </section>
@@ -361,7 +362,7 @@ export default function TerminalLogContent() {
             className="text-2xl md:text-3xl font-bold uppercase tracking-tighter text-white mb-8"
           >
             Apa Itu Phygital Fashion dan Kenapa{" "}
-            <span className="text-[#836EF9]">Jakarta Butuh Ini Sekarang</span>
+            <span className="text-[#836EF9]">Inovasi Ini Penting</span>
           </motion.h2>
 
           <motion.div
@@ -371,39 +372,25 @@ export default function TerminalLogContent() {
             <motion.p variants={fadeUp}>
               <strong className="text-white">Phygital</strong> adalah gabungan
               kata <em className="text-[#836EF9]">Physical</em> dan{" "}
-              <em className="text-[#836EF9]">Digital</em>. Dalam konteks
-              fashion, phygital berarti setiap produk fisik yang kamu beli
-              memiliki representasi digital yang menyertainya — biasanya dalam
-              bentuk{" "}
+              <em className="text-[#836EF9]">Digital</em>. Dalam ekosistem
+              kami, phygital berarti setiap rilisan pakaian fisik didampingi oleh representasi digital otentik berupa{" "}
               <strong className="text-white">
                 NFT (Non-Fungible Token)
               </strong>{" "}
-              yang tersimpan di blockchain.
+              yang disegel secara permanen di dalam jaringan blockchain.
             </motion.p>
 
             <motion.p variants={fadeUp}>
-              Ini bukan soal "beli baju, dapat JPG." Ini soal{" "}
+              Ini bukan tentang tren spekulatif. Ini murni tentang{" "}
               <strong className="text-white">
-                sistem kepemilikan yang tidak bisa dimanipulasi
+                pembuktian orisinalitas dan kebanggaan mengoleksi
               </strong>
-              . Setiap 0xTanda yang kamu pegang punya kembaran digital
-              (Digital Twin) yang mencatat: siapa yang beli pertama, kapan,
-              berapa nomor serinya, dan apakah produk ini benar asli atau bukan.
-              Semua itu tersimpan permanen di blockchain — bukan di server
-              perusahaan yang bisa saja tutup besok.
+              . Setiap 0xTanda yang kamu pegang memiliki 'Digital Twin' yang mencatat secara akurat seri rilisannya dan membuktikan bahwa produk tersebut 100% otentik dari lab kami — tanpa bisa diedit atau dihapus oleh siapa pun.
             </motion.p>
 
             <motion.p variants={fadeUp}>
-              Kenapa Jakarta butuh ini{" "}
-              <em className="text-[#00FF9D] normal-case tracking-normal">sekarang</em>?
-              Karena pasar fashion Jakarta adalah salah satu pasar terbesar di
-              Asia Tenggara, tapi juga salah satu yang paling{" "}
-              <strong className="text-white">
-                rentan terhadap produk palsu dan klaim palsu.
-              </strong>{" "}
-              "Limited edition" bisa berarti apa saja. Brand lokal bermunculan
-              tanpa sistem yang membuktikan keaslian. Pembeli membayar premium
-              tapi tidak mendapat jaminan nyata. Phygital fashion mengubah itu.
+              Skena fashion hari ini dibanjiri oleh produk replika dan klaim kelangkaan palsu. 
+              Membeli barang dengan sebutan "limited edition" tak jarang hanya strategi pemasaran tanpa transparansi. Phygital fashion datang untuk menata ulang standar tersebut: menciptakan batas yang absolut antara karya orisinal dan bajakan.
             </motion.p>
           </motion.div>
 
@@ -411,8 +398,7 @@ export default function TerminalLogContent() {
           <motion.div variants={fadeUp} className="mt-14">
             <BracketBox className="border-[#836EF9]/20">
               <p className="text-base md:text-xl text-white italic leading-relaxed tracking-wide normal-case font-sans">
-                "Bukan sekadar baju. Bukan sekadar NFT. Tapi bukti kepemilikan
-                yang tidak bisa dibantah — tersimpan di chain, selamanya."
+                "Bukan sekadar pakaian fisik. Melainkan identitas dan bukti keaslian yang tidak bisa dibantah — terenkripsi secara permanen."
               </p>
               <p className="mt-4 text-[10px] text-[#836EF9] tracking-widest uppercase">
                 — Filosofi 0xTanda
@@ -429,17 +415,17 @@ export default function TerminalLogContent() {
               {
                 icon: <Cpu size={20} />,
                 title: "Physical",
-                desc: "Garmen berkualitas tinggi yang bisa kamu pakai — dibuat dengan craftsmanship nyata, bukan fast fashion.",
+                desc: "Garmen berkualitas tinggi dengan craftsmanship nyata yang dirancang elegan untuk melengkapi karaktermu.",
               },
               {
                 icon: <Fingerprint size={20} />,
                 title: "Digital",
-                desc: "NFT yang menjadi bukti kepemilikan permanen — tersimpan on-chain, tidak bisa dipalsukan atau dihapus.",
+                desc: "Sertifikat keaslian dalam bentuk token kriptografis yang tersimpan aman sebagai koleksi pribadimu.",
               },
               {
                 icon: <Layers size={20} />,
                 title: "Unified",
-                desc: "Keduanya terhubung satu sama lain — satu token, satu baju, satu identitas yang tidak bisa dipisah.",
+                desc: "Sinergi mutlak: pakaian fisik yang kamu kenakan selaras dengan aset digital yang membuktikan keasliannya.",
               },
             ].map((item) => (
               <motion.div
@@ -487,16 +473,14 @@ export default function TerminalLogContent() {
             >
               Cara Kerja:{" "}
               <span className="text-[#836EF9]">
-                Dari Produk Fisik ke NFT dalam 3 Langkah
+                Dari Produk Fisik ke Aset Digital dalam 3 Langkah
               </span>
             </motion.h2>
             <motion.p
               variants={fadeUp}
               className="text-[11px] text-neutral-500 uppercase tracking-widest mb-16 max-w-2xl leading-relaxed"
             >
-              Sistem 0xTanda dirancang agar siapapun — bahkan yang belum pernah
-              menyentuh crypto sekalipun — bisa klaim aset digital mereka dalam
-              hitungan menit.
+              Sistem 0xTanda dirancang agar siapapun — bahkan mereka yang belum familiar dengan ekosistem blockchain — bisa memvalidasi koleksinya dengan mudah.
             </motion.p>
 
             {/* 3 Steps */}
@@ -546,7 +530,7 @@ export default function TerminalLogContent() {
                 className="group inline-flex items-center gap-3 border border-[#836EF9]/30 text-[#836EF9] px-8 py-4 font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-[#836EF9]/10 transition-all"
               >
                 <ShieldCheck size={14} />
-                Lihat Panduan Klaim NFT Lengkap
+                Lihat Panduan Aktivasi Kepemilikan
                 <ArrowRight
                   size={14}
                   className="group-hover:translate-x-1 transition-transform"
@@ -558,7 +542,7 @@ export default function TerminalLogContent() {
       </section>
 
       {/* ============================================================
-          SECTION 3: KOLEKSI 0xTANDA DI JAKARTA
+          SECTION 3: KOLEKSI 0xTANDA
       ============================================================ */}
       <section className="py-32 px-6 max-w-5xl mx-auto" id="koleksi">
         <motion.div
@@ -568,7 +552,7 @@ export default function TerminalLogContent() {
           variants={stagger}
         >
           <motion.div variants={fadeUp}>
-            <SectionLabel>03 // Koleksi Jakarta</SectionLabel>
+            <SectionLabel>03 // Eksplorasi Arsip</SectionLabel>
           </motion.div>
 
           <motion.h2
@@ -576,7 +560,7 @@ export default function TerminalLogContent() {
             className="text-2xl md:text-3xl font-bold uppercase tracking-tighter text-white mb-8"
           >
             Koleksi 0xTanda yang Tersedia{" "}
-            <span className="text-[#836EF9]">Sekarang di Jakarta</span>
+            <span className="text-[#836EF9]">Sekarang</span>
           </motion.h2>
 
           {/* Genesis Collection Feature Card */}
@@ -590,7 +574,7 @@ export default function TerminalLogContent() {
               <div className="relative w-full max-w-[240px] aspect-square">
                 <Image
                   src="/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png"
-                  alt="Genesis Collection Card 0xTanda — NFT Phygital Fashion Jakarta"
+                  alt="Genesis Collection Card 0xTanda — NFT Phygital Fashion"
                   fill
                   className="object-contain"
                 />
@@ -613,20 +597,16 @@ export default function TerminalLogContent() {
                   Genesis Boxy Tee
                 </h3>
                 <p className="text-[10px] text-neutral-400 uppercase tracking-widest leading-relaxed mb-8">
-                  Koleksi perdana 0xTanda. Dirilis dalam jumlah sangat terbatas
-                  (controlled quantity). Setiap unit dilengkapi Genesis
-                  Collection Card berisi Secret Code untuk klaim NFT Digital
-                  Twin resmi milikmu. Diproduksi di Jakarta, tersertifikasi di
-                  blockchain.
+                  Koleksi perdana 0xTanda. Dirilis secara eksklusif dan terbatas. Setiap unit ditemani oleh Genesis Collection Card sebagai kunci utama untuk mengamankan Digital Twin milikmu. Sebuah standar baru untuk kolektor skena fashion modern.
                 </p>
 
                 <div className="space-y-3 mb-8">
                   {[
-                    "Boxy cut premium — oversized terstruktur",
-                    "Material heavyweight 240 GSM",
-                    "Setiap unit bernomor seri unik",
-                    "Digital Twin NFT inklusif tanpa biaya tambahan",
-                    "Pengiriman ke seluruh Jakarta & Indonesia",
+                    "Potongan boxy premium yang terstruktur",
+                    "Material 16s Heavyweight yang solid",
+                    "Produksi dikontrol ketat (Zero Deadstock)",
+                    "Akses Digital Twin inklusif",
+                    "Distribusi menjangkau seluruh Indonesia",
                   ].map((spec) => (
                     <div key={spec} className="flex items-center gap-3">
                       <CheckCircle2 size={12} className="text-[#00FF9D] shrink-0" />
@@ -642,7 +622,7 @@ export default function TerminalLogContent() {
                 href="/shop"
                 className="group flex items-center gap-3 bg-[#836EF9] text-black px-6 py-4 font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-white transition-all w-full justify-center"
               >
-                Jelajahi Koleksi Limited Drop Terbaru
+                Jelajahi Arsip Rilisan Terbaru
                 <ArrowRight
                   size={14}
                   className="group-hover:translate-x-1 transition-transform"
@@ -668,9 +648,7 @@ export default function TerminalLogContent() {
                 200 Pembeli Pertama
               </p>
               <p className="text-[10px] text-neutral-400 uppercase tracking-widest leading-relaxed">
-                Akses prioritas ke semua drop berikutnya, diskon 10% permanent,
-                dan posisi sebagai pendiri ekosistem 0xTanda. Status ini
-                tersimpan on-chain — tidak bisa ditransfer atau dipalsukan.
+                Pionir awal ekosistem 0xTanda. Menikmati hak akses privat ke rilisan mendatang, diskon loyalitas 10% permanen, serta status terhormat sebagai pendiri pergerakan phygital.
               </p>
             </motion.div>
 
@@ -685,9 +663,7 @@ export default function TerminalLogContent() {
                 Verified Owners
               </p>
               <p className="text-[10px] text-neutral-400 uppercase tracking-widest leading-relaxed">
-                Akses komunitas penuh, diskon 5%, dan hak kepemilikan terverifikasi
-                yang mengikuti token — bukan orangnya. Jual baju, token tetap
-                milik holder baru secara otomatis.
+                Pemegang koleksi yang tervalidasi. Mendapat kepastian atas keaslian produk, diskon 5%, dan posisi di dalam jaringan komunitas 0xTanda.
               </p>
             </motion.div>
           </motion.div>
@@ -712,22 +688,21 @@ export default function TerminalLogContent() {
             variants={stagger}
           >
             <motion.div variants={fadeUp}>
-              <SectionLabel color="#00FF9D">04 // Perbandingan</SectionLabel>
+              <SectionLabel color="#00FF9D">04 // Perbedaan Mendasar</SectionLabel>
             </motion.div>
 
             <motion.h2
               variants={fadeUp}
               className="text-2xl md:text-3xl font-bold uppercase tracking-tighter text-white mb-4"
             >
-              Kenapa Pembeli Jakarta Memilih 0xTanda{" "}
-              <span className="text-[#00FF9D]">vs Brand Fashion Biasa</span>
+              Mengapa 0xTanda Mendefinisikan Ulang{" "}
+              <span className="text-[#00FF9D]">Standar Koleksi Fashion</span>
             </motion.h2>
             <motion.p
               variants={fadeUp}
               className="text-[11px] text-neutral-500 uppercase tracking-widest mb-14 max-w-2xl leading-relaxed"
             >
-              Ini bukan soal siapa yang lebih "hype". Ini soal sistem yang bisa
-              dibuktikan vs klaim yang tidak bisa diverifikasi.
+              Ini bukan sekadar bersaing tentang siapa yang paling eksis. Ini tentang menggeser paradigma dari sekadar membeli barang, menjadi benar-benar memiliki sebuah koleksi orisinal.
             </motion.p>
 
             {/* Comparison Table */}
@@ -746,7 +721,7 @@ export default function TerminalLogContent() {
                 </div>
                 <div className="p-4">
                   <span className="text-[9px] text-neutral-600 uppercase tracking-widest font-bold">
-                    Brand Fashion Biasa
+                    Fashion Konvensional
                   </span>
                 </div>
               </div>
@@ -784,20 +759,18 @@ export default function TerminalLogContent() {
               variants={fadeUp}
               className="mt-12 text-xs text-neutral-400 uppercase tracking-widest leading-relaxed max-w-3xl"
             >
-              Erigo dan Eiger adalah brand fashion yang solid di kategori
-              masing-masing. Tapi keduanya bermain di game yang sama:{" "}
+              Berbagai brand fashion konvensional mungkin memiliki pijakan solid di kategorinya masing-masing. Namun sebagian besar masih terperangkap dalam sistem lama:{" "}
               <strong className="text-white">
-                menjual pakaian fisik tanpa sistem kepemilikan terverifikasi.
+                melepas produk ke pasaran tanpa validasi identitas dan keaslian jangka panjang.
               </strong>{" "}
-              0xTanda tidak bersaing di game yang sama — kami mendefinisikan
-              kategori baru.
+              0xTanda menolak norma tersebut dan mendirikan ekosistem di mana setiap koleksimu dilindungi, dihargai, dan divalidasi.
             </motion.p>
           </motion.div>
         </div>
       </section>
 
       {/* ============================================================
-          SECTION 5: CARA BELI & KLAIM NFT
+          SECTION 5: FAQ & LANGKAH MUDAH
       ============================================================ */}
       <section className="py-32 px-6 max-w-4xl mx-auto" id="cara-beli">
         <motion.div
@@ -807,16 +780,16 @@ export default function TerminalLogContent() {
           variants={stagger}
         >
           <motion.div variants={fadeUp}>
-            <SectionLabel>05 // Cara Beli & Klaim</SectionLabel>
+            <SectionLabel>05 // Panduan Eksekusi</SectionLabel>
           </motion.div>
 
           <motion.h2
             variants={fadeUp}
             className="text-2xl md:text-3xl font-bold uppercase tracking-tighter text-white mb-4"
           >
-            Cara Beli dan Klaim NFT-mu Hari Ini{" "}
+            Langkah Mudah Bergabung dengan{" "}
             <span className="text-[#836EF9]">
-              (Tanpa Harus Ahli Crypto)
+              Ekosistem 0xTanda
             </span>
           </motion.h2>
 
@@ -824,8 +797,7 @@ export default function TerminalLogContent() {
             variants={fadeUp}
             className="text-[11px] text-neutral-500 uppercase tracking-widest mb-14 max-w-2xl leading-relaxed"
           >
-            Kamu tidak perlu MetaMask. Kamu tidak perlu beli ETH dulu. Kamu
-            cukup beli bajunya — sisanya kami yang urus.
+            Semua hambatan teknis telah kami singkirkan. Yang perlu kamu lakukan hanyalah mengapresiasi karya kami.
           </motion.p>
 
           {/* Steps */}
@@ -856,20 +828,20 @@ export default function TerminalLogContent() {
               <div className="space-y-6">
                 {[
                   {
-                    q: "Apakah saya harus punya crypto wallet sebelum beli?",
-                    a: "Tidak. Kamu beli bajunya dulu, lalu saat klaim NFT, kami akan panduan kamu membuat wallet (gratis, 5 menit) jika belum punya.",
+                    q: "Apakah saya harus mengerti soal crypto untuk membeli koleksi ini?",
+                    a: "Sama sekali tidak. Pembelian dilakukan seperti biasa. Tim kami telah menyiapkan panduan paling sederhana jika kamu baru pertama kali membuat dompet digital untuk menyimpan bukti otentikasinya.",
                   },
                   {
-                    q: "Siapa yang nanggung biaya gas fee blockchain?",
-                    a: "0xTanda. Biaya jaringan (gas fee) sepenuhnya ditanggung oleh kami. Kamu tidak keluar uang tambahan untuk klaim.",
+                    q: "Apakah NFT ini merupakan produk investasi atau aset kripto?",
+                    a: "Bukan. Sertifikat digital ini murni berfungsi sebagai teknologi verifikasi anti-palsu dan 'kunci akses' eksklusif ke dalam ekosistem dan fasilitas loyalitas 0xTanda, bukan sebagai instrumen finansial.",
                   },
                   {
-                    q: "Berapa lama NFT masuk ke wallet saya?",
-                    a: "Maksimal 1x24 jam setelah form verifikasi disubmit dan divalidasi oleh tim kami.",
+                    q: "Siapa yang menanggung biaya pembuatan aset digital (Gas Fee)?",
+                    a: "100% ditanggung oleh pihak 0xTanda. Kamu tidak akan dikenakan biaya tambahan sepeser pun saat proses aktivasi keaslian koleksimu.",
                   },
                   {
-                    q: "Apa yang terjadi kalau saya menjual bajunya?",
-                    a: "Baju bisa dijual secara fisik seperti biasa. NFT tetap di wallet kamu dan bisa kamu transfer secara terpisah ke pembeli baru jika disepakati.",
+                    q: "Apa fungsi bergabung dengan The War Room?",
+                    a: "The War Room adalah lingkaran privat bagi kolektor sejati. Tempat di mana kami membagikan bocoran rilisan sebelum publik tahu, serta mengaktifkan benefit potongan harga permanen.",
                   },
                 ].map((faq) => (
                   <div key={faq.q} className="border-b border-white/5 pb-6 last:border-0 last:pb-0">
@@ -909,7 +881,7 @@ export default function TerminalLogContent() {
             variants={fadeUp}
             className="text-2xl md:text-4xl font-bold uppercase tracking-tighter text-white mb-12"
           >
-            Siap Jadi Bagian dari{" "}
+            Siap Menjadi Bagian dari{" "}
             <span className="text-[#836EF9]">Resistance?</span>
           </motion.h2>
 
@@ -924,7 +896,7 @@ export default function TerminalLogContent() {
                 className="group flex items-center justify-center gap-3 bg-[#836EF9] text-black px-10 py-5 font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-white transition-all shadow-[0_0_40px_rgba(131,110,249,0.3)] hover:shadow-[0_0_60px_rgba(131,110,249,0.5)]"
               >
                 <Package size={14} />
-                Jelajahi Koleksi Limited Drop Terbaru
+                Jelajahi Koleksi Terbatas
                 <ArrowRight
                   size={14}
                   className="group-hover:translate-x-1 transition-transform"
@@ -939,7 +911,7 @@ export default function TerminalLogContent() {
                 className="group flex items-center justify-center gap-3 border border-white/20 text-white px-10 py-5 font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-white/5 hover:border-[#836EF9]/50 transition-all"
               >
                 <ShieldCheck size={14} />
-                Lihat Panduan Klaim NFT Lengkap
+                Aktivasi Kepemilikan Resmi
                 <ArrowRight
                   size={14}
                   className="group-hover:translate-x-1 transition-transform"
@@ -953,7 +925,7 @@ export default function TerminalLogContent() {
             variants={fadeUp}
             className="mt-12 text-[9px] text-neutral-700 uppercase tracking-widest"
           >
-            Est. 2026 // Jakarta, Indonesia // Secured by Blockchain
+            Est. 2026 // Jakarta, Indonesia // Secured by Authenticity
           </motion.p>
         </motion.div>
       </section>
@@ -980,15 +952,15 @@ export default function TerminalLogContent() {
               {[
                 {
                   tag: "PANDUAN",
-                  title: "Cara Klaim NFT 0xTanda dalam 5 Menit",
-                  desc: "Step-by-step dari scan Secret Code sampai NFT masuk wallet. Tanpa jargon teknis.",
+                  title: "Aktivasi Koleksimu dalam 5 Menit",
+                  desc: "Instruksi dari awal gosok kartu hingga verifikasi keaslian selesai. Dirancang tanpa bahasa teknis yang rumit.",
                   href: "/verify",
                   color: "#836EF9",
                 },
                 {
                   tag: "KOLEKSI",
-                  title: "Genesis Drop: Semua yang Perlu Kamu Tahu",
-                  desc: "Detail lengkap Batch #001, supply terbatas, dan cara mendapat notifikasi drop berikutnya.",
+                  title: "Genesis Drop: Standar Baru Kolektor",
+                  desc: "Bongkar arsip Batch #001 kami. Pelajari spesifikasi material, dan rasakan kualitas nyata dari koleksi perdana 0xTanda.",
                   href: "/shop",
                   color: "#00FF9D",
                 },
@@ -1023,7 +995,7 @@ export default function TerminalLogContent() {
       </section>
 
       {/* ============================================================
-          FLOATING CS BUTTON — KONSISTEN DENGAN ABOUT PAGE
+          FLOATING CS BUTTON
       ============================================================ */}
       <div className="fixed bottom-8 right-8 z-[100]">
         <a
@@ -1045,7 +1017,7 @@ export default function TerminalLogContent() {
       {/* Footer */}
       <footer className="py-20 text-center opacity-10">
         <p className="font-mono text-[7px] uppercase tracking-[1em]">
-          0XTANDA_TERMINAL_LOG_V1.0_JKT_ARCHIVE
+          0XTANDA_TERMINAL_LOG_V1.1_JKT_ARCHIVE
         </p>
       </footer>
     </main>
