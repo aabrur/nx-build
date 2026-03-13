@@ -29,7 +29,7 @@ const PRODUCTS_DATA = [
     slug: "genesis-boxy-tee",
     name: "GENESIS BOXY TEE",
     type: "0xTanda Batch #001",
-    price: 170000,
+    price: 168000,
     originalPrice: 249000, // HARGA CORET
     description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
     specs: [

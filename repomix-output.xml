@@ -442,13 +442,108 @@ const nextConfig: NextConfig = {
 export default nextConfig;
 </file>
 
+<file path="components/Navbar.tsx">
+"use client";
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
+
+/**
+ * Komponen Navbar 0xTanda.
+ * Menambahkan menu "TERMINAL LOG" untuk artikel/SEO.
+ */
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // DI SINI NAMA MENU SUDAH DIGANTI JADI "TERMINAL LOG"
+  const navLinks = [
+    { name: 'HOME', path: '/' },
+    { name: 'SHOP', path: '/shop' },
+    { name: 'VERIFY', path: '/verify' },
+    { name: 'ABOUT', path: '/about' },
+    { name: 'TERMINAL LOG', path: '/terminal-log' }, // <--- UPDATE NAMA DI SINI
+  ];
+
+  return (
+    <nav className="fixed top-10 left-0 w-full z-50 px-6">
+      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
+        
+        {/* LOGO ICON (POJOK KIRI) */}
+        <Link href="/" className="flex items-center group">
+          <div className="relative w-8 h-8">
+            <Image 
+              src="/branding/logo-0xtanda-icon.png" 
+              alt="0xTanda Icon"
+              width={32}
+              height={32}
+              className="object-contain group-hover:rotate-12 transition-transform duration-500"
+              priority
+            />
+          </div>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden lg:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
+                // Logika agar menu menyala walau user lagi baca artikel di sub-folder
+                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path
+                ? 'bg-[#836EF9] text-black font-bold' 
+                : 'text-neutral-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Mobile Toggle */}
+        <div className="lg:hidden flex items-center">
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
+            aria-label="Toggle Navigation"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 lg:hidden animate-glitch shadow-2xl">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              onClick={() => setIsOpen(false)}
+              className={`text-3xl font-display font-bold tracking-tighter transition-colors uppercase ${
+                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path 
+                ? 'text-[#836EF9]' 
+                : 'text-white'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+}
+</file>
+
 <file path="app/terminal-log/TerminalLogContent.tsx">
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
+import React from "react";
 import { motion, Variants } from "framer-motion";
 import {
   ArrowRight,
@@ -461,105 +556,29 @@ import {
   Scan,
   CheckCircle2,
   MoveRight,
-  Menu,
-  X,
   Send,
   ExternalLink,
 } from "lucide-react";
 
-// ================================================================
-// KOMPONEN: MARQUEE
-// ================================================================
-function Marquee() {
-  const text =
-    "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
-  return (
-    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
-      <div className="animate-marquee whitespace-nowrap flex">
-        {[...Array(10)].map((_, i) => (
-          <span key={i} className="mx-4 italic tracking-widest">
-            {text}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ================================================================
-// KOMPONEN: NAVBAR (SUDAH DITAMBAHKAN ANIMATE-GLITCH DI MOBILE)
-// ================================================================
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-  const navLinks = [
-    { name: "HOME", path: "/" },
-    { name: "SHOP", path: "/shop" },
-    { name: "VERIFY", path: "/verify" },
-    { name: "ABOUT", path: "/about" },
-    { name: "TERMINAL LOG", path: "/terminal-log" },
-  ];
-  return (
-    <nav className="fixed top-10 left-0 w-full z-50 px-6">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
-        <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8">
-            <Image
-              src="/branding/logo-0xtanda-icon.png"
-              alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
-            />
-          </div>
-        </Link>
-        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              href={link.path}
-              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                pathname === link.path
-                  ? "bg-[#836EF9] text-black font-bold"
-                  : "text-neutral-400 hover:text-white hover:bg-white/5"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-        <div className="md:hidden flex items-center">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-      
-      {/* MOBILE MENU - SUDAH ADA ANIMATE-GLITCH */}
-      {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`text-4xl font-bold tracking-tighter transition-colors uppercase ${
-                pathname === link.path ? "text-[#836EF9]" : "text-white"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
-  );
-}
+// ============================================================================
+// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
+// CATATAN UNTUK COPAS: 
+// Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
+// HAPUS bagian mock ini dan gunakan import bawaan Next.js berikut:
+//
+// import Link from 'next/link';
+// import Image from 'next/image';
+// ============================================================================
+const Link = ({ href, children, className, onClick }: any) => (
+  <a href={href} className={className} onClick={onClick}>{children}</a>
+);
+const Image = ({ src, alt, className, fill }: any) => {
+  if (fill) {
+    return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full ${className || ''}`} />;
+  }
+  return <img src={src} alt={alt} className={className} />;
+};
+// ============================================================================
 
 // ================================================================
 // FRAMER MOTION VARIANTS
@@ -696,20 +715,20 @@ export default function TerminalLogContent() {
             author: {
               "@type": "Organization",
               name: "0xTanda",
-              url: "https://0xtanda.xyz",
+              url: "https://www.0xtanda.xyz",
             },
             publisher: {
               "@type": "Organization",
               name: "0xTanda",
               logo: {
                 "@type": "ImageObject",
-                url: "https://0xtanda.xyz/branding/logo-0xtanda.png",
+                url: "https://www.0xtanda.xyz/branding/logo-0xtanda.png",
               },
             },
             datePublished: "2026-03-01",
             dateModified: new Date().toISOString().split("T")[0],
-            image: "https://0xtanda.xyz/branding/og-banner.jpg",
-            url: "https://0xtanda.xyz/terminal-log",
+            image: "https://www.0xtanda.xyz/branding/og-banner.jpg",
+            url: "https://www.0xtanda.xyz/terminal-log",
             inLanguage: "id-ID",
             keywords:
               "phygital fashion Jakarta, baju NFT Indonesia, fashion blockchain Indonesia, 0xTanda",
@@ -717,8 +736,7 @@ export default function TerminalLogContent() {
         }}
       />
 
-      <Marquee />
-      <Navbar />
+      {/* Navbar dan Marquee di-handle oleh app/layout.tsx */}
 
       {/* ============================================================
           HERO — H1 + META ARTIKEL
@@ -1470,104 +1488,6 @@ export default function TerminalLogContent() {
 }
 </file>
 
-<file path="components/Navbar.tsx">
-"use client";
-
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
-
-/**
- * Komponen Navbar 0xTanda.
- * Menambahkan menu "TERMINAL LOG" untuk artikel/SEO.
- */
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-
-  // DI SINI NAMA MENU SUDAH DIGANTI JADI "TERMINAL LOG"
-  const navLinks = [
-    { name: 'HOME', path: '/' },
-    { name: 'SHOP', path: '/shop' },
-    { name: 'VERIFY', path: '/verify' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'TERMINAL LOG', path: '/terminal-log' }, // <--- UPDATE NAMA DI SINI
-  ];
-
-  return (
-    <nav className="fixed top-10 left-0 w-full z-50 px-6">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
-        
-        {/* LOGO ICON (POJOK KIRI) */}
-        <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8">
-            <Image 
-              src="/branding/logo-0xtanda-icon.png" 
-              alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
-            />
-          </div>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                // Logika agar menu menyala walau user lagi baca artikel di sub-folder
-                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path
-                ? 'bg-[#836EF9] text-black font-bold' 
-                : 'text-neutral-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="lg:hidden flex items-center">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 lg:hidden animate-glitch shadow-2xl">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`text-3xl font-display font-bold tracking-tighter transition-colors uppercase ${
-                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path 
-                ? 'text-[#836EF9]' 
-                : 'text-white'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
-  );
-}
-</file>
-
 <file path="app/verify/pageform/page.tsx">
 "use client";
 
@@ -2102,78 +2022,378 @@ export default function Marquee() {
 <file path="app/verify/page.tsx">
 "use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Navbar from '../../components/Navbar';
-import { ShieldCheck, AlertTriangle, ArrowRight, Lock, ScanLine } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  ShieldCheck, 
+  Wallet, 
+  UploadCloud, 
+  CheckCircle2, 
+  AlertTriangle, 
+  Loader2, 
+  X,
+  Key,
+  User,
+  Smartphone,
+  Mail,
+  ShoppingBag
+} from 'lucide-react';
 
-export default function VerifyLandingPage() {
-  return (
-    <div className="bg-[#0a0a0a] min-h-screen text-[#f3f3f3] font-mono selection:bg-[#836EF9] selection:text-black">
-      <Navbar />
+export default function VerifyFormPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error' | 'used'>('idle');
+  const [fileName, setFileName] = useState('');
+
+  // 🔴 PASTIKAN URL INI BENAR DARI DEPLOYMENT GOOGLE APPS SCRIPT
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9_dc-9v8UNopJGhjlzoBPluWiS9i2krk4-wARwH5PhiFiLx-BAHGoZoUgngcGw1ff/exec";
+
+  const [formData, setFormData] = useState({
+    secretCode: '',
+    walletAddress: '',
+    nama: '',
+    gender: 'Pria',
+    email: '',
+    noHp: '',
+    telegramId: '',
+    productName: 'GENESIS BOXY TEE',
+    orderId: '',
+    proofImage: '' // Base64 string
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+
+    // Logika Auto-Format Khusus untuk Secret Code (XXXX-XXXX-XXXX)
+    if (name === 'secretCode') {
+      // 1. Hapus semua karakter selain huruf dan angka, lalu jadikan huruf besar
+      let rawValue = value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
       
-      <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto flex flex-col items-center text-center">
+      // 2. Batasi maksimal 12 karakter (nanti ditambah 2 strip jadi total 14)
+      if (rawValue.length > 12) {
+        rawValue = rawValue.substring(0, 12);
+      }
+
+      // 3. Sisipkan strip (-) setiap 4 karakter
+      const formattedValue = rawValue.match(/.{1,4}/g)?.join('-') || rawValue;
+
+      setFormData({ ...formData, [name]: formattedValue });
+    } else {
+      // Untuk input lain, simpan seperti biasa
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validasi Ukuran File (Max 2MB agar Google Sheet tidak error)
+      if (file.size > 2 * 1024 * 1024) {
+        alert("Ukuran file terlalu besar. Maksimal 2MB.");
+        return;
+      }
+      setFileName(file.name);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, proofImage: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // --- VALIDASI WALLET MONAD (EVM) ---
+    const evmRegex = /^0x[a-fA-F0-9]{40}$/;
+    if (!evmRegex.test(formData.walletAddress)) {
+        alert("ALAMAT WALLET TIDAK VALID!\nPastikan alamat dimulai dengan '0x' dan merupakan format standar MONAD/EVM.");
+        return;
+    }
+
+    // --- VALIDASI PANJANG SECRET CODE ---
+    if (formData.secretCode.length < 14) {
+        alert("SECRET CODE TIDAK LENGKAP!\nPastikan Anda memasukkan 12 digit kode dengan benar.");
+        return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Mengirim data ke Google Script
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(formData),
+      });
+
+      // CATATAN PENTING:
+      // Google Apps Script sering memblokir pembacaan response JSON langsung karena CORS.
+      const result = await response.json();
+
+      if (result.status === 'success') {
+        setStatus('success');
+      } else if (result.status === 'duplicate') {
+        setStatus('used');
+      } else {
+        setStatus('error');
+      }
+
+    } catch (error) {
+      console.error("Submission Error:", error);
+      // Fallback: Jika data terkirim tapi response diblokir browser (CORS issue umum di GAS)
+      setStatus('success'); 
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <main className="min-h-screen bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-mono overflow-x-hidden">
+      {/* Navbar dan Marquee sudah otomatis di-handle oleh app/layout.tsx dan telah dihapus dari sini */}
+
+      <div className="pt-32 px-6 pb-20 max-w-4xl mx-auto relative z-10">
         
-        {/* --- HERO SECTION --- */}
-        <div className="mb-12 animate-in fade-in zoom-in duration-700">
-          <div className="w-24 h-24 bg-[#836EF9]/10 rounded-full flex items-center justify-center border border-[#836EF9]/30 mx-auto mb-6 shadow-[0_0_30px_rgba(131,110,249,0.2)]">
-             <ScanLine size={40} className="text-[#836EF9]" />
+        {/* HEADER & INSTRUCTION */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 border border-[#836EF9] bg-[#836EF9]/10 px-4 py-1 mb-6 rounded-full">
+            <div className="w-2 h-2 bg-[#836EF9] rounded-full animate-pulse"/>
+            <span className="text-[10px] text-[#836EF9] font-bold tracking-[0.2em] uppercase">SYSTEM_ONLINE // VERIFICATION_NODE</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-sans font-bold tracking-tighter mb-4 uppercase">
-            VERIFICATION <span className="text-[#836EF9]">PROTOCOL</span>
+          <h1 className="text-3xl md:text-5xl font-sans font-bold uppercase tracking-tighter mb-4">
+            ACTIVATION <span className="text-[#836EF9]">PORTAL</span>
           </h1>
-          <p className="text-sm md:text-base text-[#888] font-mono max-w-2xl mx-auto leading-relaxed">
+          <p className="text-neutral-500 text-xs md:text-sm uppercase tracking-widest max-w-2xl mx-auto italic">
             "Tangible craftsmanship you can feel, secured by digital ownership you can prove."
           </p>
         </div>
 
-        {/* --- INSTRUCTIONS BOX --- */}
-        <div className="bg-[#111] border border-[#333] p-8 md:p-10 mb-12 rounded-sm text-left max-w-2xl w-full relative overflow-hidden group hover:border-[#836EF9]/50 transition-colors">
-          
-          <div className="absolute top-0 right-0 p-4 opacity-10">
-            <Lock size={120} />
-          </div>
-
-          <h3 className="text-[#00FF9D] font-bold text-xs tracking-[0.2em] mb-6 flex items-center gap-2">
-            <AlertTriangle size={16} /> SYSTEM REQUIREMENTS
+        <div className="bg-[#121212] border border-white/10 p-8 rounded-sm mb-12 relative overflow-hidden group">
+          <div className="absolute top-0 left-0 w-1 h-full bg-[#836EF9] group-hover:w-full group-hover:opacity-5 transition-all duration-700" />
+          <h3 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
+            <AlertTriangle className="text-[#836EF9]" size={18} /> INSTRUKSI PENTING:
           </h3>
-          
-          <ul className="space-y-4 text-xs md:text-sm text-[#ccc] list-decimal list-inside leading-relaxed font-mono relative z-10">
-            <li className="pl-2">
-              <span className="text-white font-bold bg-[#836EF9]/20 px-1">GOSOK</span> panel pada Genesis Card untuk mendapatkan Secret Code.
-            </li>
-            <li className="pl-2">
-              Siapkan <span className="text-[#836EF9] font-bold">Personal Wallet MONAD/EVM</span> (Metamask/Phantom/Rabby).
-            </li>
-            <li className="pl-2 text-red-400 font-bold">
-              DILARANG menggunakan alamat Exchange (Indodax/Binance/dll). Aset akan hilang.
-            </li>
-            <li className="pl-2">
-              Proses verifikasi manual (<span className="text-[#00FF9D]">Max 1x24 Jam</span>).
-            </li>
-            <li className="pl-2">
-              Gas Fee ditanggung penuh oleh 0xTanda (GRATIS).
-            </li>
+          <ul className="space-y-3 text-[10px] md:text-xs text-neutral-400 uppercase tracking-wide leading-relaxed relative z-10">
+            <li className="flex gap-3"><span className="text-[#836EF9] font-bold">01.</span> GOSOK panel pelindung pada Genesis Card untuk melihat Secret Code.</li>
+            <li className="flex gap-3"><span className="text-[#836EF9] font-bold">02.</span> PASTIKAN alamat wallet yang dimasukkan adalah Personal Wallet MONAD (Metamask/Phantom/Hot Wallet lainnya).</li>
+            <li className="flex gap-3 text-red-500 font-bold bg-red-900/10 p-2 border border-red-900/30 rounded"><span className="text-red-500">03.</span> 🚫 DILARANG menggunakan alamat Exchange (Indodax/Binance/Tokocrypto/Bybit. dll).</li>
+            <li className="flex gap-3"><span className="text-[#836EF9] font-bold">04.</span> PROSES verifikasi dilakukan secara manual demi keamanan (Max 1x24 Jam).</li>
+            <li className="flex gap-3"><span className="text-[#836EF9] font-bold">05.</span> BIAYA jaringan (Gas Fee) ditanggung 0xTanda (GRATIS).</li>
           </ul>
         </div>
 
-        {/* --- ACTION BUTTON --- */}
-        <Link href="/verify/pageform" className="w-full max-w-md group">
-            <div className="bg-white text-black font-sans font-black text-lg py-5 hover:bg-[#836EF9] hover:text-white transition-all duration-300 flex items-center justify-center gap-3 tracking-widest clip-path-slant relative overflow-hidden">
-                <span className="relative z-10 flex items-center gap-2">
-                    START VERIFICATION <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform"/>
-                </span>
-                {/* Hover Effect */}
-                <div className="absolute inset-0 bg-[#836EF9] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 z-0"></div>
-            </div>
-        </Link>
-        
-        <p className="text-[10px] text-[#444] mt-6 font-mono">
-            SECURE CONNECTION // 256-BIT ENCRYPTION
-        </p>
+        {/* FORM */}
+        <form onSubmit={handleSubmit} className="space-y-12">
+          
+          {/* SECTION 1: CRITICAL DATA (BIG & EYE CATCHING) */}
+          <div className="space-y-6">
+            <div className="bg-gradient-to-b from-[#1a1a1a] to-black border border-[#836EF9]/50 p-8 rounded-sm shadow-[0_0_30px_rgba(131,110,249,0.1)] relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-20">
+                <ShieldCheck size={64} className="text-[#836EF9]" />
+              </div>
+              <h4 className="text-[#836EF9] text-xs font-bold uppercase tracking-[0.3em] mb-8 flex items-center gap-2">
+                <ShieldCheck size={16}/> PRIMARY CREDENTIALS
+              </h4>
+              
+              <div className="grid gap-10">
+                {/* SECRET CODE */}
+                <div className="space-y-3 relative z-10">
+                  <label className="text-xs text-[#836EF9] font-bold uppercase tracking-[0.2em] flex items-center gap-2">
+                    <Key size={14}/> SECRET CODE (GENESIS CARD)
+                  </label>
+                  <input 
+                    type="text" 
+                    name="secretCode"
+                    value={formData.secretCode}
+                    maxLength={14}
+                    required
+                    placeholder="XXXX-XXXX-XXXX" 
+                    className="w-full bg-black border-2 border-[#836EF9] p-6 text-xl md:text-3xl font-sans font-bold text-white placeholder:text-white/10 focus:shadow-[0_0_30px_rgba(131,110,249,0.4)] focus:outline-none transition-all uppercase tracking-widest text-center rounded-sm"
+                    onChange={handleInputChange}
+                  />
+                  <p className="text-[9px] text-neutral-500 uppercase tracking-widest text-center">*Strip (-) akan ditambahkan secara otomatis</p>
+                </div>
 
-      </main>
-    </div>
+                {/* WALLET ADDRESS */}
+                <div className="space-y-3 relative z-10">
+                  <label className="text-xs text-[#00FF9D] font-bold uppercase tracking-[0.2em] flex items-center gap-2">
+                    <Wallet size={14}/> WALLET MONAD ADDRESS
+                  </label>
+                  <input 
+                    type="text" 
+                    name="walletAddress"
+                    value={formData.walletAddress}
+                    required
+                    placeholder="0x..." 
+                    className="w-full bg-black border-2 border-[#00FF9D]/50 p-6 text-sm md:text-xl font-mono text-[#00FF9D] placeholder:text-[#00FF9D]/20 focus:border-[#00FF9D] focus:shadow-[0_0_30px_rgba(0,255,157,0.2)] focus:outline-none transition-all rounded-sm"
+                    onChange={handleInputChange}
+                  />
+                  <p className="text-[9px] text-neutral-500 uppercase tracking-widest text-right">*Wajib format 0x... (Personal Wallet)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 2: PROFILE */}
+          <div className="space-y-8 pt-8 border-t border-white/5">
+            <h4 className="text-white text-xs font-bold uppercase tracking-[0.3em] flex items-center gap-2">
+              <User size={16} className="text-neutral-500" /> IDENTITAS OWNER
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Nama Lengkap</label>
+                <input type="text" name="nama" value={formData.nama} required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Jenis Kelamin</label>
+                <select name="gender" value={formData.gender} className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors appearance-none" onChange={handleInputChange}>
+                  <option value="Pria">PRIA</option>
+                  <option value="Wanita">WANITA</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Email</label>
+                <div className="relative">
+                  <Mail className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20" size={16} />
+                  <input type="email" name="email" value={formData.email} required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">No. HP / WhatsApp</label>
+                <div className="relative">
+                  <Smartphone className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20" size={16} />
+                  <input type="tel" name="noHp" value={formData.noHp} required className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+                </div>
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">ID Telegram (Opsional - Untuk Group War Room)</label>
+                <input type="text" name="telegramId" value={formData.telegramId} placeholder="@username" className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 3: DETAIL ORDER */}
+          <div className="space-y-8 pt-8 border-t border-white/5">
+            <h4 className="text-white text-xs font-bold uppercase tracking-[0.3em] flex items-center gap-2">
+              <ShoppingBag size={16} className="text-neutral-500" /> DETAIL TRANSAKSI
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Pilih Artefak (Produk)</label>
+                <div className="relative">
+                  <select name="productName" value={formData.productName} className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-[#836EF9] font-bold focus:border-white/50 focus:outline-none transition-colors appearance-none uppercase" onChange={handleInputChange}>
+                    <option value="GENESIS BOXY TEE">GENESIS BOXY TEE [BATCH #001]</option>
+                    <option value="-" disabled>ARCHIVE 02 (LOCKED)</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <div className="w-2 h-2 bg-[#836EF9] rounded-full" />
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Order ID (E-Commerce/Manual)</label>
+                <input type="text" name="orderId" value={formData.orderId} placeholder="Contoh: 230919ABC..." className="w-full bg-[#121212] border border-white/10 p-4 text-sm text-white focus:border-white/50 focus:outline-none transition-colors" onChange={handleInputChange} />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] text-neutral-500 uppercase tracking-widest">Upload Bukti Pembelian (Struk/SS)</label>
+                <div className="relative group">
+                  <input type="file" id="fileUpload" className="hidden" onChange={handleFileChange} accept="image/*" />
+                  <label htmlFor="fileUpload" className="w-full bg-[#121212] border border-white/10 border-dashed p-4 text-sm text-neutral-400 flex items-center justify-between cursor-pointer hover:bg-white/5 hover:border-[#836EF9] transition-all">
+                    <span className="truncate font-mono">{fileName || "KLIK UNTUK UPLOAD FILE..."}</span>
+                    <UploadCloud size={20} className="text-neutral-500 group-hover:text-[#836EF9]" />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* SUBMIT BUTTON */}
+          <div className="pt-10">
+            <button 
+              type="submit" 
+              disabled={isLoading}
+              className="w-full bg-[#836EF9] text-black font-mono text-sm font-bold py-6 uppercase tracking-[0.2em] hover:bg-white transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_40px_rgba(131,110,249,0.3)] hover:shadow-[0_0_60px_rgba(131,110,249,0.6)]"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="animate-spin" size={20} /> VALIDATING DATA...
+                </>
+              ) : (
+                "SUBMIT VERIFICATION DATA"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/* POPUP MODALS */}
+      <AnimatePresence>
+        {status !== 'idle' && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/95 backdrop-blur-md">
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-[#0E0E0E] border border-white/10 p-10 max-w-md w-full text-center relative shadow-[0_0_50px_rgba(131,110,249,0.2)]"
+            >
+              <button onClick={() => setStatus('idle')} className="absolute top-4 right-4 text-neutral-500 hover:text-white">
+                <X size={24} />
+              </button>
+
+              {status === 'success' && (
+                <div className="space-y-6">
+                  <div className="w-24 h-24 bg-[#00FF9D]/10 rounded-full flex items-center justify-center mx-auto border border-[#00FF9D]/30">
+                    <CheckCircle2 size={48} className="text-[#00FF9D]" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold text-white uppercase tracking-tighter mb-2">VERIFIED</h3>
+                    <div className="h-1 w-12 bg-[#00FF9D] mx-auto mb-4" />
+                    <p className="text-xs text-neutral-400 font-mono uppercase tracking-widest leading-relaxed">
+                      Data Anda telah diterima di sistem kami. Tim 0xTanda akan memvalidasi dalam 1x24 jam. Cek wallet Anda secara berkala.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {status === 'used' && (
+                <div className="space-y-6">
+                  <div className="w-24 h-24 bg-[#EE4D2D]/10 rounded-full flex items-center justify-center mx-auto border border-[#EE4D2D]/30">
+                    <AlertTriangle size={48} className="text-[#EE4D2D]" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold text-[#EE4D2D] uppercase tracking-tighter mb-2">KODE SUDAH DIGUNAKAN</h3>
+                    <div className="h-1 w-12 bg-[#EE4D2D] mx-auto mb-4" />
+                    <p className="text-xs text-neutral-400 font-mono uppercase tracking-widest leading-relaxed">
+                      Kode Rahasia yang Anda masukkan terdeteksi duplikat di database. Hubungi CS jika ini adalah kesalahan.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {status === 'error' && (
+                <div className="space-y-6">
+                  <div className="w-24 h-24 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto border border-yellow-500/30">
+                    <AlertTriangle size={48} className="text-yellow-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold text-white uppercase tracking-tighter mb-2">CONNECTION ERROR</h3>
+                    <div className="h-1 w-12 bg-yellow-500 mx-auto mb-4" />
+                    <p className="text-xs text-neutral-400 font-mono uppercase tracking-widest leading-relaxed">
+                      Gagal terhubung ke server database. Silakan coba lagi nanti atau hubungi admin Telegram.
+                    </p>
+                  </div>
+                </div>
+              )}
+              
+              <button 
+                onClick={() => setStatus('idle')}
+                className="mt-10 w-full border border-white/20 py-4 text-xs font-bold uppercase hover:bg-white hover:text-black transition-all tracking-[0.2em]"
+              >
+                TUTUP / CLOSE
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </main>
   );
 }
 </file>
@@ -2242,6 +2462,7 @@ import type { Metadata } from 'next';
 import { Inter, Space_Grotesk, Space_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '../components/Navbar';
+import Marquee from '../components/Marquee'; // <-- Tambahan baru: Import Marquee
 
 // Load Fonts
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -2252,11 +2473,10 @@ const spaceMono = Space_Mono({ weight: ['400', '700'], subsets: ['latin'], varia
 // PENGATURAN META TAGS & OPEN GRAPH (UNTUK PREVIEW WA/TELEGRAM)
 // =================================================================
 export const metadata: Metadata = {
-  title: '0xTanda | Phygital Streetwear',
+  title: '0xTanda | Phygital Fashion',
   description: 'Tangible craftsmanship you can feel, secured by digital ownership you can prove. Genesis Boxy Tee Batch #001.',
-  metadataBase: new URL('https://0xtanda.xyz'), // URL utama website lu
+  metadataBase: new URL('https://www.0xtanda.xyz'),
   
-  // 👇 BAGIAN INI YANG BIKIN GOOGLE NAMPILIN LOGO 👇
   icons: {
     icon: '/icon.png',
     shortcut: '/icon.png',
@@ -2264,9 +2484,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: '0xTanda | Phygital Streetwear',
+    title: '0xTanda | Phygital Fashion',
     description: 'Tangible craftsmanship you can feel, secured by digital ownership you can prove.',
-    url: 'https://0xtanda.xyz',
+    url: 'https://www.0xtanda.xyz',
     siteName: '0xTanda',
     images: [
       {
@@ -2281,9 +2501,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '0xTanda | Phygital Streetwear',
+    title: '0xTanda | Phygital Fashion',
     description: 'Tangible craftsmanship you can feel, secured by digital ownership you can prove.',
-    images: ['/branding/logo-0xtanda.png'],
+    images: ['/branding/og-banner.jpg'],
   },
 };
 
@@ -2291,17 +2511,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="id" className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}>
       <head>
-        {/* Viewport Setting agar di HP pas (tidak perlu zoom out) */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-        
-        {/* VERIFIKASI GOOGLE SEARCH CONSOLE */}
         <meta name="google-site-verification" content="AdsL5zatSrtTJ8kvkoh5wI1flrVIf0YXJ9-93uTbT8o" />
       </head>
       
-      {/* BODY BERSIH: Hapus class 'cursor-none' agar pakai kursor bawaan Windows/Mac */}
       <body className="bg-[#0a0a0a] text-[#f3f3f3] overflow-x-hidden antialiased">
         
-        {/* Navbar Tetap Ada */}
+        {/* DUA KOMPONEN INI SEKARANG OTOMATIS MUNCUL DI SEMUA HALAMAN */}
+        <Marquee />
         <Navbar />
         
         {/* Konten Halaman */}
@@ -2316,11 +2533,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 <file path="app/shop/page.tsx">
 "use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { ArrowRight, Zap, Lock, Menu, X } from 'lucide-react';
+import React from 'react';
+import { ArrowRight, Zap, Lock } from 'lucide-react';
+
+// ============================================================================
+// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
+// CATATAN UNTUK COPAS: 
+// Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
+// HAPUS bagian mock ini dan gunakan import bawaan Next.js berikut:
+//
+// import Link from 'next/link';
+// import Image from 'next/image';
+// ============================================================================
+const Link = ({ href, children, className, onClick }: any) => (
+  <a href={href} className={className} onClick={onClick}>{children}</a>
+);
+const Image = ({ src, alt, className, sizes }: any) => (
+  <img src={src} alt={alt} className={className} sizes={sizes} />
+);
+// ============================================================================
 
 // ==========================================
 // DATA: PRODUCTS_DATA INLINE
@@ -2331,8 +2562,8 @@ const PRODUCTS_DATA = [
     slug: "genesis-boxy-tee",
     name: "GENESIS BOXY TEE",
     type: "0xTanda Batch #001",
-    price: 170000,
-    originalPrice: 249000, // HARGA CORET DITAMBAHKAN DI SINI
+    price: 168000,
+    originalPrice: 249000, // HARGA CORET
     description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
     specs: [
       "Nama: Genesis Boxy Tee",
@@ -2371,9 +2602,7 @@ const PRODUCTS_DATA = [
       telegram: "https://t.me/rempeyek_0",
       whatsapp: "https://wa.me/6281398621530",
       tokopedia: "https://tokopedia.com/oxtanda",
-      shopee: "https://shopee.co.id/oxtanda",
       tiktokshop: "https://tiktok.com/@oxtanda/shop",
-      shopify: "https://oxtanda.myshopify.com"
     }
   },
   {
@@ -2413,113 +2642,12 @@ const PRODUCTS_DATA = [
 ];
 
 // ==========================================
-// KOMPONEN: MARQUEE
-// ==========================================
-function Marquee() {
-  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
-  
-  return (
-    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
-      <div className="animate-marquee whitespace-nowrap flex">
-        {[...Array(10)].map((_, i) => (
-          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ==========================================
-// KOMPONEN: NAVBAR
-// ==========================================
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-
-  const navLinks = [
-    { name: 'HOME', path: '/' },
-    { name: 'SHOP', path: '/shop' },
-    { name: 'VERIFY', path: '/verify' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'TERMINAL LOG', path: '/terminal-log' },
-  ];
-
-  return (
-    <nav className="fixed top-10 left-0 w-full z-50 px-6">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
-        
-        {/* LOGO ICON */}
-        <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8">
-            <Image 
-              src="/branding/logo-0xtanda-icon.png" 
-              alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
-            />
-          </div>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                pathname === link.path 
-                ? 'bg-[#836EF9] text-black font-bold' 
-                : 'text-neutral-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
-                pathname === link.path ? 'text-[#836EF9]' : 'text-white'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
-  );
-}
-
-// ==========================================
 // HALAMAN UTAMA: SHOP PAGE
 // ==========================================
 export default function ShopPage() {
   return (
     <main className="min-h-screen bg-[#0E0E0E] pb-20 selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden">
-      <Marquee />
-      <Navbar />
+      {/* Navbar dan Marquee sudah otomatis di-handle oleh app/layout.tsx dan telah dihapus dari sini */}
 
       <header className="pt-44 px-6 mb-20 text-center">
         <h2 className="font-mono text-[#836EF9] text-[10px] tracking-[0.5em] mb-4 uppercase">Archive Collection</h2>
@@ -2713,10 +2841,8 @@ export default function HomePage() {
 <file path="app/about/page.tsx">
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { motion, Variants } from 'framer-motion'; 
 
 import { 
@@ -2732,110 +2858,8 @@ import {
   CheckCircle2,
   Instagram,
   Twitter,
-  ArrowDown,
-  Menu,
-  X
+  ArrowDown
 } from 'lucide-react';
-
-// ==========================================
-// KOMPONEN: MARQUEE
-// ==========================================
-function Marquee() {
-  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
-  
-  return (
-    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
-      <div className="animate-marquee whitespace-nowrap flex">
-        {[...Array(10)].map((_, i) => (
-          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ==========================================
-// KOMPONEN: NAVBAR
-// ==========================================
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-
-  const navLinks = [
-    { name: 'HOME', path: '/' },
-    { name: 'SHOP', path: '/shop' },
-    { name: 'VERIFY', path: '/verify' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'TERMINAL LOG', path: '/terminal-log' },
-  ];
-
-  return (
-    <nav className="fixed top-10 left-0 w-full z-50 px-6">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
-        
-        {/* LOGO ICON */}
-        <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8">
-            <Image 
-              src="/branding/logo-0xtanda-icon.png" 
-              alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
-            />
-          </div>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                pathname === link.path 
-                ? 'bg-[#836EF9] text-black font-bold' 
-                : 'text-neutral-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
-                pathname === link.path ? 'text-[#836EF9]' : 'text-white'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
-  );
-}
 
 /**
  * Komponen Ikon TikTok (Custom SVG)
@@ -2893,8 +2917,6 @@ const staggerContainer: Variants = {
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-mono overflow-x-hidden relative">
-      <Marquee />
-      <Navbar />
 
       {/* SECTION 01: HEADER */}
       <section className="pt-48 px-6 pb-24 border-b border-white/5 relative overflow-hidden">
@@ -3157,7 +3179,7 @@ export default function AboutPage() {
             <h3 className="text-2xl font-bold text-white uppercase tracking-tighter mb-2 relative z-10">REGULAR HOLDER</h3>
             <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-8 font-bold relative z-10">Verified Owners</p>
             <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed relative z-10">
-              Pemilik selanjutnya yang tetap mendapatkan hak kepemilikan karya, keaslian, diskon 5%, dan akses komunitas penuh.
+              Hak kepemilikan karya, keaslian, diskon 5%, dan akses komunitas penuh.
             </p>
           </motion.div>
         </motion.div>
@@ -3324,9 +3346,7 @@ export interface Product {
     telegram: string;
     whatsapp?: string; 
     tokopedia?: string;
-    shopee?: string;
     tiktokshop?: string;
-    shopify?: string;
   };
 }
 
@@ -3336,7 +3356,7 @@ export const PRODUCTS_DATA: Product[] = [
     slug: "genesis-boxy-tee",
     name: "GENESIS BOXY TEE",
     type: "0xTanda Batch #001",
-    price: 170000,
+    price: 168000,
     originalPrice: 249000, // HARGA CORET (ASLI) DITAMBAHKAN DI SINI
     description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
     specs: [
@@ -3375,10 +3395,8 @@ export const PRODUCTS_DATA: Product[] = [
     links: {
       telegram: "https://t.me/rempeyek_0",
       whatsapp: "https://wa.me/6281398621530",
-      tokopedia: "https://tokopedia.com/oxtanda",
-      shopee: "https://shopee.co.id/oxtanda",
-      tiktokshop: "https://tiktok.com/@oxtanda/shop",
-      shopify: "https://oxtanda.myshopify.com"
+      tokopedia: "https://www.tokopedia.com/0xtanda/0xtanda-genesis-boxy-tee-pria-wanita-unisex-dengan-nft-kaos-cotton-combed-16s-100-fit-boxy-oversized-modern-cut-bonus-genesis-collection-card-1734427428785194157",
+      tiktokshop: "https://vt.tokopedia.com/t/ZS9eT3ML7F2cK-6q8hd/"
     }
   },
   // Produk Placeholder (Coming Soon)
@@ -3444,7 +3462,7 @@ export const SECRET_CODES_DB = [
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { useParams, useRouter, usePathname } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -3461,7 +3479,6 @@ import {
   Maximize2,
   X,
   Ruler,
-  Menu,
   Lock
 } from 'lucide-react';
 
@@ -3514,9 +3531,7 @@ const PRODUCTS_DATA = [
       telegram: "https://t.me/rempeyek_0",
       whatsapp: "https://wa.me/6281398621530",
       tokopedia: "https://www.tokopedia.com/0xtanda/0xtanda-genesis-boxy-tee-pria-wanita-unisex-dengan-nft-kaos-cotton-combed-16s-100-fit-boxy-oversized-modern-cut-bonus-genesis-collection-card-1734427428785194157",
-      shopee: "https://shopee.co.id/oxtanda",
-      tiktokshop: "https://vt.tokopedia.com/t/ZS9eT3ML7F2cK-6q8hd/",
-      shopify: "https://oxtanda.myshopify.com"
+      tiktokshop: "https://vt.tokopedia.com/t/ZS9eT3ML7F2cK-6q8hd/"
     }
   },
   {
@@ -3555,102 +3570,6 @@ const PRODUCTS_DATA = [
   }
 ];
 
-// ==========================================
-// KOMPONEN: MARQUEE
-// ==========================================
-function Marquee() {
-  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
-  
-  return (
-    <div className="fixed top-0 left-0 w-full bg-[#836EF9] text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
-      <div className="animate-marquee whitespace-nowrap flex">
-        {[...Array(10)].map((_, i) => (
-          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ==========================================
-// KOMPONEN: NAVBAR
-// ==========================================
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-
-  const navLinks = [
-    { name: 'HOME', path: '/' },
-    { name: 'SHOP', path: '/shop' },
-    { name: 'VERIFY', path: '/verify' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'TERMINAL LOG', path: '/terminal-log' },
-  ];
-
-  return (
-    <nav className="fixed top-10 left-0 w-full z-50 px-6">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
-        
-        <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8">
-            <Image 
-              src="/branding/logo-0xtanda-icon.png" 
-              alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
-            />
-          </div>
-        </Link>
-
-        <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                pathname === link.path 
-                ? 'bg-[#836EF9] text-black font-bold' 
-                : 'text-neutral-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        <div className="md:hidden flex items-center">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-
-      {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 md:hidden animate-glitch shadow-2xl">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`text-4xl font-display font-bold tracking-tighter transition-colors uppercase ${
-                pathname === link.path ? 'text-[#836EF9]' : 'text-white'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
-  );
-}
-
 // =================================================================
 // DEFINISI CUSTOM ICONS
 // =================================================================
@@ -3669,22 +3588,10 @@ const TokopediaIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const ShopeeIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M18.8 7.3h-1.4c-.4-2.5-2.4-4.3-4.9-4.3s-4.5 1.9-4.9 4.3H6.2C5 7.3 4 8.3 4 9.5v10c0 1.2 1 2.2 2.2 2.2h12.6c1.2 0 2.2-1 2.2-2.2v-10c0-1.2-1-2.2-2.2-2.2zm-6.3-2.5c1.5 0 2.7 1.1 2.9 2.5h-5.8c.2-1.4 1.4-2.5 2.9-2.5zm1.5 10.8c-1.3.5-1.9.8-2.6 1.1-.7.3-1.4.3-1.9-.2-.3-.3-.8 0-1.3.4-.6 2.2-1.2 2.2-1.2s.6-.2.6-.7c0-.6-.7-1-1.7-1-1.2 0-2.1.6-2.1.6s-.5.3-.8 0c-.2-.2-.2-.6 0-1 .2-.3 1.2-1 3.1-1 2 0 3.2 1.2 3.2 2.6 0 1.1-.7 1.8-1.8 2.2l-1.5.5c-.5.2-.8.4-.8.8 0 .4.4.6 1 .6 1 0 2.2-.8 2.2-.8s.4-.3.7 0c.3.3.3.7 0 1.1-.3.3-1.3 1.1-2.8 1.1-2.3 0-3.5-1.5-3.5-3 0-1.2.6-2 1.7-2.4l2.1-.8c.7-.3 1-.5 1-1 0-.3-.3-.5-.8-.5-.7 0-1.6.5-1.6.5s-.4.3-.6 0c-.2-.2-.2-.6.1-.9.3-.3 1-1 2.6-1 1.7 0 2.9 1 2.9 2.4 0 1.3-.9 1.9-1.9 2.3z"/>
-  </svg>
-);
-
 const TikTokShopIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
      <path d="M19 14h-2v4h-4v2h4v4h2v-4h4v-2h-4z"/>
-  </svg>
-);
-
-const ShopifyIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M20.8 7.9c-.2-.3-.5-.4-.8-.4h-2.1l-3.3-6.2c-.2-.3-.5-.4-.8-.3-.3.1-.5.4-.4.7l3 5.8H7.7l3-5.8c.1-.3-.1-.6-.4-.7-.3-.1-.6.1-.7.3L6.2 7.5H4c-.3 0-.6.2-.8.4-.2.3-.2.6-.1.9l2.7 13.5c.2 1 1.1 1.7 2.1 1.7h8.2c1 0 1.9-.7 2.1-1.7l2.7-13.5c.1-.3 0-.6-.1-.9zM12 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
   </svg>
 );
 
@@ -3766,8 +3673,7 @@ export default function ProductDetailPage() {
 
   return (
     <main className="min-h-screen pb-20 bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden relative">
-      <Marquee />
-      <Navbar />
+      {/* Navbar dan Marquee di-handle oleh app/layout.tsx */}
 
       <div className="pt-48 px-6 max-w-7xl mx-auto">
         <Link 
@@ -3907,11 +3813,6 @@ export default function ProductDetailPage() {
                     <WhatsAppIcon className="w-8 h-8" />
                   </a>
                 )}
-                {product.links.shopee && (
-                  <a href={product.links.shopee} target="_blank" title="Shopee" className="text-neutral-400 hover:text-[#EE4D2D] transition-all transform hover:scale-110">
-                    <ShopeeIcon className="w-8 h-8" />
-                  </a>
-                )}
                 {product.links.tokopedia && (
                   <a href={product.links.tokopedia} target="_blank" title="Tokopedia" className="text-neutral-400 hover:text-[#03AC0E] transition-all transform hover:scale-110">
                     <TokopediaIcon className="w-8 h-8" />
@@ -3920,11 +3821,6 @@ export default function ProductDetailPage() {
                 {product.links.tiktokshop && (
                   <a href={product.links.tiktokshop} target="_blank" title="TikTok Shop" className="text-neutral-400 hover:text-white transition-all transform hover:scale-110">
                     <TikTokShopIcon className="w-8 h-8" />
-                  </a>
-                )}
-                {product.links.shopify && (
-                  <a href={product.links.shopify} target="_blank" title="Shopify" className="text-neutral-400 hover:text-[#95BF47] transition-all transform hover:scale-110">
-                    <ShopifyIcon className="w-8 h-8" />
                   </a>
                 )}
               </div>
