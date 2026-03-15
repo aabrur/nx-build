@@ -1,7 +1,6 @@
 "use client";
 
-import React from 'react';
-import Image from 'next/image';
+import React, { useState } from 'react';
 import { motion, Variants } from 'framer-motion'; 
 
 import { 
@@ -12,27 +11,40 @@ import {
   Fingerprint,
   Layers,
   Hexagon,
-  CreditCard,
-  Smartphone,
+  Terminal,
+  Copy,
+  ExternalLink,
   CheckCircle2,
-  Instagram,
-  Twitter,
-  ArrowDown
+  Instagram
 } from 'lucide-react';
+
+/**
+ * ============================================================================
+ * MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
+ * CATATAN UNTUK COPAS: 
+ * Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
+ * HAPUS bagian mock ini dan gunakan import bawaan Next.js berikut:
+ *
+ * import Link from 'next/link';
+ * import Image from 'next/image';
+ * ============================================================================
+ */
+const Link = ({ href, children, className }: any) => (
+  <a href={href} className={className}>{children}</a>
+);
+const Image = ({ src, alt, className, fill }: any) => {
+  if (fill) {
+    return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} />;
+  }
+  return <img src={src} alt={alt} className={className} />;
+};
+// ============================================================================
 
 /**
  * Komponen Ikon TikTok (Custom SVG)
  */
 const TikTokIcon = ({ className }: { className?: string }) => (
-  <svg 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    className={className}
-  >
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
   </svg>
 );
@@ -41,11 +53,7 @@ const TikTokIcon = ({ className }: { className?: string }) => (
  * Komponen Ikon X / Twitter (Custom SVG)
  */
 const XIcon = ({ className }: { className?: string }) => (
-  <svg 
-    viewBox="0 0 24 24" 
-    fill="currentColor" 
-    className={className}
-  >
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.294 19.486h2.039L6.448 3.288H4.26L17.607 20.64z" />
   </svg>
 );
@@ -74,12 +82,30 @@ const staggerContainer: Variants = {
 };
 
 export default function AboutPage() {
+  const [copied, setCopied] = useState(false);
+  const contractAddress = "0x75c294c9f8576FDF882cAAEf9d4316589b638610";
+
+  // Fungsi Copy disesuaikan agar berjalan lancar di segala browser/iframe
+  const handleCopy = () => {
+    const textArea = document.createElement("textarea");
+    textArea.value = contractAddress;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy', err);
+    }
+    document.body.removeChild(textArea);
+  };
+
   return (
     <main className="min-h-screen bg-[#0E0E0E] text-white selection:bg-[#836EF9] selection:text-black font-mono overflow-x-hidden relative">
 
       {/* SECTION 01: HEADER */}
       <section className="pt-48 px-6 pb-24 border-b border-white/5 relative overflow-hidden">
-        {/* Latar Belakang Cahaya Animasi */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[300px] bg-[#836EF9]/5 blur-[120px] pointer-events-none rounded-full" />
         
         <motion.div 
@@ -89,20 +115,19 @@ export default function AboutPage() {
           className="max-w-5xl mx-auto flex flex-col items-center text-center relative z-10"
         >
           <div className="max-w-3xl border-y border-white/10 py-10 px-4 relative">
-            {/* Corner Accents */}
             <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#836EF9]"></div>
             <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#836EF9]"></div>
             <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#836EF9]"></div>
             <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#836EF9]"></div>
 
-            <p className="text-lg md:text-2xl text-white italic font-display leading-relaxed">
+            <p className="text-lg md:text-2xl text-white italic font-sans font-medium leading-relaxed tracking-wide">
               “Tangible craftsmanship you can feel, secured by digital ownership you can prove.”
             </p>
           </div>
         </motion.div>
       </section>
 
-      {/* SECTION 02: TENTANG 0xTANDA (UPDATED TEXT) */}
+      {/* SECTION 02: TENTANG 0xTANDA */}
       <section className="py-32 px-6 max-w-4xl mx-auto">
         <motion.div 
           initial="hidden"
@@ -189,7 +214,7 @@ export default function AboutPage() {
       </section>
 
       {/* SECTION 04: PRODUK & PENDEKATAN */}
-      <section className="py-32 px-6 max-w-4xl mx-auto">
+      <section className="py-32 px-6 max-w-4xl mx-auto border-b border-white/5">
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -212,14 +237,93 @@ export default function AboutPage() {
             Setiap koleksi 0xTanda dirilis dalam jumlah terbatas dan memiliki identitas unik. Fokus kami adalah kualitas yang konsisten, desain yang terukur, dan sistem yang jelas.
           </motion.p>
           <motion.p variants={fadeUpVariant}>
-            Setiap pembelian disertai <span className="text-white">Genesis Collection Card</span> untuk mengklaim <span className="text[#836EF9]">Digital Twin</span> resmi melalui sistem terenkripsi.
+            Setiap pembelian disertai <span className="text-white">Genesis Collection Card</span> untuk mengklaim <span className="text-[#836EF9]">Digital Twin</span> resmi melalui sistem terenkripsi.
           </motion.p>
         </motion.div>
       </section>
 
-      {/* SECTION 05: LINGKUNGAN & KEBERLANJUTAN */}
+      {/* ========================================================== */}
+      {/* SECTION 05: BUKTI BLOCKCHAIN (SMART CONTRACT TERMINAL) */}
+      {/* ========================================================== */}
+      <section className="py-32 px-6 max-w-5xl mx-auto">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeUpVariant}
+          className="flex items-center gap-6 mb-12"
+        >
+          <div className="w-16 h-[1px] bg-[#00FF9D]" />
+          <span className="text-[#00FF9D] text-xs font-bold tracking-[0.4em] uppercase flex items-center gap-2">
+            <Terminal size={14} /> On-Chain Provenance
+          </span>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="bg-black border border-[#00FF9D]/30 p-[1px] rounded-sm relative group shadow-[0_0_40px_rgba(0,255,157,0.05)] hover:shadow-[0_0_60px_rgba(0,255,157,0.15)] transition-all duration-700"
+        >
+          {/* Garis Animasi Scanning (Hiasan Cyberpunk) */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#00FF9D] to-transparent opacity-50" />
+          
+          <div className="bg-[#0A0A0A] p-8 md:p-12 relative z-10">
+            
+            {/* Header Terminal */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-white/5 pb-8">
+              <div className="space-y-2">
+                <h3 className="text-2xl md:text-3xl font-sans font-bold text-white tracking-tighter uppercase">Smart Contract Terminal</h3>
+                <p className="text-[10px] md:text-xs text-[#00FF9D] font-mono tracking-[0.3em] uppercase flex items-center gap-2">
+                  <ShieldCheck size={14} /> Verified Phygital Protocol
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 font-mono text-[10px] text-neutral-500 uppercase tracking-[0.3em] text-left md:text-right">
+                <p>Network: <strong className="text-white">MONAD</strong></p>
+                <p>Standard: <strong className="text-white">ERC-721 (NFT)</strong></p>
+                <p>Status: <strong className="text-[#00FF9D] animate-pulse">ACTIVE // IMMUTABLE</strong></p>
+              </div>
+            </div>
+
+            {/* Konten Terminal */}
+            <div className="space-y-6">
+              <p className="text-xs md:text-sm text-neutral-400 uppercase tracking-widest leading-relaxed">
+                Bukti absolut bahwa <strong className="text-white">0xTanda adalah pionir Phygital Fashion dengan Digital Twin NFT di Indonesia</strong>. Seluruh aset digital (Digital Twin) dienkripsi, divalidasi, dan dipublikasikan selamanya pada alamat kontrak pintar (Smart Contract) berikut:
+              </p>
+              
+              {/* Kotak Alamat Kontrak */}
+              <div className="bg-black border border-white/10 p-5 md:p-6 rounded-sm flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 mt-8">
+                
+                <div className="font-mono text-sm md:text-lg text-[#00FF9D] break-all selection:bg-[#00FF9D] selection:text-black">
+                  {contractAddress}
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-3 w-full xl:w-auto shrink-0">
+                  <button 
+                    onClick={handleCopy}
+                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-all text-[10px] font-bold font-mono tracking-widest uppercase rounded-sm"
+                  >
+                    {copied ? <><CheckCircle2 size={14} className="text-[#00FF9D]"/> COPIED</> : <><Copy size={14}/> COPY ADDRESS</>}
+                  </button>
+                  <a 
+                    href="https://monadvision.com/address/0x75c294c9f8576FDF882cAAEf9d4316589b638610?portfolio=Info&tab=Events&mode=overview" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-[#00FF9D]/10 border border-[#00FF9D]/30 text-[#00FF9D] hover:bg-[#00FF9D] hover:text-black transition-all text-[10px] font-bold font-mono tracking-widest uppercase rounded-sm"
+                  >
+                    <ExternalLink size={14} /> VIEW ON EXPLORER
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* SECTION 06: LINGKUNGAN & KEBERLANJUTAN */}
       <section className="py-32 bg-black px-6 border-y border-white/5 relative overflow-hidden">
-        {/* Subtle Green Glow Background */}
         <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[300px] bg-[#00FF9D]/5 blur-[120px] pointer-events-none rounded-full" />
 
         <div className="max-w-4xl mx-auto relative z-10">
@@ -254,7 +358,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 06: CARA KERJA */}
+      {/* SECTION 07: CARA KERJA (CONCIERGE AIRDROP) */}
       <section className="py-32 px-6 bg-white/[0.02] border-b border-white/5 text-center md:text-left overflow-hidden">
         <div className="max-w-5xl mx-auto">
           <motion.div 
@@ -297,7 +401,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 07: SISTEM KEANGGOTAAN */}
+      {/* SECTION 08: SISTEM KEANGGOTAAN */}
       <section className="py-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial="hidden"
@@ -344,7 +448,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* SECTION 08: PENUTUP & TANDA TANGAN */}
+      {/* SECTION 09: PENUTUP & TANDA TANGAN */}
       <section className="pt-32 pb-16 px-6 border-t border-white/5">
         <motion.div 
           initial="hidden"
@@ -364,7 +468,7 @@ export default function AboutPage() {
 
           <motion.div variants={fadeUpVariant} className="flex flex-col md:flex-row justify-between items-end gap-12 border-t border-white/5 pt-16">
             <div className="space-y-4">
-              <p className="text-3xl md:text-5xl font-display font-bold text-white tracking-tighter">Abrur Alaina</p>
+              <p className="text-3xl md:text-5xl font-sans font-bold text-white tracking-tighter">Abrur Alaina</p>
               <div className="space-y-1">
                 <p className="text-[#836EF9] text-xs font-bold uppercase tracking-widest">Founder, 0xTanda</p>
                 <p className="text-neutral-600 text-[10px] uppercase tracking-widest">Jakarta, Indonesia</p>
@@ -382,7 +486,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* SECTION 09: KONEKSI 0xTANDA */}
+      {/* SECTION 10: KONEKSI 0xTANDA */}
       <section className="pb-32 px-6 border-t border-white/5 bg-white/[0.01]">
         <motion.div 
           initial="hidden"
@@ -397,52 +501,25 @@ export default function AboutPage() {
           </motion.div>
 
           <motion.div variants={staggerContainer} className="flex flex-wrap justify-center gap-6 md:gap-12">
-            {/* Instagram */}
-            <motion.a 
-              variants={fadeUpVariant}
-              href="https://www.instagram.com/0xtanda/" 
-              target="_blank" 
-              className="group flex flex-col items-center gap-3 transition-all"
-            >
+            <motion.a variants={fadeUpVariant} href="https://www.instagram.com/0xtanda/" target="_blank" className="group flex flex-col items-center gap-3 transition-all">
               <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
                 <Instagram size={18} className="text-neutral-500 group-hover:text-[#836EF9] transition-all" />
               </div>
               <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">Instagram</span>
             </motion.a>
-            
-            {/* TikTok */}
-            <motion.a 
-              variants={fadeUpVariant}
-              href="https://www.tiktok.com/@0xtanda?is_from_webapp=1&sender_device=pc" 
-              target="_blank" 
-              className="group flex flex-col items-center gap-3 transition-all"
-            >
+            <motion.a variants={fadeUpVariant} href="https://www.tiktok.com/@0xtanda" target="_blank" className="group flex flex-col items-center gap-3 transition-all">
               <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
                 <TikTokIcon className="w-4 h-4 text-neutral-500 group-hover:text-[#836EF9] transition-all" />
               </div>
               <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">TikTok</span>
             </motion.a>
-            
-            {/* X (Twitter) */}
-            <motion.a 
-              variants={fadeUpVariant}
-              href="https://x.com/0xTanda" 
-              target="_blank" 
-              className="group flex flex-col items-center gap-3 transition-all"
-            >
+            <motion.a variants={fadeUpVariant} href="https://x.com/0xTanda" target="_blank" className="group flex flex-col items-center gap-3 transition-all">
               <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
                 <XIcon className="w-4 h-4 text-neutral-500 group-hover:text-[#836EF9] transition-all" />
               </div>
               <span className="text-[8px] tracking-[0.4em] uppercase text-neutral-600 group-hover:text-white transition-colors">X</span>
             </motion.a>
-            
-            {/* Telegram Community */}
-            <motion.a 
-              variants={fadeUpVariant}
-              href="https://t.me/Official0xTanda" 
-              target="_blank" 
-              className="group flex flex-col items-center gap-3 transition-all"
-            >
+            <motion.a variants={fadeUpVariant} href="https://t.me/Official0xTanda" target="_blank" className="group flex flex-col items-center gap-3 transition-all">
               <div className="w-10 h-10 border border-white/5 rounded-full flex items-center justify-center bg-black group-hover:border-[#836EF9]/50 group-hover:bg-[#836EF9]/5 transition-all">
                 <Send size={18} className="text-neutral-500 group-hover:text-[#836EF9] transition-all" />
               </div>
@@ -461,7 +538,6 @@ export default function AboutPage() {
           className="w-14 h-14 bg-[#836EF9] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(131,110,249,0.5)] hover:scale-110 active:scale-95 transition-all group relative border border-white/10"
           title="Contact Customer Service"
         >
-          {/* Label Tooltip */}
           <div className="absolute -left-32 bg-black/90 backdrop-blur-md px-3 py-1.5 border border-white/10 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
             <span className="text-[8px] text-white uppercase tracking-widest font-bold">Contact_Support</span>
           </div>
