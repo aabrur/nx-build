@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, useScroll, useSpring, Variants } from "framer-motion";
-import { ShieldCheck, Scan, Wallet, User, Calendar, Clock, ArrowLeft, CheckCircle2, MessageSquareWarning, AlertTriangle, Send, ChevronRight } from "lucide-react";
+import { ShieldCheck, Scan, Wallet, User, Calendar, Clock, ArrowLeft, CheckCircle2, MessageSquareWarning, AlertTriangle, Send, ChevronRight, Zap } from "lucide-react";
 
 // ============================================================================
 // MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
