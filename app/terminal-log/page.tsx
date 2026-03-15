@@ -1,55 +1,126 @@
-import { Metadata } from 'next';
-import TerminalLogContent from './TerminalLogContent';
+"use client";
 
-// ================================================================
-// SEO METADATA — HALAMAN ARTIKEL PRIORITAS 1
-// Target keyword utama: "phygital fashion Jakarta"
-// ================================================================
-export const metadata: Metadata = {
-  title: 'Phygital Fashion Jakarta: Baju Fisik + NFT Digital dalam Satu Koleksi | 0xTanda',
-  description:
-    'Kenalan dengan phygital fashion: tren baru di Jakarta di mana setiap baju punya kembaran digital (NFT) yang bisa kamu klaim. 0xTanda adalah brand phygital pertama dari Jakarta.',
-  metadataBase: new URL('https://0xtanda.xyz'),
-  alternates: {
-    canonical: 'https://0xtanda.xyz/terminal-log',
-  },
-  openGraph: {
-    title: 'Phygital Fashion Jakarta: Baju Fisik + NFT Digital | 0xTanda',
-    description:
-      'Kenalan dengan phygital fashion: tren baru di Jakarta di mana setiap baju punya kembaran digital (NFT). 0xTanda — brand phygital streetwear pertama dari Jakarta.',
-    url: 'https://0xtanda.xyz/terminal-log',
-    siteName: '0xTanda',
-    images: [
-      {
-        url: '/branding/og-banner.jpg',
-        width: 1200,
-        height: 630,
-        alt: '0xTanda Phygital Fashion Jakarta — Baju Fisik + NFT',
-      },
-    ],
-    locale: 'id_ID',
-    type: 'article',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Phygital Fashion Jakarta: Baju Fisik + NFT Digital | 0xTanda',
-    description:
-      'Brand phygital streetwear pertama Jakarta — setiap baju punya kembaran NFT yang bisa kamu klaim.',
-    images: ['/branding/og-banner.jpg'],
-  },
-  keywords: [
-    'phygital fashion Jakarta',
-    'baju NFT Indonesia',
-    'fashion blockchain Indonesia',
-    'NFT wearable Jakarta',
-    'streetwear NFT Indonesia',
-    'pakaian digital twin Indonesia',
-    'brand fashion Web3 Jakarta',
-    '0xTanda',
-    'phygital streetwear',
-  ],
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Terminal } from "lucide-react";
+
+// ============================================================================
+// MOCK NEXT.JS (Hanya untuk Preview di Canvas)
+// Saat menyalin ke VSCode, gunakan import bawaan Next.js:
+// import Link from 'next/link';
+// import Image from 'next/image';
+// ============================================================================
+const Link = ({ href, children, className }: any) => (
+  <a href={href} className={className}>{children}</a>
+);
+const Image = ({ src, alt, className, fill }: any) => {
+  if (fill) {
+    return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} />;
+  }
+  return <img src={src} alt={alt} className={className} />;
 };
+// ============================================================================
 
-export default function TerminalLogPage() {
-  return <TerminalLogContent />;
+// DATA DAFTAR ARTIKEL
+const ARTICLES = [
+  {
+    id: "01",
+    title: "Phygital Fashion: Baju Fisik + NFT Digital dalam Satu Koleksi | 0xTanda",
+    excerpt: "Selamat datang di titik temu antara realitas bendawi dan kedaulatan digital. 0xTanda hadir sebagai pionir infrastruktur identitas melalui Phygital Streetwear.",
+    date: "14 Maret 2026",
+    category: "Editorial",
+    slug: "phygital-fashion-indonesia", // <-- Ini URL Foldernya
+    image: "/branding/og-banner.jpg",
+    accentColor: "text-[#836EF9]",
+    borderColor: "hover:border-[#836EF9]/50"
+  },
+  {
+    id: "02",
+    title: "Cara Klaim NFT Fashion 0xTanda: Panduan Lengkap Step-by-Step",
+    excerpt: "Kami memahami bahwa memasuki dunia Web3 bisa terasa menakutkan bagi pemula. Protokol Concierge Airdrop kami dirancang agar siapapun dapat mengklaim Digital Twin NFT dengan mudah.",
+    date: "15 Maret 2026",
+    category: "Tutorial & Guide",
+    slug: "cara-klaim-nft", // <-- Ini URL Foldernya
+    image: "/branding/og-banner.jpg",
+    accentColor: "text-[#00FF9D]",
+    borderColor: "hover:border-[#00FF9D]/50"
+  }
+];
+
+export default function TerminalLogMenu() {
+  return (
+    <main className="min-h-screen bg-[#0A0A0A] text-[#F3F3F3] font-sans selection:bg-[#836EF9] selection:text-black">
+      
+      {/* HEADER MENU */}
+      <header className="pt-40 pb-16 px-6 border-b border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[300px] bg-[#836EF9]/5 blur-[120px] pointer-events-none rounded-full" />
+        <div className="max-w-5xl mx-auto relative z-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <div className="flex items-center justify-center md:justify-start gap-3 mb-4 text-[#836EF9]">
+              <Terminal size={20} />
+              <span className="font-mono text-xs font-bold tracking-[0.4em] uppercase">System_Log</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter">Terminal <span className="text-[#836EF9]">Log</span></h1>
+          </div>
+          <p className="text-neutral-500 font-mono text-[10px] tracking-widest uppercase pb-2">
+            Archive Transmissions // <br className="hidden md:block"/> Editorial & Guides
+          </p>
+        </div>
+      </header>
+
+      {/* LIST ARTIKEL */}
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto flex flex-col gap-10">
+          
+          {ARTICLES.map((article, idx) => (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              key={article.id}
+            >
+              <Link 
+                href={`/terminal-log/${article.slug}`} 
+                className={`group flex flex-col md:flex-row gap-8 bg-[#121212] border border-white/5 p-6 md:p-8 rounded-sm transition-all duration-500 ${article.borderColor}`}
+              >
+                {/* Thumbnail Gambar */}
+                <div className="w-full md:w-[40%] lg:w-[35%] aspect-[16/10] md:aspect-square relative bg-black border border-white/5 overflow-hidden rounded-sm shrink-0">
+                  <Image src={article.image} fill alt={article.title} className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" />
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 font-mono text-[9px] text-white border border-white/10 uppercase tracking-widest">
+                    ISSUE_{article.id}
+                  </div>
+                </div>
+                
+                {/* Konten Teks */}
+                <div className="flex-1 flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className={`text-[10px] font-mono font-bold uppercase tracking-widest ${article.accentColor}`}>
+                      {article.category}
+                    </span>
+                    <span className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest">
+                      // {article.date}
+                    </span>
+                  </div>
+                  
+                  <h2 className={`text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4 transition-colors duration-300 group-hover:${article.accentColor.split('[')[0]}[${article.accentColor.split('[')[1]}`}>
+                    {article.title}
+                  </h2>
+                  
+                  <p className="text-sm text-neutral-400 leading-relaxed mb-8 font-light">
+                    {article.excerpt}
+                  </p>
+                  
+                  <div className="flex items-center gap-3 text-[10px] font-mono text-white font-bold uppercase tracking-widest mt-auto border-t border-white/5 pt-6">
+                    READ TRANSMISSION <ArrowRight size={14} className={`group-hover:translate-x-2 transition-transform duration-300 ${article.accentColor}`} />
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+
+        </div>
+      </section>
+    </main>
+  );
 }
