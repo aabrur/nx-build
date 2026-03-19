@@ -2,7 +2,10 @@
 
 import React from "react";
 import { motion, useScroll, useSpring, Variants } from "framer-motion";
-import { ShieldCheck, Scan, Wallet, User, Calendar, Clock, ArrowLeft, CheckCircle2, MessageSquareWarning, AlertTriangle, Send, ChevronRight, Zap } from "lucide-react";
+import { 
+  ShieldCheck, Scan, Wallet, User, Calendar, Clock, ArrowLeft, 
+  CheckCircle2, MessageSquareWarning, AlertTriangle, Send, ChevronRight, Zap 
+} from "lucide-react";
 
 // ============================================================================
 // MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
@@ -44,12 +47,12 @@ export default function CaraKlaimNFTPage() {
             </motion.div>
 
             {/* Judul Artikel */}
-            <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-bold tracking-tighter leading-tight text-white uppercase">
-              Cara Klaim NFT Fashion 0xTanda: Panduan Lengkap Step-by-Step | 0xTanda Jakarta
+            <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-bold tracking-tighter leading-tight text-white">
+              Cara Klaim NFT Fashion 0xTanda: Panduan Lengkap Step-by-Step | 0xTanda
             </motion.h1>
 
             {/* Sub-judul / Deck */}
-            <motion.p variants={fadeUp} className="text-lg md:text-xl text-[#00FF9D] font-medium leading-relaxed">
+            <motion.p variants={fadeUp} className="text-lg md:text-xl text-[#00FF9D] font-light leading-relaxed">
               Cara Klaim NFT Baju 0xTanda-mu dalam 5 Menit — Tanpa Ribet, Tanpa Harus Jago Crypto.
             </motion.p>
 
@@ -76,8 +79,14 @@ export default function CaraKlaimNFTPage() {
             {/* PENDAHULUAN DENGAN DROP CAP */}
             <motion.div variants={fadeUp}>
               <p>
-                <span className="float-left text-6xl md:text-7xl font-bold text-[#00FF9D] mr-4 mt-2 leading-none font-serif">K</span>
-                ami memahami bahwa memasuki dunia Web3 bisa terasa menakutkan bagi pemula. Istilah seperti <i>gas fee</i>, <i>smart contract</i>, atau <i>crypto wallet</i> seringkali menjadi tembok pembatas. Namun di 0xTanda, kami telah meruntuhkan tembok itu. Protokol <b>Concierge Airdrop</b> kami dirancang agar siapapun dapat mengklaim Digital Twin NFT dari pakaian fisik mereka semudah mengisi formulir pendaftaran daring biasa.
+                <span className="float-left text-6xl md:text-7xl font-bold text-[#00FF9D] mr-4 mt-2 leading-none font-serif">M</span>
+                emasuki dunia Web3 dan blockchain sering kali terasa menakutkan bagi pemula. Istilah teknis seperti <i>gas fee</i>, <i>smart contract</i>, atau <i>crypto wallet</i> sering menjadi hambatan. Namun, di 0xTanda, kami telah meruntuhkan tembok tersebut.
+              </p>
+              <p className="mt-6">
+                Melalui protokol <b>Concierge Airdrop</b> kami, mengklaim Digital Twin (kembaran digital berbentuk NFT) dari pakaian fisik Anda kini semudah mengisi formulir daring biasa. Anda tidak perlu memikirkan kerumitan teknis, apalagi membayar biaya transaksi jaringan. Kami yang akan mengurus semuanya untuk Anda.
+              </p>
+              <p className="mt-6 font-bold text-white">
+                Berikut adalah panduan lengkap langkah demi langkah untuk mengaktifkan aset digital Anda.
               </p>
             </motion.div>
 
@@ -93,83 +102,92 @@ export default function CaraKlaimNFTPage() {
 
             {/* SEKSI 1 */}
             <motion.div variants={fadeUp} className="space-y-5">
-              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight pt-4 uppercase">
-                <span className="text-[#00FF9D] font-mono mr-3">1.</span> Yang Kamu Butuhkan Sebelum Mulai
+              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight pt-4">
+                <span className="text-[#00FF9D] font-mono mr-3">1.</span> Yang Kamu Butuhkan Sebelum Mulai (Checklist 3 Item)
               </h2>
-              <p>Sebelum mengakses portal aktivasi, pastikan tiga artefak utama ini sudah ada di tangan Anda:</p>
+              <p>Sebelum mengakses portal aktivasi, pastikan tiga hal utama ini sudah ada di tangan Anda:</p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                 <div className="bg-[#121212] border border-white/10 p-6 rounded-sm space-y-4">
                   <div className="text-[#836EF9]"><Scan size={24} /></div>
-                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Genesis Card (Secret Code)</h4>
-                  <p className="text-xs text-neutral-500 leading-relaxed">Kartu fisik yang ada di dalam paket pembelian. Gosok panel pelindung perak untuk melihat 12 digit kode rahasiamu.</p>
+                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Genesis Collection Card (Kartu NFT Fisik)</h4>
+                  <p className="text-xs text-neutral-400 leading-relaxed">
+                    Kartu ini terdapat di dalam paket pengiriman bersama dengan baju 0xTanda Anda. Kartu ini memiliki panel perak di bagian belakang yang bisa digosok untuk memunculkan 12 digit Secret Code (Kode Rahasia).
+                  </p>
                 </div>
                 <div className="bg-[#121212] border border-white/10 p-6 rounded-sm space-y-4">
                   <div className="text-[#00FF9D]"><Wallet size={24} /></div>
-                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Phantom Wallet (EVM)</h4>
-                  <p className="text-xs text-neutral-500 leading-relaxed">Dompet digital pribadimu. Kami sangat merekomendasikan aplikasi Phantom karena UI-nya paling ramah untuk pemula.</p>
+                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Crypto Wallet Pribadi (Phantom atau MetaMask)</h4>
+                  <p className="text-xs text-neutral-400 leading-relaxed">
+                    Anda memerlukan dompet digital pribadi (bukan dari exchange atau bursa kripto seperti Indodax/Binance). Kami sangat menyarankan Anda mengunduh aplikasi Phantom atau MetaMask di smartphone Anda karena penggunaannya yang sangat ramah pemula.
+                  </p>
                 </div>
                 <div className="bg-[#121212] border border-white/10 p-6 rounded-sm space-y-4">
                   <div className="text-[#836EF9]"><CheckCircle2 size={24} /></div>
-                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Bukti Pembelian</h4>
-                  <p className="text-xs text-neutral-500 leading-relaxed">Screenshot atau foto bukti transfer/struk saat kamu memesan koleksi fisik 0xTanda.</p>
+                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Bukti Pembelian (Struk/Screenshot)</h4>
+                  <p className="text-xs text-neutral-400 leading-relaxed">
+                    Siapkan tangkapan layar (screenshot) bukti transfer atau rincian pesanan saat Anda membeli produk fisik 0xTanda sebagai lapis keamanan tambahan.
+                  </p>
                 </div>
               </div>
             </motion.div>
 
             {/* SEKSI 2 */}
             <motion.div variants={fadeUp} className="space-y-5">
-              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight pt-8 border-t border-white/5 mt-8 uppercase">
+              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight pt-8 border-t border-white/5 mt-8">
                 <span className="text-[#00FF9D] font-mono mr-3">2.</span> Langkah 1–5: Dari Scan Barcode Hingga NFT Masuk ke Walletmu
               </h2>
-              <p>Sudah menyiapkan ketiganya? Mari kita mulai proses inisiasi identitas digitalmu:</p>
+              <p>Proses ini dirancang agar dapat diselesaikan dalam waktu kurang dari 5 menit.</p>
+              
               <ul className="space-y-8 mt-8 border-l border-white/10 pl-6 md:pl-8 ml-2">
                 <li className="relative">
                   <span className="absolute -left-[35px] md:-left-[43px] top-1 w-6 h-6 bg-[#00FF9D] text-black font-bold font-mono text-xs flex items-center justify-center rounded-full">1</span>
-                  <strong className="text-white block mb-2 text-lg">Siapkan Phantom Wallet</strong>
-                  Unduh aplikasi <b>Phantom</b> di App Store/Play Store (atau ekstensi Chrome). Buat dompet baru, dan ingat: <b>Simpan Recovery Phrase (kata sandi) Anda di tempat yang sangat aman dan jangan berikan ke siapapun!</b> Klik ikon rantai di atas, pastikan jaringannya mencakup "Ethereum/EVM".
+                  <strong className="text-white block mb-2 text-lg">Siapkan Phantom atau MetaMask Wallet</strong>
+                  Unduh aplikasi Phantom atau MetaMask dari App Store atau Google Play. Ikuti instruksi untuk membuat dompet baru. <b className="text-[#00FF9D]">Peringatan Keamanan Sangat Penting:</b> Anda akan diberikan 12 kata rahasia (Recovery Phrase / Seed Phrase). Tulis kata-kata tersebut di kertas dan simpan di tempat yang aman. Jangan pernah membagikan 12 kata itu kepada siapa pun, termasuk tim 0xTanda.
                 </li>
                 <li className="relative">
                   <span className="absolute -left-[35px] md:-left-[43px] top-1 w-6 h-6 bg-[#00FF9D] text-black font-bold font-mono text-xs flex items-center justify-center rounded-full">2</span>
-                  <strong className="text-white block mb-2 text-lg">Akses Portal Aktivasi 0xTanda</strong>
-                  Kunjungi halaman <Link href="/verify" className="text-[#00FF9D] hover:underline font-mono">0xtanda.xyz/verify</Link> (atau scan QR yang ada di kartu Anda). Baca instruksi awal, lalu klik "INITIALIZE VERIFICATION".
+                  <strong className="text-white block mb-2 text-lg">Scan Barcode atau Kunjungi Website Verifikasi</strong>
+                  Buka kamera smartphone Anda dan pindai (scan) QR Code yang ada di bagian belakang Genesis Card, atau Anda bisa langsung mengetik <code className="bg-white/10 px-2 py-0.5 text-[#00FF9D] font-mono text-sm">0xtanda.xyz/verify</code> di browser Anda.
                 </li>
                 <li className="relative">
                   <span className="absolute -left-[35px] md:-left-[43px] top-1 w-6 h-6 bg-[#00FF9D] text-black font-bold font-mono text-xs flex items-center justify-center rounded-full">3</span>
-                  <strong className="text-white block mb-2 text-lg">Input Secret Code</strong>
-                  Masukkan 12 digit kode rahasia dari hasil gosok panel Genesis Card Anda ke kolom pertama. Sistem akan memformatnya secara otomatis.
+                  <strong className="text-white block mb-2 text-lg">Gosok dan Masukkan Kode Rahasia</strong>
+                  Gosok perlahan panel pelindung perak pada Genesis Card Anda menggunakan koin. Masukkan 12 digit kode alfanumerik yang tersembunyi di baliknya ke dalam kolom pertama di formulir website.
                 </li>
                 <li className="relative">
                   <span className="absolute -left-[35px] md:-left-[43px] top-1 w-6 h-6 bg-[#00FF9D] text-black font-bold font-mono text-xs flex items-center justify-center rounded-full">4</span>
-                  <strong className="text-white block mb-2 text-lg">Salin Wallet Address</strong>
-                  Buka aplikasi Phantom Anda, klik nama dompet di bagian atas untuk menyalin "Alamat Wallet" (Address). Pastikan alamatnya dimulai dengan huruf <code className="bg-white/10 px-2 py-0.5 text-[#00FF9D]">0x...</code>. Paste (tempel) alamat tersebut di kolom kedua pada formulir.
+                  <strong className="text-white block mb-2 text-lg">Salin Alamat Wallet (Wallet Address)</strong>
+                  Buka aplikasi Phantom atau MetaMask Anda. Di bagian paling atas aplikasi, Anda akan melihat deretan huruf dan angka yang diawali dengan <code>0x...</code> (contoh: 0x1234abcd...). Gunakan <b>Jaringan MONAD</b> atau Alamat wallet MONAD, ketuk deretan angka tersebut untuk menyalinnya (copy), lalu tempelkan (paste) ke kolom "Wallet Address" di formulir website.
                 </li>
                 <li className="relative">
                   <span className="absolute -left-[35px] md:-left-[43px] top-1 w-6 h-6 bg-[#00FF9D] text-black font-bold font-mono text-xs flex items-center justify-center rounded-full">5</span>
-                  <strong className="text-white block mb-2 text-lg">Lengkapi Profil & Submit</strong>
-                  Isi data dirimu (Email, ID Telegram dengan awalan @), dan unggah bukti pembelian. Centang kotak persetujuan, dan klik <b>SUBMIT</b>. Selesai! Tim 0xTanda akan menanggung biaya gas fee dan melakukan Airdrop NFT Anda dalam waktu maksimal 1x24 jam.
+                  <strong className="text-white block mb-2 text-lg">Lengkapi Data & Submit</strong>
+                  Isi sisa formulir dengan nama, kontak, dan unggah foto bukti pembelian Anda. Klik tombol "Submit". Selesai! Tim 0xTanda akan menanggung seluruh biaya jaringan (gas fee) dan mengirimkan (Airdrop) NFT tersebut ke dompet Anda secara manual dalam waktu maksimal 1x24 jam.
                 </li>
               </ul>
             </motion.div>
 
             {/* SEKSI 3 */}
             <motion.div variants={fadeUp} className="space-y-5">
-              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight pt-8 border-t border-white/5 mt-8 uppercase">
+              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight pt-8 border-t border-white/5 mt-8">
                 <span className="text-[#00FF9D] font-mono mr-3">3.</span> Apa yang Bisa Kamu Lakukan dengan NFT Setelah Diklaim?
               </h2>
               <div className="bg-[#00FF9D]/5 border border-[#00FF9D]/30 p-6 md:p-8 rounded-sm space-y-4">
-                <p>Begitu Aset Digital 0xTanda (NFT) mendarat di dompet Phantom Anda, status Anda resmi ditingkatkan menjadi <b>Verified Holder</b>. Aset ini bertindak sebagai:</p>
-                <ul className="space-y-3 mt-4 text-sm">
-                  <li className="flex items-start gap-3">
-                    <ShieldCheck className="text-[#00FF9D] shrink-0 mt-0.5" size={18} />
-                    <span><b>Sertifikat Keaslian Abadi:</b> Bukti mutlak bahwa garmen yang Anda pakai adalah 100% original.</span>
+                <p>
+                  Setelah aset digital 0xTanda mendarat di dompet Wallet Anda, status Anda resmi ditingkatkan menjadi <b>Verified Holder</b>. Aset ini bukanlah sebuah instrumen investasi untuk tujuan jual-beli demi keuntungan semata, melainkan sebuah utilitas yang memberikan nilai tambah pada pakaian Anda:
+                </p>
+                <ul className="space-y-4 mt-6 text-[15px] md:text-base">
+                  <li className="flex items-start gap-4">
+                    <ShieldCheck className="text-[#00FF9D] shrink-0 mt-1" size={20} />
+                    <div>
+                      <b className="text-white">Sertifikat Keaslian :</b> NFT Anda adalah bukti kriptografis mutlak bahwa pakaian fisik yang Anda miliki adalah 100% original dari fasilitas produksi kami.
+                    </div>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <Zap className="text-[#00FF9D] shrink-0 mt-0.5" size={18} />
-                    <span><b>Akses Diskon:</b> Menikmati potongan harga permanen untuk drop fisik berikutnya.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <User className="text-[#00FF9D] shrink-0 mt-0.5" size={18} />
-                    <span><b>Kunci Komunitas:</b> Menjadi paspor masuk ke Telegram eksklusif (The War Room) untuk pembeli Royal Resistance.</span>
+                  <li className="flex items-start gap-4">
+                    <Zap className="text-[#00FF9D] shrink-0 mt-1" size={20} />
+                    <div>
+                      <b className="text-white">Akses Diskon & Prioritas:</b> Memegang NFT ini memberikan Anda pengakuan di dalam sistem kami, membuka akses untuk diskon khusus pada rilis produk fisik di masa depan, serta mendapatkan sneak peak pembelian (whitelist) sebelum produk dijual ke publik.
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -177,38 +195,66 @@ export default function CaraKlaimNFTPage() {
 
             {/* SEKSI 4 */}
             <motion.div variants={fadeUp} className="space-y-5">
-              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight pt-8 border-t border-white/5 mt-8 uppercase">
-                <span className="text-[#00FF9D] font-mono mr-3">4.</span> Masalah Umum Saat Klaim & Cara Mengatasinya
+              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight pt-8 border-t border-white/5 mt-8">
+                <span className="text-[#00FF9D] font-mono mr-3">4.</span> Masalah Umum Saat Klaim dan Cara Mengatasinya
               </h2>
-              <p>Kendala teknis kadang terjadi. Berikut adalah solusi cepat untuk beberapa skenario yang paling sering dialami:</p>
+              <p>Kendala teknis sesekali bisa terjadi. Berikut adalah solusi cepat untuk beberapa skenario yang paling umum:</p>
+              
               <div className="grid gap-4 mt-6">
-                <div className="bg-white/5 border border-white/10 p-5 rounded-sm">
-                  <h4 className="text-red-400 font-bold text-sm uppercase tracking-widest flex items-center gap-2 mb-2">
-                    <MessageSquareWarning size={16} /> Notifikasi: "Kode Sudah Digunakan"
+                <div className="bg-white/5 border border-white/10 p-6 rounded-sm">
+                  <h4 className="text-red-400 font-bold text-base flex items-center gap-2 mb-3">
+                    <MessageSquareWarning size={18} /> Peringatan "Kode Sudah Digunakan"
                   </h4>
-                  <p className="text-sm text-neutral-400">Kode pada Genesis Card hanya berlaku satu kali. Jika Anda merasa belum pernah mengklaimnya, segera ambil foto kartu fisik Anda dan hubungi tim *Support* kami.</p>
+                  <p className="text-sm text-neutral-400 leading-relaxed">
+                    Kode pada Genesis Card hanya berlaku satu kali. Jika Anda mendapatkan pesan ini tetapi merasa belum pernah mengklaimnya, jangan panik. Kemungkinan Anda menekan tombol "Submit" dua kali (double click). Tim kami akan memverifikasi antrean secara manual.
+                  </p>
                 </div>
-                <div className="bg-white/5 border border-white/10 p-5 rounded-sm">
-                  <h4 className="text-yellow-400 font-bold text-sm uppercase tracking-widest flex items-center gap-2 mb-2">
-                    <AlertTriangle size={16} /> Notifikasi: "Alamat Wallet Tidak Valid"
+                
+                <div className="bg-white/5 border border-white/10 p-6 rounded-sm">
+                  <h4 className="text-yellow-400 font-bold text-base flex items-center gap-2 mb-3">
+                    <AlertTriangle size={18} /> Peringatan "Alamat Wallet Tidak Valid"
                   </h4>
-                  <p className="text-sm text-neutral-400">Sistem 0xTanda mendeteksi format dompet Anda salah. Pastikan Anda menyalin alamat lengkap dari aplikasi Phantom, yang selalu diawali dengan <code>0x...</code>.</p>
+                  <p className="text-sm text-neutral-400 leading-relaxed">
+                    Sistem kami mendeteksi jika format dompet Anda salah. Pastikan Anda menyalin alamat lengkap dari aplikasi Phantom atau MetaMask Anda. Alamat yang valid Jaringan MONAD yang diawali dengan angka nol dan huruf x kecil (0x...). Jangan pernah memasukkan alamat rekening dari bursa kripto (Exchange).
+                  </p>
+                </div>
+
+                <div className="bg-white/5 border border-white/10 p-6 rounded-sm">
+                  <h4 className="text-[#38BDF8] font-bold text-base flex items-center gap-2 mb-3">
+                    <Clock size={18} /> NFT Belum Masuk Setelah 24 Jam
+                  </h4>
+                  <p className="text-sm text-neutral-400 leading-relaxed">
+                    Proses pengiriman kami lakukan secara teliti dan manual demi keamanan bersama. Jika melewati batas 1x24 jam, Anda dapat langsung menghubungi layanan dukungan pelanggan (Concierge) kami melalui Telegram untuk pengecekan cepat.{' '}
+                    <a href="https://t.me/Official0xTanda" target="_blank" rel="noopener noreferrer" className="text-[#00FF9D] hover:underline font-bold">
+                      (Link Telegram CS)
+                    </a>
+                  </p>
                 </div>
               </div>
             </motion.div>
 
             {/* SEKSI 5 */}
             <motion.div variants={fadeUp} className="space-y-5">
-              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight pt-8 border-t border-white/5 mt-8 uppercase">
+              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight pt-8 border-t border-white/5 mt-8">
                 <span className="text-[#00FF9D] font-mono mr-3">5.</span> Tanya Komunitas: Bergabung ke Telegram 0xTanda Official
               </h2>
-              <p>Masih merasa bingung? Anda tidak dibiarkan berjuang sendiri. Revolusi Web3 adalah tentang kebersamaan dan komunitas.</p>
-              <p>Jika Anda memiliki pertanyaan seputar instalasi wallet, cara memverifikasi email, atau sekadar ingin berbincang tentang masa depan Phygital Fashion di Jakarta, pintu komunitas kami selalu terbuka lebar.</p>
-              <div className="mt-8">
-                <a href="https://t.me/Official0xTanda" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/5 border border-white/20 text-white font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#00FF9D] hover:text-black hover:border-[#00FF9D] transition-all rounded-sm">
-                  <Send size={16} /> JOIN OFFICIAL TELEGRAM
+              <p>
+                Mempelajari teknologi baru akan jauh lebih mudah jika dilakukan bersama-sama. Revolusi Web3 dan Phygital Fashion dibangun di atas kekuatan komunitas.
+              </p>
+              <p>
+                Jika Anda masih memiliki pertanyaan seputar cara menginstal dompet kripto, cara menjaga keamanan seed phrase, atau sekadar ingin berdiskusi mengenai arah tren pakaian dan karya seni di masa depan, pintu komunitas kami selalu terbuka lebar.
+              </p>
+              <p className="font-bold text-white pt-4">
+                Bergabung dengan komunitas resmi kami:
+              </p>
+              <div className="mt-6">
+                <a href="https://t.me/Official0xTanda" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#00FF9D]/10 border border-[#00FF9D]/50 text-[#00FF9D] font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#00FF9D] hover:text-black transition-all rounded-sm shadow-[0_0_20px_rgba(0,255,157,0.1)]">
+                  <Send size={16} /> Bergabung ke Telegram Official 0xTanda
                 </a>
               </div>
+              <p className="pt-8 font-medium text-[#00FF9D] italic text-center text-sm md:text-base border-t border-white/5 mt-8">
+                “Tangible craftsmanship you can feel, secured by digital ownership you can prove.”
+              </p>
             </motion.div>
 
           </motion.div>
@@ -231,9 +277,9 @@ export default function CaraKlaimNFTPage() {
             </Link>
             <Link href="/terminal-log" className="group bg-[#121212] border border-white/10 p-5 flex flex-col gap-4 hover:border-white/50 transition-all rounded-sm">
               <div className="space-y-2">
-                <p className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest">Social Proof</p>
+                <p className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest">System Log</p>
                 <h4 className="text-white font-bold text-sm tracking-tight leading-snug group-hover:text-white transition-colors flex items-start gap-2 justify-between">
-                  Lihat Studi Kasus Pembeli Jakarta yang Sudah Klaim <ChevronRight size={16} className="shrink-0 mt-1" />
+                  Baca Artikel Phygital Fashion Lainnya <ChevronRight size={16} className="shrink-0 mt-1" />
                 </h4>
               </div>
             </Link>

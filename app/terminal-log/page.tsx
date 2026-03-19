@@ -21,16 +21,16 @@ const Image = ({ src, alt, className, fill }: any) => {
 };
 // ============================================================================
 
-// DATA DAFTAR ARTIKEL
+// DATA DAFTAR ARTIKEL (SUDAH DIUPDATE)
 const ARTICLES = [
   {
     id: "01",
-    title: "Phygital Fashion: Baju Fisik + NFT Digital dalam Satu Koleksi | 0xTanda",
-    excerpt: "Selamat datang di titik temu antara realitas bendawi dan kedaulatan digital. 0xTanda hadir sebagai pionir infrastruktur identitas melalui Phygital Streetwear.",
+    title: "Apa Itu Phygital Fashion? Panduan Lengkap untuk Memahami Phygital | 0xTanda",
+    excerpt: "Dunia fashion perlahan sedang memasuki era baru. Membedah secara mendalam apa itu Phygital, teknologi blockchain di baliknya, dan mengapa inovasi ini mengubah cara kita menghargai pakaian.",
     date: "14 Maret 2026",
     category: "Editorial",
-    slug: "phygital-fashion-indonesia", // <-- Ini URL Foldernya
-    image: "/branding/og-banner.jpg",
+    slug: "phygital-fashion-indonesia", 
+    image: "/branding/t-shirt-and-blockchain.jpg", // Thumbnail diupdate pakai foto baru (huruf t kecil)
     accentColor: "text-[#836EF9]",
     borderColor: "hover:border-[#836EF9]/50"
   },
@@ -40,7 +40,7 @@ const ARTICLES = [
     excerpt: "Kami memahami bahwa memasuki dunia Web3 bisa terasa menakutkan bagi pemula. Protokol Concierge Airdrop kami dirancang agar siapapun dapat mengklaim Digital Twin NFT dengan mudah.",
     date: "15 Maret 2026",
     category: "Tutorial & Guide",
-    slug: "cara-klaim-nft", // <-- Ini URL Foldernya
+    slug: "cara-klaim-nft", 
     image: "/branding/og-banner.jpg",
     accentColor: "text-[#00FF9D]",
     borderColor: "hover:border-[#00FF9D]/50"
