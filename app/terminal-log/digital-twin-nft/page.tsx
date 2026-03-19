@@ -3,14 +3,13 @@
 import React from "react";
 import { motion, useScroll, useSpring, Variants } from "framer-motion";
 import {
-  Layers, Package, Fingerprint, HelpCircle, Zap, ShieldCheck, Users, User, Info, ArrowLeft, ChevronRight, Link as LinkIcon
+  Layers, Package, Fingerprint, HelpCircle, Zap, ShieldCheck, Users, User, Calendar, Clock, Info, ArrowLeft, ChevronRight, Link as LinkIcon
 } from "lucide-react";
 
 // ============================================================================
 // MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
 // CATATAN UNTUK COPAS: 
 // Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
-// HAPUS bagian mock ini dan gunakan import bawaan Next.js berikut:
 //
 // import Link from 'next/link';
 // import Image from 'next/image';
