@@ -51,6 +51,7 @@ app/robots.ts
 app/shop/page.tsx
 app/sitemap.ts
 app/terminal-log/cara-klaim-nft/page.tsx
+app/terminal-log/digital-twin-nft/page.tsx
 app/terminal-log/page.tsx
 app/terminal-log/phygital-fashion-indonesia/page.tsx
 app/verify/page.tsx
@@ -105,6 +106,271 @@ export default function robots(): MetadataRoute.Robots {
     // Ini memberi tahu Google di mana letak peta website (sitemap) lo
     sitemap: 'https://0xtanda.xyz/sitemap.xml',
   };
+}
+</file>
+
+<file path="app/terminal-log/digital-twin-nft/page.tsx">
+"use client";
+
+import React from "react";
+import { motion, useScroll, useSpring, Variants } from "framer-motion";
+import {
+  Layers, Package, Fingerprint, HelpCircle, Zap, ShieldCheck, Users, Info, ArrowLeft, ChevronRight, Link as LinkIcon
+} from "lucide-react";
+
+// ============================================================================
+// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
+// CATATAN UNTUK COPAS: 
+// Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
+// HAPUS bagian mock ini dan gunakan import bawaan Next.js berikut:
+//
+// import Link from 'next/link';
+// import Image from 'next/image';
+// ============================================================================
+const Link = ({ href, children, className }: any) => <a href={href} className={className}>{children}</a>;
+const Image = ({ src, alt, className, fill }: any) => fill ? <div className={`relative ${className}`}><img src={src} alt={alt} className="absolute inset-0 w-full h-full object-cover"/></div> : <img src={src} alt={alt} className={className} />;
+// ============================================================================
+
+// --- VARIAN ANIMASI ---
+const fadeUp: Variants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }};
+const stagger: Variants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } }};
+
+export default function DigitalTwinArticlePage() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+  return (
+    <main className="min-h-screen bg-[#0A0A0A] text-[#F3F3F3] selection:bg-[#38BDF8] selection:text-black font-sans relative">
+      {/* READING PROGRESS BAR */}
+      <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#836EF9] via-[#38BDF8] to-[#00FF9D] z-[100] origin-left" style={{ scaleX }} />
+
+      {/* HEADER ARTIKEL JURNAL */}
+      <header className="relative pt-40 pb-12 px-6 border-b border-white/5">
+        <div className="max-w-3xl mx-auto">
+          <Link href="/terminal-log" className="inline-flex items-center gap-2 text-neutral-500 hover:text-[#38BDF8] mb-10 font-mono text-[10px] tracking-[0.4em] uppercase transition-colors group">
+            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to Menu
+          </Link>
+          <motion.div initial="hidden" animate="visible" variants={stagger} className="space-y-6">
+            <motion.div variants={fadeUp} className="flex items-center gap-3 text-[11px] font-mono tracking-widest text-[#38BDF8] uppercase font-bold">
+              <span className="bg-[#38BDF8]/10 border border-[#38BDF8]/30 px-3 py-1 rounded-full">Deep Dive</span>
+              <span className="text-neutral-500">// Archive_03</span>
+            </motion.div>
+            <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-bold tracking-tighter leading-tight text-white">
+              Digital Twin NFT 0xTanda — Apa yang Kamu Dapatkan Saat Beli | 0xTanda
+            </motion.h1>
+            <motion.p variants={fadeUp} className="text-lg md:text-xl text-[#38BDF8] font-light leading-relaxed">
+              Setiap Produk 0xTanda Datang dengan Digital Twin NFT : Bukti Kepemilikan karya seni dengan utilitas nyata.
+            </motion.p>
+            <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-x-6 gap-y-4 text-[12px] text-neutral-500 pt-6 border-t border-white/5">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-[#38BDF8]/20 flex items-center justify-center border border-[#38BDF8]/50">
+                  <User size={12} className="text-[#38BDF8]" />
+                </div>
+                <span className="font-bold text-white">0xTanda Research Lab</span>
+              </div>
+              <div className="flex items-center gap-2"><Calendar size={14} /> 16 Maret 2026</div>
+              <div className="flex items-center gap-2"><Clock size={14} /> 5 Min Read</div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </header>
+
+      {/* BODY ARTIKEL */}
+      <article className="relative py-16 px-6">
+        <div className="max-w-3xl mx-auto space-y-10 text-[17px] md:text-[19px] text-neutral-300 leading-[1.8] font-light">
+          
+          {/* PENDAHULUAN */}
+          <motion.div variants={fadeUp}>
+            <p>
+              <span className="float-left text-6xl md:text-7xl font-bold text-[#38BDF8] mr-4 mt-2 leading-none font-serif">S</span>
+              aat kamu memutuskan untuk membeli pakaian dari 0xTanda, kamu tidak hanya menerima sebuah paket berisi kaos. Kamu masuk ke dalam sebuah ekosistem phygital (fisik dan digital) yang dirancang untuk memberikan transparansi dan fungsi nyata bagi pembelinya.
+            </p>
+            <p className="mt-6">
+              Bagi sebagian orang, istilah NFT atau teknologi blockchain mungkin terdengar asing. Artikel ini akan menjelaskan secara sederhana apa sebenarnya yang kamu dapatkan di dalam kotak pengiriman kami, dan mengapa sistem ini dibuat khusus untuk mengapresiasi kualitas pakaian serta karya seni di atasnya.
+            </p>
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="py-6">
+            <figure className="relative aspect-[16/9] w-full rounded-sm overflow-hidden border border-white/10 bg-white/5 group">
+              <Image src="/branding/og-banner.jpg" alt="0xTanda Digital Twin Concept" fill className="object-cover group-hover:scale-105 transition-transform duration-1000 hue-rotate-180" />
+              <div className="absolute inset-0 bg-[#38BDF8]/10 mix-blend-overlay"></div>
+              <figcaption className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1.5 text-[10px] font-mono text-[#38BDF8] border border-[#38BDF8]/30 uppercase tracking-widest">
+                Visual_Data // Digital Twin Utility
+              </figcaption>
+            </figure>
+          </motion.div>
+
+          {/* SEKSI 1 */}
+          <motion.div variants={fadeUp} className="space-y-5">
+            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+              <Layers className="text-[#38BDF8]" size={28} /> 1. Apa Itu Digital Twin & Lebih Dari Sekadar NFT
+            </h2>
+            <p>
+              Dalam istilah sederhana, <b>Digital Twin</b> adalah kembaran digital dari barang fisik yang kamu miliki. Di 0xTanda, setiap helai baju yang diproduksi memiliki satu sertifikat digital berbentuk NFT yang terekam di jaringan blockchain (Monad).
+            </p>
+            <p>
+              Ini jauh lebih dari sekadar NFT gambar biasa yang sering kamu lihat di internet. Digital Twin 0xTanda terikat langsung dengan produk fisik nyata. Fungsinya murni sebagai bukti kepemilikan yang sah bahwa kamu adalah pembeli resmi dari karya seni dan pakaian tersebut.
+            </p>
+            <div className="bg-red-900/10 border-l-4 border-red-500 p-6 my-6 text-white relative overflow-hidden">
+              <Info className="absolute top-4 right-4 text-red-500/20" size={60} />
+              <h4 className="text-red-400 font-bold mb-2 uppercase tracking-widest text-sm flex items-center gap-2">
+                <ShieldCheck size={16} /> Perhatian Penting
+              </h4>
+              <p className="text-sm text-neutral-300 relative z-10 leading-relaxed">
+                Kami menegaskan bahwa Digital Twin atau NFT dari 0xTanda <b className="text-white">bukanlah sebuah instrumen investasi</b>. Aset ini tidak dirancang sebagai sarana jual-beli (trading) untuk mencari keuntungan finansial. Nilainya murni terletak pada transparansi kepemilikan karya seni, fungsi diskon, dan tiket masuk ke dalam komunitas kami.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* SEKSI 2 */}
+          <motion.div variants={fadeUp} className="space-y-5 pt-8 border-t border-white/5">
+            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+              <Package className="text-[#38BDF8]" size={28} /> 2. Yang Kamu Terima di Dalam Paket
+            </h2>
+            <p>Ketika paket 0xTanda sampai di tanganmu, inilah tiga komponen utama yang akan kamu dapatkan:</p>
+            
+            <ul className="space-y-6 mt-6">
+              <li className="bg-white/5 border border-white/10 p-6 rounded-sm flex flex-col md:flex-row gap-6 items-start md:items-center">
+                <div className="bg-[#38BDF8]/10 p-4 rounded-full text-[#38BDF8] shrink-0 border border-[#38BDF8]/30">
+                  <Package size={24} />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-base uppercase tracking-widest mb-2">Pakaian Fisik Kualitas Premium</h4>
+                  <p className="text-sm text-neutral-400 leading-relaxed">Fokus utama kami tetap pada produk nyata. Kamu menerima kaos dengan material berkualitas tinggi (heavyweight cotton), berstruktur kokoh, dan jahitan yang rapih.</p>
+                </div>
+              </li>
+              <li className="bg-white/5 border border-white/10 p-6 rounded-sm flex flex-col md:flex-row gap-6 items-start md:items-center">
+                <div className="bg-[#38BDF8]/10 p-4 rounded-full text-[#38BDF8] shrink-0 border border-[#38BDF8]/30">
+                  <Fingerprint size={24} />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-base uppercase tracking-widest mb-2">Genesis Collection Card</h4>
+                  <p className="text-sm text-neutral-400 leading-relaxed">Di dalam paket, kamu akan menemukan sebuah kartu fisik. Kartu ini menampilkan detail karya seni dari baju yang kamu beli dan memiliki panel perak di bagian belakang yang bisa digosok untuk memunculkan kode rahasia.</p>
+                </div>
+              </li>
+              <li className="bg-white/5 border border-white/10 p-6 rounded-sm flex flex-col md:flex-row gap-6 items-start md:items-center">
+                <div className="bg-[#38BDF8]/10 p-4 rounded-full text-[#38BDF8] shrink-0 border border-[#38BDF8]/30">
+                  <Zap size={24} />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-base uppercase tracking-widest mb-2">Nomor Seri On-Chain (Aset Digital)</h4>
+                  <p className="text-sm text-neutral-400 leading-relaxed">Menggunakan kode rahasia dari kartu tersebut, kamu berhak mengklaim Digital Twin ke dompet digitalmu. Di sinilah nomor seri produksimu tercatat secara permanen dan transparan di jaringan blockchain.</p>
+                </div>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* SEKSI 3 */}
+          <motion.div variants={fadeUp} className="space-y-5 pt-8 border-t border-white/5">
+            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+              <HelpCircle className="text-[#38BDF8]" size={28} /> 3. Pertanyaan yang Sering Ditanyakan
+            </h2>
+            <div className="grid gap-6 mt-6">
+              <div className="bg-[#121212] border border-white/10 p-6 rounded-sm space-y-3">
+                <h4 className="text-white font-bold text-lg">Saya tidak mengerti Web3 atau Crypto, apakah tetap bisa beli?</h4>
+                <p className="text-sm text-neutral-400 leading-relaxed">
+                  Sangat bisa. Jika kamu hanya ingin memakai bajunya tanpa mengklaim NFT, itu sepenuhnya hakmu. Namun, kami sangat menyarankan kamu mengaktifkannya karena prosesnya gratis, sangat mudah, dan ada manfaat tambahan yang sayang untuk dilewatkan.
+                </p>
+              </div>
+              <div className="bg-[#121212] border border-white/10 p-6 rounded-sm space-y-3">
+                <h4 className="text-white font-bold text-lg">Apakah ada biaya tambahan untuk mencetak NFT-nya?</h4>
+                <p className="text-sm text-neutral-400 leading-relaxed">
+                  Tidak ada. Semua biaya transaksi jaringan (biasa disebut <i>gas fee</i>) sudah ditanggung penuh oleh pihak 0xTanda. Kamu hanya duduk manis dan menunggu NFT masuk.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* SEKSI 4 */}
+          <motion.div variants={fadeUp} className="space-y-5 pt-8 border-t border-white/5">
+            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+              <Zap className="text-[#38BDF8]" size={28} /> 4. Manfaat & Kenapa Memilih 0xTanda
+            </h2>
+            <p>
+              Membeli produk 0xTanda berarti kamu mengapresiasi kualitas, transparansi, dan ekosistem kreatif. Berikut adalah manfaat nyata yang kamu dapatkan:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+              <div className="bg-white/5 border border-white/10 p-6 rounded-sm space-y-3">
+                <ShieldCheck className="text-[#38BDF8] mb-2" size={24} />
+                <h4 className="text-white font-bold uppercase tracking-widest text-sm">Kualitas Tanpa Kompromi</h4>
+                <p className="text-sm text-neutral-400 leading-relaxed">Kamu mendapatkan pakaian dengan spesifikasi industrial yang dirancang untuk awet, menolak siklus pakaian cepat rusak (anti-fast fashion).</p>
+              </div>
+              <div className="bg-white/5 border border-white/10 p-6 rounded-sm space-y-3">
+                <User className="text-[#38BDF8] mb-2" size={24} />
+                <h4 className="text-white font-bold uppercase tracking-widest text-sm">Dukungan Untuk Seniman</h4>
+                <p className="text-sm text-neutral-400 leading-relaxed">Kami menerapkan skema transparansi di mana seniman yang merancang ilustrasi di baju kamu mendapatkan pembagian keuntungan yang adil.</p>
+              </div>
+              <div className="bg-white/5 border border-white/10 p-6 rounded-sm space-y-3">
+                <Zap className="text-[#38BDF8] mb-2" size={24} />
+                <h4 className="text-white font-bold uppercase tracking-widest text-sm">Utilitas Dinamis</h4>
+                <p className="text-sm text-neutral-400 leading-relaxed">Dengan menyimpan Digital Twin di dompet digitalmu, kamu mendapatkan keuntungan khusus seperti diskon untuk perilisan baju berikutnya dan <i>sneak peek</i> desain baru.</p>
+              </div>
+              <div className="bg-white/5 border border-white/10 p-6 rounded-sm space-y-3">
+                <Users className="text-[#38BDF8] mb-2" size={24} />
+                <h4 className="text-white font-bold uppercase tracking-widest text-sm">Komunitas Royal Resistance</h4>
+                <p className="text-sm text-neutral-400 leading-relaxed">Bagi pemegang koleksi tertentu, NFT tersebut berfungsi sebagai hak voting dan tempat berkumpulnya sesama kolektor yang menghargai kualitas.</p>
+              </div>
+            </div>
+            
+            <div className="bg-[#38BDF8]/10 border-l-4 border-[#38BDF8] p-6 mt-10">
+              <p className="font-serif text-lg md:text-xl text-white italic">"Tangible craftsmanship you can feel, secured by digital ownership you can prove."</p>
+            </div>
+          </motion.div>
+        </div>
+      </article>
+      
+      {/* INTERNAL LINKS (Sesuai Request) */}
+      <section className="py-16 px-6 bg-white/[0.02] border-y border-white/5">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <h4 className="font-mono text-[#38BDF8] text-[10px] tracking-[0.4em] uppercase mb-4 text-center md:text-left">Lanjutkan Penjelajahan:</h4>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Link 
+              href="/shop" 
+              className="group bg-[#121212] border border-white/10 p-5 flex flex-col gap-4 hover:border-[#38BDF8]/50 transition-all rounded-sm"
+            >
+              <div className="space-y-2">
+                <p className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest">Katalog 0xTanda</p>
+                <h4 className="text-white font-bold text-sm tracking-tight leading-snug group-hover:text-[#38BDF8] transition-colors flex items-start gap-2 justify-between">
+                  Beli sekarang di koleksi Genesis <ChevronRight size={16} className="shrink-0 mt-1" />
+                </h4>
+              </div>
+            </Link>
+
+            <Link 
+              href="/verify" 
+              className="group bg-[#121212] border border-white/10 p-5 flex flex-col gap-4 hover:border-[#38BDF8]/50 transition-all rounded-sm"
+            >
+              <div className="space-y-2">
+                <p className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest">Portal Verifikasi</p>
+                <h4 className="text-white font-bold text-sm tracking-tight leading-snug group-hover:text-[#38BDF8] transition-colors flex items-start gap-2 justify-between">
+                  Aktivasi NFT-mu sekarang <ChevronRight size={16} className="shrink-0 mt-1" />
+                </h4>
+              </div>
+            </Link>
+
+            <Link 
+              href="/terminal-log/phygital-fashion-indonesia" 
+              className="group bg-[#121212] border border-white/10 p-5 flex flex-col gap-4 hover:border-white/50 transition-all rounded-sm"
+            >
+              <div className="space-y-2">
+                <p className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest">System Log 01</p>
+                <h4 className="text-white font-bold text-sm tracking-tight leading-snug group-hover:text-white transition-colors flex items-start gap-2 justify-between">
+                  Pelajari lebih lanjut tentang phygital fashion <ChevronRight size={16} className="shrink-0 mt-1" />
+                </h4>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <footer className="py-16 px-6 text-center">
+        <div className="max-w-3xl mx-auto space-y-8">
+          <p className="font-mono text-[9px] text-neutral-800 uppercase tracking-[0.5em]">0XTANDA_DIGITAL_ARCHIVE_ISSUE_003_LOCKED</p>
+        </div>
+      </footer>
+    </main>
+  );
 }
 </file>
 
@@ -317,6 +583,29 @@ repomix-output.txt
 repomix-output.xml
 </file>
 
+<file path="next.config.ts">
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+        pathname: '**',
+      },
+    ],
+  },
+};
+
+export default nextConfig;
+</file>
+
 <file path="app/terminal-log/cara-klaim-nft/page.tsx">
 "use client";
 
@@ -429,21 +718,21 @@ export default function CaraKlaimNFTPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                 <div className="bg-[#121212] border border-white/10 p-6 rounded-sm space-y-4">
                   <div className="text-[#836EF9]"><Scan size={24} /></div>
-                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Genesis Card</h4>
+                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Genesis Collection Card (Kartu NFT Fisik)</h4>
                   <p className="text-xs text-neutral-400 leading-relaxed">
-                    Kartu hitam premium ini terdapat di dalam paket pengiriman bersama dengan baju 0xTanda Anda. Kartu ini memiliki panel perak di bagian belakang yang bisa digosok untuk memunculkan 12 digit Secret Code (Kode Rahasia).
+                    Kartu ini terdapat di dalam paket pengiriman bersama dengan baju 0xTanda Anda. Kartu ini memiliki panel perak di bagian belakang yang bisa digosok untuk memunculkan 12 digit Secret Code (Kode Rahasia).
                   </p>
                 </div>
                 <div className="bg-[#121212] border border-white/10 p-6 rounded-sm space-y-4">
                   <div className="text-[#00FF9D]"><Wallet size={24} /></div>
-                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Crypto Wallet Pribadi</h4>
+                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Crypto Wallet Pribadi (Phantom atau MetaMask)</h4>
                   <p className="text-xs text-neutral-400 leading-relaxed">
-                    Anda memerlukan dompet digital pribadi (bukan dari exchange seperti Indodax/Binance). Kami sangat menyarankan Anda mengunduh aplikasi <b>Phantom</b> atau <b>MetaMask</b> di smartphone Anda karena sangat ramah pemula.
+                    Anda memerlukan dompet digital pribadi (bukan dari exchange atau bursa kripto seperti Indodax/Binance). Kami sangat menyarankan Anda mengunduh aplikasi Phantom atau MetaMask di smartphone Anda karena penggunaannya yang sangat ramah pemula.
                   </p>
                 </div>
                 <div className="bg-[#121212] border border-white/10 p-6 rounded-sm space-y-4">
                   <div className="text-[#836EF9]"><CheckCircle2 size={24} /></div>
-                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Bukti Pembelian</h4>
+                  <h4 className="text-white font-bold text-sm uppercase tracking-widest leading-tight">Bukti Pembelian (Struk/Screenshot)</h4>
                   <p className="text-xs text-neutral-400 leading-relaxed">
                     Siapkan tangkapan layar (screenshot) bukti transfer atau rincian pesanan saat Anda membeli produk fisik 0xTanda sebagai lapis keamanan tambahan.
                   </p>
@@ -477,7 +766,7 @@ export default function CaraKlaimNFTPage() {
                 <li className="relative">
                   <span className="absolute -left-[35px] md:-left-[43px] top-1 w-6 h-6 bg-[#00FF9D] text-black font-bold font-mono text-xs flex items-center justify-center rounded-full">4</span>
                   <strong className="text-white block mb-2 text-lg">Salin Alamat Wallet (Wallet Address)</strong>
-                  Buka aplikasi Phantom atau MetaMask Anda. Di bagian paling atas aplikasi, Anda akan melihat deretan huruf dan angka yang diawali dengan <code>0x...</code> (contoh: 0x1234abcd...). Ketuk deretan angka tersebut untuk menyalinnya (copy), lalu tempelkan (paste) ke kolom "Wallet Address" di formulir website.
+                  Buka aplikasi Phantom atau MetaMask Anda. Di bagian paling atas aplikasi, Anda akan melihat deretan huruf dan angka yang diawali dengan <code>0x...</code> (contoh: 0x1234abcd...). Gunakan <b>Jaringan MONAD</b> atau Alamat wallet MONAD, ketuk deretan angka tersebut untuk menyalinnya (copy), lalu tempelkan (paste) ke kolom "Wallet Address" di formulir website.
                 </li>
                 <li className="relative">
                   <span className="absolute -left-[35px] md:-left-[43px] top-1 w-6 h-6 bg-[#00FF9D] text-black font-bold font-mono text-xs flex items-center justify-center rounded-full">5</span>
@@ -494,25 +783,19 @@ export default function CaraKlaimNFTPage() {
               </h2>
               <div className="bg-[#00FF9D]/5 border border-[#00FF9D]/30 p-6 md:p-8 rounded-sm space-y-4">
                 <p>
-                  Setelah aset digital 0xTanda mendarat di dompet Phantom atau MetaMask Anda, status Anda resmi ditingkatkan menjadi <b>Verified Holder</b>. Aset ini bukanlah sebuah instrumen investasi untuk tujuan jual-beli demi keuntungan semata, melainkan sebuah utilitas yang memberikan nilai tambah pada pakaian Anda:
+                  Setelah aset digital 0xTanda mendarat di dompet Wallet Anda, status Anda resmi ditingkatkan menjadi <b>Verified Holder</b>. Aset ini bukanlah sebuah instrumen investasi untuk tujuan jual-beli demi keuntungan semata, melainkan sebuah utilitas yang memberikan nilai tambah pada pakaian Anda:
                 </p>
                 <ul className="space-y-4 mt-6 text-[15px] md:text-base">
                   <li className="flex items-start gap-4">
                     <ShieldCheck className="text-[#00FF9D] shrink-0 mt-1" size={20} />
                     <div>
-                      <b className="text-white">Sertifikat Keaslian Abadi:</b> NFT Anda adalah bukti kriptografis mutlak bahwa pakaian fisik yang Anda miliki adalah 100% original dari fasilitas produksi kami.
+                      <b className="text-white">Sertifikat Keaslian :</b> NFT Anda adalah bukti kriptografis mutlak bahwa pakaian fisik yang Anda miliki adalah 100% original dari fasilitas produksi kami.
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
                     <Zap className="text-[#00FF9D] shrink-0 mt-1" size={20} />
                     <div>
-                      <b className="text-white">Akses Diskon & Prioritas:</b> Memegang aset digital ini memberikan Anda pengakuan di dalam sistem kami, membuka akses untuk diskon khusus pada rilis produk fisik di masa depan, serta mendapatkan prioritas pembelian (whitelist) sebelum produk dijual ke publik.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <User className="text-[#00FF9D] shrink-0 mt-1" size={20} />
-                    <div>
-                      <b className="text-white">Kunci Komunitas (Untuk Royal Resistance):</b> Bagi pemegang koleksi tertentu, NFT ini bertindak sebagai "kunci pintar" untuk memasuki ruang komunitas tertutup kami.
+                      <b className="text-white">Akses Diskon & Prioritas:</b> Memegang NFT ini memberikan Anda pengakuan di dalam sistem kami, membuka akses untuk diskon khusus pada rilis produk fisik di masa depan, serta mendapatkan sneak peak pembelian (whitelist) sebelum produk dijual ke publik.
                     </div>
                   </li>
                 </ul>
@@ -541,7 +824,7 @@ export default function CaraKlaimNFTPage() {
                     <AlertTriangle size={18} /> Peringatan "Alamat Wallet Tidak Valid"
                   </h4>
                   <p className="text-sm text-neutral-400 leading-relaxed">
-                    Sistem kami mendeteksi jika format dompet Anda salah. Pastikan Anda menyalin alamat lengkap dari aplikasi Phantom atau MetaMask Anda. Alamat yang valid selalu diawali dengan angka nol dan huruf x kecil (0x...). Jangan pernah memasukkan alamat rekening dari bursa kripto (Exchange).
+                    Sistem kami mendeteksi jika format dompet Anda salah. Pastikan Anda menyalin alamat lengkap dari aplikasi Phantom atau MetaMask Anda. Alamat yang valid Jaringan MONAD yang diawali dengan angka nol dan huruf x kecil (0x...). Jangan pernah memasukkan alamat rekening dari bursa kripto (Exchange).
                   </p>
                 </div>
 
@@ -550,7 +833,10 @@ export default function CaraKlaimNFTPage() {
                     <Clock size={18} /> NFT Belum Masuk Setelah 24 Jam
                   </h4>
                   <p className="text-sm text-neutral-400 leading-relaxed">
-                    Proses pengiriman kami lakukan secara teliti dan manual demi keamanan bersama. Jika melewati batas 1x24 jam, Anda dapat langsung menghubungi layanan dukungan pelanggan (Concierge) kami melalui Telegram untuk pengecekan cepat.
+                    Proses pengiriman kami lakukan secara teliti dan manual demi keamanan bersama. Jika melewati batas 1x24 jam, Anda dapat langsung menghubungi layanan dukungan pelanggan (Concierge) kami melalui Telegram untuk pengecekan cepat.{' '}
+                    <a href="https://t.me/Official0xTanda" target="_blank" rel="noopener noreferrer" className="text-[#00FF9D] hover:underline font-bold">
+                      (Link Telegram CS)
+                    </a>
                   </p>
                 </div>
               </div>
@@ -565,10 +851,10 @@ export default function CaraKlaimNFTPage() {
                 Mempelajari teknologi baru akan jauh lebih mudah jika dilakukan bersama-sama. Revolusi Web3 dan Phygital Fashion dibangun di atas kekuatan komunitas.
               </p>
               <p>
-                Jika Anda masih memiliki pertanyaan seputar cara menginstal dompet kripto, cara menjaga keamanan seed phrase, atau sekadar ingin berdiskusi mengenai arah tren pakaian jalanan (streetwear) dan karya seni di masa depan, pintu komunitas kami selalu terbuka lebar.
+                Jika Anda masih memiliki pertanyaan seputar cara menginstal dompet kripto, cara menjaga keamanan seed phrase, atau sekadar ingin berdiskusi mengenai arah tren pakaian dan karya seni di masa depan, pintu komunitas kami selalu terbuka lebar.
               </p>
               <p className="font-bold text-white pt-4">
-                Kami mengundang Anda untuk bergabung dengan para pionir lainnya di markas komando resmi kami:
+                Bergabung dengan komunitas resmi kami:
               </p>
               <div className="mt-6">
                 <a href="https://t.me/Official0xTanda" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#00FF9D]/10 border border-[#00FF9D]/50 text-[#00FF9D] font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#00FF9D] hover:text-black transition-all rounded-sm shadow-[0_0_20px_rgba(0,255,157,0.1)]">
@@ -619,158 +905,6 @@ export default function CaraKlaimNFTPage() {
     </main>
   );
 }
-</file>
-
-<file path="app/terminal-log/page.tsx">
-"use client";
-
-import React from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Terminal } from "lucide-react";
-
-// ============================================================================
-// MOCK NEXT.JS (Hanya untuk Preview di Canvas)
-// Saat menyalin ke VSCode, gunakan import bawaan Next.js:
-// import Link from 'next/link';
-// import Image from 'next/image';
-// ============================================================================
-const Link = ({ href, children, className }: any) => (
-  <a href={href} className={className}>{children}</a>
-);
-const Image = ({ src, alt, className, fill }: any) => {
-  if (fill) {
-    return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} />;
-  }
-  return <img src={src} alt={alt} className={className} />;
-};
-// ============================================================================
-
-// DATA DAFTAR ARTIKEL (SUDAH DIUPDATE)
-const ARTICLES = [
-  {
-    id: "01",
-    title: "Apa Itu Phygital Fashion? Panduan Lengkap untuk Memahami Phygital | 0xTanda",
-    excerpt: "Dunia fashion perlahan sedang memasuki era baru. Membedah secara mendalam apa itu Phygital, teknologi blockchain di baliknya, dan mengapa inovasi ini mengubah cara kita menghargai pakaian.",
-    date: "14 Maret 2026",
-    category: "Editorial",
-    slug: "phygital-fashion-indonesia", 
-    image: "/branding/t-shirt-and-blockchain.jpg", // Thumbnail diupdate pakai foto baru (huruf t kecil)
-    accentColor: "text-[#836EF9]",
-    borderColor: "hover:border-[#836EF9]/50"
-  },
-  {
-    id: "02",
-    title: "Cara Klaim NFT Fashion 0xTanda: Panduan Lengkap Step-by-Step",
-    excerpt: "Kami memahami bahwa memasuki dunia Web3 bisa terasa menakutkan bagi pemula. Protokol Concierge Airdrop kami dirancang agar siapapun dapat mengklaim Digital Twin NFT dengan mudah.",
-    date: "15 Maret 2026",
-    category: "Tutorial & Guide",
-    slug: "cara-klaim-nft", 
-    image: "/branding/og-banner.jpg",
-    accentColor: "text-[#00FF9D]",
-    borderColor: "hover:border-[#00FF9D]/50"
-  }
-];
-
-export default function TerminalLogMenu() {
-  return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F3F3F3] font-sans selection:bg-[#836EF9] selection:text-black">
-      
-      {/* HEADER MENU */}
-      <header className="pt-40 pb-16 px-6 border-b border-white/5 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[300px] bg-[#836EF9]/5 blur-[120px] pointer-events-none rounded-full" />
-        <div className="max-w-5xl mx-auto relative z-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <div className="flex items-center justify-center md:justify-start gap-3 mb-4 text-[#836EF9]">
-              <Terminal size={20} />
-              <span className="font-mono text-xs font-bold tracking-[0.4em] uppercase">System_Log</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter">Terminal <span className="text-[#836EF9]">Log</span></h1>
-          </div>
-          <p className="text-neutral-500 font-mono text-[10px] tracking-widest uppercase pb-2">
-            Archive Transmissions // <br className="hidden md:block"/> Editorial & Guides
-          </p>
-        </div>
-      </header>
-
-      {/* LIST ARTIKEL */}
-      <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col gap-10">
-          
-          {ARTICLES.map((article, idx) => (
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1, duration: 0.5 }}
-              key={article.id}
-            >
-              <Link 
-                href={`/terminal-log/${article.slug}`} 
-                className={`group flex flex-col md:flex-row gap-8 bg-[#121212] border border-white/5 p-6 md:p-8 rounded-sm transition-all duration-500 ${article.borderColor}`}
-              >
-                {/* Thumbnail Gambar */}
-                <div className="w-full md:w-[40%] lg:w-[35%] aspect-[16/10] md:aspect-square relative bg-black border border-white/5 overflow-hidden rounded-sm shrink-0">
-                  <Image src={article.image} fill alt={article.title} className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" />
-                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 font-mono text-[9px] text-white border border-white/10 uppercase tracking-widest">
-                    ISSUE_{article.id}
-                  </div>
-                </div>
-                
-                {/* Konten Teks */}
-                <div className="flex-1 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className={`text-[10px] font-mono font-bold uppercase tracking-widest ${article.accentColor}`}>
-                      {article.category}
-                    </span>
-                    <span className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest">
-                      // {article.date}
-                    </span>
-                  </div>
-                  
-                  <h2 className={`text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4 transition-colors duration-300 group-hover:${article.accentColor.split('[')[0]}[${article.accentColor.split('[')[1]}`}>
-                    {article.title}
-                  </h2>
-                  
-                  <p className="text-sm text-neutral-400 leading-relaxed mb-8 font-light">
-                    {article.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center gap-3 text-[10px] font-mono text-white font-bold uppercase tracking-widest mt-auto border-t border-white/5 pt-6">
-                    READ TRANSMISSION <ArrowRight size={14} className={`group-hover:translate-x-2 transition-transform duration-300 ${article.accentColor}`} />
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-
-        </div>
-      </section>
-    </main>
-  );
-}
-</file>
-
-<file path="next.config.ts">
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        pathname: '**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-        pathname: '**',
-      },
-    ],
-  },
-};
-
-export default nextConfig;
 </file>
 
 <file path="app/terminal-log/phygital-fashion-indonesia/page.tsx">
@@ -1174,6 +1308,152 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
   ];
+}
+</file>
+
+<file path="app/terminal-log/page.tsx">
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Terminal } from "lucide-react";
+
+// ============================================================================
+// MOCK NEXT.JS (Hanya untuk Preview di Canvas)
+// Saat menyalin ke VSCode, gunakan import bawaan Next.js:
+// import Link from 'next/link';
+// import Image from 'next/image';
+// ============================================================================
+const Link = ({ href, children, className }: any) => (
+  <a href={href} className={className}>{children}</a>
+);
+const Image = ({ src, alt, className, fill }: any) => {
+  if (fill) {
+    return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} />;
+  }
+  return <img src={src} alt={alt} className={className} />;
+};
+// ============================================================================
+
+// DATA DAFTAR ARTIKEL (SUDAH LENGKAP 3 ARTIKEL)
+const ARTICLES = [
+  {
+    id: "01",
+    title: "Apa Itu Phygital Fashion? Panduan Lengkap untuk Memahami Phygital | 0xTanda",
+    excerpt: "Dunia fashion perlahan sedang memasuki era baru. Membedah secara mendalam apa itu Phygital, teknologi blockchain di baliknya, dan mengapa inovasi ini mengubah cara kita menghargai pakaian.",
+    date: "14 Maret 2026",
+    category: "Editorial",
+    slug: "phygital-fashion-indonesia", 
+    image: "/branding/t-shirt-and-blockchain.jpg", 
+    accentColor: "text-[#836EF9]",
+    borderColor: "hover:border-[#836EF9]/50"
+  },
+  {
+    id: "02",
+    title: "Cara Klaim NFT Fashion 0xTanda: Panduan Lengkap Step-by-Step",
+    excerpt: "Memasuki dunia Web3 dan blockchain sering kali terasa menakutkan bagi pemula. Melalui protokol Concierge Airdrop kami, mengklaim Digital Twin dari pakaian fisik Anda kini semudah mengisi formulir daring biasa.",
+    date: "15 Maret 2026",
+    category: "Tutorial & Guide",
+    slug: "cara-klaim-nft", 
+    image: "/branding/og-banner.jpg",
+    accentColor: "text-[#00FF9D]",
+    borderColor: "hover:border-[#00FF9D]/50"
+  },
+  {
+    id: "03",
+    title: "Digital Twin NFT 0xTanda — Apa yang Kamu Dapatkan Saat Beli | 0xTanda",
+    excerpt: "Setiap Produk 0xTanda Datang dengan Digital Twin NFT. Masuk ke dalam sebuah ekosistem phygital yang dirancang untuk memberikan transparansi dan fungsi nyata bagi pembelinya.",
+    date: "16 Maret 2026",
+    category: "Deep Dive",
+    slug: "digital-twin-nft", 
+    image: "/branding/og-banner.jpg", 
+    accentColor: "text-[#38BDF8]", // Biru Neon / Cyan
+    borderColor: "hover:border-[#38BDF8]/50"
+  }
+];
+
+export default function TerminalLogMenu() {
+  return (
+    <main className="min-h-screen bg-[#0A0A0A] text-[#F3F3F3] font-sans selection:bg-[#836EF9] selection:text-black">
+      
+      {/* HEADER MENU */}
+      <header className="pt-40 pb-16 px-6 border-b border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[300px] bg-[#836EF9]/5 blur-[120px] pointer-events-none rounded-full" />
+        <div className="max-w-5xl mx-auto relative z-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <div className="flex items-center justify-center md:justify-start gap-3 mb-4 text-[#836EF9]">
+              <Terminal size={20} />
+              <span className="font-mono text-xs font-bold tracking-[0.4em] uppercase">System_Log</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter">Terminal <span className="text-[#836EF9]">Log</span></h1>
+          </div>
+          <p className="text-neutral-500 font-mono text-[10px] tracking-widest uppercase pb-2">
+            Archive Transmissions // <br className="hidden md:block"/> Editorial & Guides
+          </p>
+        </div>
+      </header>
+
+      {/* LIST ARTIKEL */}
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto flex flex-col gap-10">
+          
+          {ARTICLES.map((article, idx) => (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              key={article.id}
+            >
+              <Link 
+                href={`/terminal-log/${article.slug}`} 
+                className={`group flex flex-col md:flex-row gap-8 bg-[#121212] border border-white/5 p-6 md:p-8 rounded-sm transition-all duration-500 ${article.borderColor}`}
+              >
+                {/* Thumbnail Gambar */}
+                <div className="w-full md:w-[40%] lg:w-[35%] aspect-[16/10] md:aspect-square relative bg-black border border-white/5 overflow-hidden rounded-sm shrink-0">
+                  <Image src={article.image} fill alt={article.title} className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" />
+                  
+                  {/* Efek Warna khusus untuk Artikel 3 */}
+                  {article.id === "03" && (
+                    <div className="absolute inset-0 bg-[#38BDF8]/10 mix-blend-overlay group-hover:bg-transparent transition-colors"></div>
+                  )}
+
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 font-mono text-[9px] text-white border border-white/10 uppercase tracking-widest">
+                    ISSUE_{article.id}
+                  </div>
+                </div>
+                
+                {/* Konten Teks */}
+                <div className="flex-1 flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className={`text-[10px] font-mono font-bold uppercase tracking-widest ${article.accentColor}`}>
+                      {article.category}
+                    </span>
+                    <span className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest">
+                      // {article.date}
+                    </span>
+                  </div>
+                  
+                  <h2 className={`text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4 transition-colors duration-300 group-hover:${article.accentColor.split('[')[0]}[${article.accentColor.split('[')[1]}`}>
+                    {article.title}
+                  </h2>
+                  
+                  <p className="text-sm text-neutral-400 leading-relaxed mb-8 font-light">
+                    {article.excerpt}
+                  </p>
+                  
+                  <div className="flex items-center gap-3 text-[10px] font-mono text-white font-bold uppercase tracking-widest mt-auto border-t border-white/5 pt-6">
+                    READ TRANSMISSION <ArrowRight size={14} className={`group-hover:translate-x-2 transition-transform duration-300 ${article.accentColor}`} />
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+
+        </div>
+      </section>
+    </main>
+  );
 }
 </file>
 

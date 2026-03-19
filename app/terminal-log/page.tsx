@@ -5,8 +5,11 @@ import { motion } from "framer-motion";
 import { ArrowRight, Terminal } from "lucide-react";
 
 // ============================================================================
-// MOCK NEXT.JS (Hanya untuk Preview di Canvas)
-// Saat menyalin ke VSCode, gunakan import bawaan Next.js:
+// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
+// CATATAN UNTUK COPAS: 
+// Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
+// HAPUS bagian mock ini dan gunakan import bawaan Next.js berikut:
+//
 // import Link from 'next/link';
 // import Image from 'next/image';
 // ============================================================================
@@ -21,7 +24,7 @@ const Image = ({ src, alt, className, fill }: any) => {
 };
 // ============================================================================
 
-// DATA DAFTAR ARTIKEL (SUDAH LENGKAP 3 ARTIKEL)
+// DATA DAFTAR ARTIKEL - TERKONEKSI KE 3 PILAR EDUKASI 0xTANDA
 const ARTICLES = [
   {
     id: "01",
@@ -30,31 +33,34 @@ const ARTICLES = [
     date: "14 Maret 2026",
     category: "Editorial",
     slug: "phygital-fashion-indonesia", 
-    image: "/branding/t-shirt-and-blockchain.jpg", 
+    image: "/branding/t-shirt-and-blockchain.jpg", // Huruf t kecil sesuai file asli
     accentColor: "text-[#836EF9]",
-    borderColor: "hover:border-[#836EF9]/50"
+    borderColor: "hover:border-[#836EF9]/50",
+    glowColor: "bg-[#836EF9]/5"
   },
   {
     id: "02",
     title: "Cara Klaim NFT Fashion 0xTanda: Panduan Lengkap Step-by-Step",
-    excerpt: "Memasuki dunia Web3 dan blockchain sering kali terasa menakutkan bagi pemula. Melalui protokol Concierge Airdrop kami, mengklaim Digital Twin dari pakaian fisik Anda kini semudah mengisi formulir daring biasa.",
+    excerpt: "Memasuki dunia Web3 dan blockchain sering kali terasa menakutkan bagi pemula. Melalui protokol Concierge Airdrop kami, mengklaim Digital Twin kini semudah mengisi formulir daring biasa.",
     date: "15 Maret 2026",
     category: "Tutorial & Guide",
     slug: "cara-klaim-nft", 
     image: "/branding/og-banner.jpg",
     accentColor: "text-[#00FF9D]",
-    borderColor: "hover:border-[#00FF9D]/50"
+    borderColor: "hover:border-[#00FF9D]/50",
+    glowColor: "bg-[#00FF9D]/5"
   },
   {
     id: "03",
     title: "Digital Twin NFT 0xTanda — Apa yang Kamu Dapatkan Saat Beli | 0xTanda",
-    excerpt: "Setiap Produk 0xTanda Datang dengan Digital Twin NFT. Masuk ke dalam sebuah ekosistem phygital yang dirancang untuk memberikan transparansi dan fungsi nyata bagi pembelinya.",
+    excerpt: "Setiap produk 0xTanda datang dengan Digital Twin NFT. Masuk ke dalam sebuah ekosistem phygital yang dirancang untuk memberikan transparansi dan fungsi nyata bagi pemilik karya seni.",
     date: "16 Maret 2026",
     category: "Deep Dive",
     slug: "digital-twin-nft", 
     image: "/branding/og-banner.jpg", 
     accentColor: "text-[#38BDF8]", // Biru Neon / Cyan
-    borderColor: "hover:border-[#38BDF8]/50"
+    borderColor: "hover:border-[#38BDF8]/50",
+    glowColor: "bg-[#38BDF8]/5"
   }
 ];
 
@@ -74,7 +80,7 @@ export default function TerminalLogMenu() {
             <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter">Terminal <span className="text-[#836EF9]">Log</span></h1>
           </div>
           <p className="text-neutral-500 font-mono text-[10px] tracking-widest uppercase pb-2">
-            Archive Transmissions // <br className="hidden md:block"/> Editorial & Guides
+            Archive Transmissions // <br className="hidden md:block"/> Editorial & Insights
           </p>
         </div>
       </header>
@@ -90,16 +96,20 @@ export default function TerminalLogMenu() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.5 }}
               key={article.id}
+              className="relative"
             >
+              {/* Background Glow Per Card */}
+              <div className={`absolute inset-0 blur-[100px] ${article.glowColor} rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none`} />
+
               <Link 
                 href={`/terminal-log/${article.slug}`} 
-                className={`group flex flex-col md:flex-row gap-8 bg-[#121212] border border-white/5 p-6 md:p-8 rounded-sm transition-all duration-500 ${article.borderColor}`}
+                className={`group flex flex-col md:flex-row gap-8 bg-[#121212] border border-white/5 p-6 md:p-8 rounded-sm transition-all duration-500 relative z-10 ${article.borderColor}`}
               >
                 {/* Thumbnail Gambar */}
                 <div className="w-full md:w-[40%] lg:w-[35%] aspect-[16/10] md:aspect-square relative bg-black border border-white/5 overflow-hidden rounded-sm shrink-0">
                   <Image src={article.image} fill alt={article.title} className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" />
                   
-                  {/* Efek Warna khusus untuk Artikel 3 */}
+                  {/* Efek Warna khusus untuk Deep Dive */}
                   {article.id === "03" && (
                     <div className="absolute inset-0 bg-[#38BDF8]/10 mix-blend-overlay group-hover:bg-transparent transition-colors"></div>
                   )}
@@ -120,7 +130,7 @@ export default function TerminalLogMenu() {
                     </span>
                   </div>
                   
-                  <h2 className={`text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4 transition-colors duration-300 group-hover:${article.accentColor.split('[')[0]}[${article.accentColor.split('[')[1]}`}>
+                  <h2 className={`text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4 transition-colors duration-300 group-hover:${article.accentColor}`}>
                     {article.title}
                   </h2>
                   
@@ -138,6 +148,13 @@ export default function TerminalLogMenu() {
 
         </div>
       </section>
+
+      {/* FOOTER PENDING */}
+      <footer className="py-20 border-t border-white/5 text-center">
+        <p className="font-mono text-[9px] text-neutral-800 uppercase tracking-[0.6em]">
+          End of Archive Transmissions // 0xTanda Security Node
+        </p>
+      </footer>
     </main>
   );
 }

@@ -3,7 +3,7 @@
 import React from "react";
 import { motion, useScroll, useSpring, Variants } from "framer-motion";
 import {
-  Layers, Package, Fingerprint, HelpCircle, Zap, ShieldCheck, Users, Info, ArrowLeft, ChevronRight, Link as LinkIcon
+  Layers, Package, Fingerprint, HelpCircle, Zap, ShieldCheck, Users, User, Info, ArrowLeft, ChevronRight, Link as LinkIcon
 } from "lucide-react";
 
 // ============================================================================
