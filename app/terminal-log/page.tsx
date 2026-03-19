@@ -21,7 +21,7 @@ const Image = ({ src, alt, className, fill }: any) => {
 };
 // ============================================================================
 
-// DATA DAFTAR ARTIKEL (SUDAH DIUPDATE)
+// DATA DAFTAR ARTIKEL (SUDAH LENGKAP 3 ARTIKEL)
 const ARTICLES = [
   {
     id: "01",
@@ -30,20 +30,31 @@ const ARTICLES = [
     date: "14 Maret 2026",
     category: "Editorial",
     slug: "phygital-fashion-indonesia", 
-    image: "/branding/t-shirt-and-blockchain.jpg", // Thumbnail diupdate pakai foto baru (huruf t kecil)
+    image: "/branding/t-shirt-and-blockchain.jpg", 
     accentColor: "text-[#836EF9]",
     borderColor: "hover:border-[#836EF9]/50"
   },
   {
     id: "02",
     title: "Cara Klaim NFT Fashion 0xTanda: Panduan Lengkap Step-by-Step",
-    excerpt: "Kami memahami bahwa memasuki dunia Web3 bisa terasa menakutkan bagi pemula. Protokol Concierge Airdrop kami dirancang agar siapapun dapat mengklaim Digital Twin NFT dengan mudah.",
+    excerpt: "Memasuki dunia Web3 dan blockchain sering kali terasa menakutkan bagi pemula. Melalui protokol Concierge Airdrop kami, mengklaim Digital Twin dari pakaian fisik Anda kini semudah mengisi formulir daring biasa.",
     date: "15 Maret 2026",
     category: "Tutorial & Guide",
     slug: "cara-klaim-nft", 
     image: "/branding/og-banner.jpg",
     accentColor: "text-[#00FF9D]",
     borderColor: "hover:border-[#00FF9D]/50"
+  },
+  {
+    id: "03",
+    title: "Digital Twin NFT 0xTanda — Apa yang Kamu Dapatkan Saat Beli | 0xTanda",
+    excerpt: "Setiap Produk 0xTanda Datang dengan Digital Twin NFT. Masuk ke dalam sebuah ekosistem phygital yang dirancang untuk memberikan transparansi dan fungsi nyata bagi pembelinya.",
+    date: "16 Maret 2026",
+    category: "Deep Dive",
+    slug: "digital-twin-nft", 
+    image: "/branding/og-banner.jpg", 
+    accentColor: "text-[#38BDF8]", // Biru Neon / Cyan
+    borderColor: "hover:border-[#38BDF8]/50"
   }
 ];
 
@@ -87,6 +98,12 @@ export default function TerminalLogMenu() {
                 {/* Thumbnail Gambar */}
                 <div className="w-full md:w-[40%] lg:w-[35%] aspect-[16/10] md:aspect-square relative bg-black border border-white/5 overflow-hidden rounded-sm shrink-0">
                   <Image src={article.image} fill alt={article.title} className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" />
+                  
+                  {/* Efek Warna khusus untuk Artikel 3 */}
+                  {article.id === "03" && (
+                    <div className="absolute inset-0 bg-[#38BDF8]/10 mix-blend-overlay group-hover:bg-transparent transition-colors"></div>
+                  )}
+
                   <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 font-mono text-[9px] text-white border border-white/10 uppercase tracking-widest">
                     ISSUE_{article.id}
                   </div>
