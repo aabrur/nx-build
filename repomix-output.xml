@@ -344,6 +344,171 @@ const nextConfig: NextConfig = {
 export default nextConfig;
 </file>
 
+<file path="components/Navbar.tsx">
+"use client";
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
+
+/**
+ * Komponen Navbar 0xTanda.
+ * Menambahkan menu "TERMINAL LOG" untuk artikel/SEO.
+ */
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // DI SINI NAMA MENU SUDAH DIGANTI JADI "TERMINAL LOG"
+  const navLinks = [
+    { name: 'HOME', path: '/' },
+    { name: 'SHOP', path: '/shop' },
+    { name: 'VERIFY', path: '/verify' },
+    { name: 'ABOUT', path: '/about' },
+    { name: 'TERMINAL LOG', path: '/terminal-log' }, // <--- UPDATE NAMA DI SINI
+  ];
+
+  return (
+    <nav className="fixed top-10 left-0 w-full z-50 px-6">
+      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
+        
+        {/* LOGO ICON (POJOK KIRI) */}
+        <Link href="/" className="flex items-center group">
+          <div className="relative w-8 h-8">
+            <Image 
+              src="/branding/logo-0xtanda-icon.png" 
+              alt="0xTanda Icon"
+              width={32}
+              height={32}
+              className="object-contain group-hover:rotate-12 transition-transform duration-500"
+              priority
+            />
+          </div>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden lg:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
+                // Logika agar menu menyala walau user lagi baca artikel di sub-folder
+                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path
+                ? 'bg-[#836EF9] text-black font-bold' 
+                : 'text-neutral-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Mobile Toggle */}
+        <div className="lg:hidden flex items-center">
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
+            aria-label="Toggle Navigation"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 lg:hidden animate-glitch shadow-2xl">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              onClick={() => setIsOpen(false)}
+              className={`text-3xl font-display font-bold tracking-tighter transition-colors uppercase ${
+                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path 
+                ? 'text-[#836EF9]' 
+                : 'text-white'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+}
+</file>
+
+<file path="app/sitemap.ts">
+import { MetadataRoute } from 'next';
+
+/**
+ * Konfigurasi Sitemap 0xTanda.
+ * Digunakan oleh mesin pencari (Google, Bing) untuk memetakan seluruh halaman website.
+ * Domain utama diset ke: https://www.0xtanda.xyz
+ */
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://www.0xtanda.xyz';
+
+  return [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 1, // Halaman utama memiliki prioritas tertinggi
+    },
+    {
+      url: `${baseUrl}/shop`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9, // Katalog produk sangat penting untuk SEO
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/terminal-log`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8, // Terminal Log (Menu Daftar Artikel)
+    },
+    {
+      // Artikel 1: Phygital Fashion
+      url: `${baseUrl}/terminal-log/phygital-fashion-indonesia`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85, 
+    },
+    {
+      // Artikel 2: Tutorial Klaim NFT
+      url: `${baseUrl}/terminal-log/cara-klaim-nft`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85, 
+    },
+    {
+      url: `${baseUrl}/verify`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      // Detail produk utama (Genesis Boxy Tee)
+      url: `${baseUrl}/product/genesis-boxy-tee`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+  ];
+}
+</file>
+
 <file path="app/terminal-log/cara-klaim-nft/page.tsx">
 "use client";
 
@@ -656,18 +821,11 @@ import {
   Layers, Package, Fingerprint, HelpCircle, Zap, ShieldCheck, Users, User, Calendar, Clock, Info, ArrowLeft, ChevronRight, Link as LinkIcon
 } from "lucide-react";
 
-// ============================================================================
-// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
-// CATATAN UNTUK COPAS: 
-// Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
-//
-// import Link from 'next/link';
-// import Image from 'next/image';
-// ============================================================================
+// Fallback komponen untuk menangani module eksternal
 const Link = ({ href, children, className }: any) => <a href={href} className={className}>{children}</a>;
-const Image = ({ src, alt, className, fill }: any) => fill 
-  ? <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} />
-  : <img src={src} alt={alt} className={className} />;
+const Image = ({ src, alt, width, height, className, priority }: any) => (
+  <img src={src} alt={alt} width={width} height={height} className={className} loading={priority ? "eager" : "lazy"} />
+);
 
 // --- VARIAN ANIMASI ---
 const fadeUp: Variants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }};
@@ -729,10 +887,17 @@ export default function DigitalTwinArticlePage() {
           </motion.div>
 
           <motion.div variants={fadeUp} className="py-6">
-            <figure className="relative aspect-[16/9] w-full rounded-sm overflow-hidden border border-white/10 bg-white/5 group">
-              <Image src="/article/cover-digital-twin-utility.jpg" alt="0xTanda Digital Twin Concept" fill className="object-cover group-hover:scale-105 transition-transform duration-1000 hue-rotate-180" />
-              <div className="absolute inset-0 bg-[#38BDF8]/10 mix-blend-overlay"></div>
-              <figcaption className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1.5 text-[10px] font-mono text-[#38BDF8] border border-[#38BDF8]/30 uppercase tracking-widest">
+            <figure className="relative aspect-[16/9] w-full rounded-sm overflow-hidden border border-white/10 bg-white/5 group flex items-center justify-center">
+              {/* IMAGE UPDATED: Filter hue-rotate dihapus dan menggunakan w-full h-full object-cover */}
+              <Image 
+                src="/article/cover-digital-twin-utility.jpg" 
+                alt="0xTanda Digital Twin Concept" 
+                width={1600}
+                height={900}
+                priority
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
+              />
+              <figcaption className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1.5 text-[10px] font-mono text-[#38BDF8] border border-[#38BDF8]/30 uppercase tracking-widest z-10">
                 Visual_Data // Digital Twin Utility
               </figcaption>
             </figure>
@@ -857,7 +1022,7 @@ export default function DigitalTwinArticlePage() {
         </div>
       </article>
       
-      {/* INTERNAL LINKS (Sesuai Request) */}
+      {/* INTERNAL LINKS */}
       <section className="py-16 px-6 bg-white/[0.02] border-y border-white/5">
         <div className="max-w-4xl mx-auto space-y-6">
           <h4 className="font-mono text-[#38BDF8] text-[10px] tracking-[0.4em] uppercase mb-4 text-center md:text-left">Lanjutkan Penjelajahan:</h4>
@@ -1153,171 +1318,6 @@ export default function Article1() {
 }
 </file>
 
-<file path="components/Navbar.tsx">
-"use client";
-
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
-
-/**
- * Komponen Navbar 0xTanda.
- * Menambahkan menu "TERMINAL LOG" untuk artikel/SEO.
- */
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-
-  // DI SINI NAMA MENU SUDAH DIGANTI JADI "TERMINAL LOG"
-  const navLinks = [
-    { name: 'HOME', path: '/' },
-    { name: 'SHOP', path: '/shop' },
-    { name: 'VERIFY', path: '/verify' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'TERMINAL LOG', path: '/terminal-log' }, // <--- UPDATE NAMA DI SINI
-  ];
-
-  return (
-    <nav className="fixed top-10 left-0 w-full z-50 px-6">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
-        
-        {/* LOGO ICON (POJOK KIRI) */}
-        <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8">
-            <Image 
-              src="/branding/logo-0xtanda-icon.png" 
-              alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
-            />
-          </div>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                // Logika agar menu menyala walau user lagi baca artikel di sub-folder
-                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path
-                ? 'bg-[#836EF9] text-black font-bold' 
-                : 'text-neutral-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="lg:hidden flex items-center">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 lg:hidden animate-glitch shadow-2xl">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`text-3xl font-display font-bold tracking-tighter transition-colors uppercase ${
-                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path 
-                ? 'text-[#836EF9]' 
-                : 'text-white'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
-  );
-}
-</file>
-
-<file path="app/sitemap.ts">
-import { MetadataRoute } from 'next';
-
-/**
- * Konfigurasi Sitemap 0xTanda.
- * Digunakan oleh mesin pencari (Google, Bing) untuk memetakan seluruh halaman website.
- * Domain utama diset ke: https://www.0xtanda.xyz
- */
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.0xtanda.xyz';
-
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1, // Halaman utama memiliki prioritas tertinggi
-    },
-    {
-      url: `${baseUrl}/shop`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9, // Katalog produk sangat penting untuk SEO
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/terminal-log`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8, // Terminal Log (Menu Daftar Artikel)
-    },
-    {
-      // Artikel 1: Phygital Fashion
-      url: `${baseUrl}/terminal-log/phygital-fashion-indonesia`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.85, 
-    },
-    {
-      // Artikel 2: Tutorial Klaim NFT
-      url: `${baseUrl}/terminal-log/cara-klaim-nft`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.85, 
-    },
-    {
-      url: `${baseUrl}/verify`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      // Detail produk utama (Genesis Boxy Tee)
-      url: `${baseUrl}/product/genesis-boxy-tee`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-  ];
-}
-</file>
-
 <file path="components/Marquee.tsx">
 export default function Marquee() {
   const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
@@ -1364,169 +1364,6 @@ export default function Marquee() {
     "tailwindcss": "^4.1.18",
     "typescript": "^5"
   }
-}
-</file>
-
-<file path="app/terminal-log/page.tsx">
-"use client";
-
-import React from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Terminal } from "lucide-react";
-
-// ============================================================================
-// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
-// CATATAN UNTUK COPAS: 
-// Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
-// HAPUS bagian mock ini dan gunakan import bawaan Next.js berikut:
-//
-// import Link from 'next/link';
-// import Image from 'next/image';
-// ============================================================================
-const Link = ({ href, children, className }: any) => (
-  <a href={href} className={className}>{children}</a>
-);
-const Image = ({ src, alt, className, fill }: any) => {
-  if (fill) {
-    return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} />;
-  }
-  return <img src={src} alt={alt} className={className} />;
-};
-// ============================================================================
-
-// DATA DAFTAR ARTIKEL - TERKONEKSI KE 3 PILAR EDUKASI 0xTANDA
-const ARTICLES = [
-  {
-    id: "01",
-    title: "Apa Itu Phygital Fashion? Panduan Lengkap untuk Memahami Phygital | 0xTanda",
-    excerpt: "Dunia fashion perlahan sedang memasuki era baru. Membedah secara mendalam apa itu Phygital, teknologi blockchain di baliknya, dan mengapa inovasi ini mengubah cara kita menghargai pakaian.",
-    date: "14 Maret 2026",
-    category: "Editorial",
-    slug: "phygital-fashion-indonesia", 
-    image: "/article/cover-phygital-fashion.png", // Huruf t kecil sesuai file asli
-    accentColor: "text-[#836EF9]",
-    borderColor: "hover:border-[#836EF9]/50",
-    glowColor: "bg-[#836EF9]/5"
-  },
-  {
-    id: "02",
-    title: "Cara Klaim NFT Fashion 0xTanda: Panduan Lengkap Step-by-Step",
-    excerpt: "Memasuki dunia Web3 dan blockchain sering kali terasa menakutkan bagi pemula. Melalui protokol Concierge Airdrop kami, mengklaim Digital Twin kini semudah mengisi formulir daring biasa.",
-    date: "15 Maret 2026",
-    category: "Tutorial & Guide",
-    slug: "cara-klaim-nft", 
-    image: "/article/cover-tutorial-klaim.png",
-    accentColor: "text-[#00FF9D]",
-    borderColor: "hover:border-[#00FF9D]/50",
-    glowColor: "bg-[#00FF9D]/5"
-  },
-  {
-    id: "03",
-    title: "Digital Twin NFT 0xTanda — Apa yang Kamu Dapatkan Saat Beli | 0xTanda",
-    excerpt: "Setiap produk 0xTanda datang dengan Digital Twin NFT. Masuk ke dalam sebuah ekosistem phygital yang dirancang untuk memberikan transparansi dan fungsi nyata bagi pemilik karya seni.",
-    date: "16 Maret 2026",
-    category: "Deep Dive",
-    slug: "digital-twin-nft", 
-    image: "/article/cover-digital-twin-utility.jpg", 
-    accentColor: "text-[#38BDF8]", // Biru Neon / Cyan
-    borderColor: "hover:border-[#38BDF8]/50",
-    glowColor: "bg-[#38BDF8]/5"
-  }
-];
-
-export default function TerminalLogMenu() {
-  return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F3F3F3] font-sans selection:bg-[#836EF9] selection:text-black">
-      
-      {/* HEADER MENU */}
-      <header className="pt-40 pb-16 px-6 border-b border-white/5 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[300px] bg-[#836EF9]/5 blur-[120px] pointer-events-none rounded-full" />
-        <div className="max-w-5xl mx-auto relative z-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <div className="flex items-center justify-center md:justify-start gap-3 mb-4 text-[#836EF9]">
-              <Terminal size={20} />
-              <span className="font-mono text-xs font-bold tracking-[0.4em] uppercase">System_Log</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter">Terminal <span className="text-[#836EF9]">Log</span></h1>
-          </div>
-          <p className="text-neutral-500 font-mono text-[10px] tracking-widest uppercase pb-2">
-            Archive Transmissions // <br className="hidden md:block"/> Editorial & Insights
-          </p>
-        </div>
-      </header>
-
-      {/* LIST ARTIKEL */}
-      <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col gap-10">
-          
-          {ARTICLES.map((article, idx) => (
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1, duration: 0.5 }}
-              key={article.id}
-              className="relative"
-            >
-              {/* Background Glow Per Card */}
-              <div className={`absolute inset-0 blur-[100px] ${article.glowColor} rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none`} />
-
-              <Link 
-                href={`/terminal-log/${article.slug}`} 
-                className={`group flex flex-col md:flex-row gap-8 bg-[#121212] border border-white/5 p-6 md:p-8 rounded-sm transition-all duration-500 relative z-10 ${article.borderColor}`}
-              >
-                {/* Thumbnail Gambar */}
-                <div className="w-full md:w-[40%] lg:w-[35%] aspect-[16/10] md:aspect-square relative bg-black border border-white/5 overflow-hidden rounded-sm shrink-0">
-                  <Image src={article.image} fill alt={article.title} className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" />
-                  
-                  {/* Efek Warna khusus untuk Deep Dive */}
-                  {article.id === "03" && (
-                    <div className="absolute inset-0 bg-[#38BDF8]/10 mix-blend-overlay group-hover:bg-transparent transition-colors"></div>
-                  )}
-
-                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 font-mono text-[9px] text-white border border-white/10 uppercase tracking-widest">
-                    ISSUE_{article.id}
-                  </div>
-                </div>
-                
-                {/* Konten Teks */}
-                <div className="flex-1 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className={`text-[10px] font-mono font-bold uppercase tracking-widest ${article.accentColor}`}>
-                      {article.category}
-                    </span>
-                    <span className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest">
-                      // {article.date}
-                    </span>
-                  </div>
-                  
-                  <h2 className={`text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4 transition-colors duration-300 group-hover:${article.accentColor}`}>
-                    {article.title}
-                  </h2>
-                  
-                  <p className="text-sm text-neutral-400 leading-relaxed mb-8 font-light">
-                    {article.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center gap-3 text-[10px] font-mono text-white font-bold uppercase tracking-widest mt-auto border-t border-white/5 pt-6">
-                    READ TRANSMISSION <ArrowRight size={14} className={`group-hover:translate-x-2 transition-transform duration-300 ${article.accentColor}`} />
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-
-        </div>
-      </section>
-
-      {/* FOOTER PENDING */}
-      <footer className="py-20 border-t border-white/5 text-center">
-        <p className="font-mono text-[9px] text-neutral-800 uppercase tracking-[0.6em]">
-          End of Archive Transmissions // 0xTanda Security Node
-        </p>
-      </footer>
-    </main>
-  );
 }
 </file>
 
@@ -1932,6 +1769,228 @@ export default function VerifyFormPage() {
 }
 </file>
 
+<file path="app/terminal-log/page.tsx">
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Terminal } from "lucide-react";
+
+// ============================================================================
+// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
+// CATATAN UNTUK COPAS: 
+// Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
+// HAPUS bagian mock ini dan gunakan import bawaan Next.js berikut:
+//
+// import Link from 'next/link';
+// import Image from 'next/image';
+// ============================================================================
+const Link = ({ href, children, className }: any) => (
+  <a href={href} className={className}>{children}</a>
+);
+const Image = ({ src, alt, className, fill }: any) => {
+  if (fill) {
+    return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} />;
+  }
+  return <img src={src} alt={alt} className={className} />;
+};
+// ============================================================================
+
+// DATA DAFTAR ARTIKEL - TERKONEKSI KE 3 PILAR EDUKASI 0xTANDA
+const ARTICLES = [
+  {
+    id: "01",
+    title: "Apa Itu Phygital Fashion? Panduan Lengkap untuk Memahami Phygital | 0xTanda",
+    excerpt: "Dunia fashion perlahan sedang memasuki era baru. Membedah secara mendalam apa itu Phygital, teknologi blockchain di baliknya, dan mengapa inovasi ini mengubah cara kita menghargai pakaian.",
+    date: "14 Maret 2026",
+    category: "Editorial",
+    slug: "phygital-fashion-indonesia", 
+    image: "/article/cover-phygital-fashion.png", // Huruf t kecil sesuai file asli
+    accentColor: "text-[#836EF9]",
+    borderColor: "hover:border-[#836EF9]/50",
+    glowColor: "bg-[#836EF9]/5"
+  },
+  {
+    id: "02",
+    title: "Cara Klaim NFT Fashion 0xTanda: Panduan Lengkap Step-by-Step",
+    excerpt: "Memasuki dunia Web3 dan blockchain sering kali terasa menakutkan bagi pemula. Melalui protokol Concierge Airdrop kami, mengklaim Digital Twin kini semudah mengisi formulir daring biasa.",
+    date: "15 Maret 2026",
+    category: "Tutorial & Guide",
+    slug: "cara-klaim-nft", 
+    image: "/article/cover-tutorial-klaim.png",
+    accentColor: "text-[#00FF9D]",
+    borderColor: "hover:border-[#00FF9D]/50",
+    glowColor: "bg-[#00FF9D]/5"
+  },
+  {
+    id: "03",
+    title: "Digital Twin NFT 0xTanda — Apa yang Kamu Dapatkan Saat Beli | 0xTanda",
+    excerpt: "Setiap produk 0xTanda datang dengan Digital Twin NFT. Masuk ke dalam sebuah ekosistem phygital yang dirancang untuk memberikan transparansi dan fungsi nyata bagi pemilik karya seni.",
+    date: "16 Maret 2026",
+    category: "Deep Dive",
+    slug: "digital-twin-nft", 
+    image: "/article/cover-digital-twin-utility.jpg", 
+    accentColor: "text-[#38BDF8]", // Biru Neon / Cyan
+    borderColor: "hover:border-[#38BDF8]/50",
+    glowColor: "bg-[#38BDF8]/5"
+  }
+];
+
+export default function TerminalLogMenu() {
+  return (
+    <main className="min-h-screen bg-[#0A0A0A] text-[#F3F3F3] font-sans selection:bg-[#836EF9] selection:text-black">
+      
+      {/* HEADER MENU */}
+      <header className="pt-40 pb-16 px-6 border-b border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[300px] bg-[#836EF9]/5 blur-[120px] pointer-events-none rounded-full" />
+        <div className="max-w-5xl mx-auto relative z-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <div className="flex items-center justify-center md:justify-start gap-3 mb-4 text-[#836EF9]">
+              <Terminal size={20} />
+              <span className="font-mono text-xs font-bold tracking-[0.4em] uppercase">System_Log</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter">Terminal <span className="text-[#836EF9]">Log</span></h1>
+          </div>
+          <p className="text-neutral-500 font-mono text-[10px] tracking-widest uppercase pb-2">
+            Archive Transmissions // <br className="hidden md:block"/> Editorial & Insights
+          </p>
+        </div>
+      </header>
+
+      {/* LIST ARTIKEL */}
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto flex flex-col gap-10">
+          
+          {ARTICLES.map((article, idx) => (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              key={article.id}
+              className="relative"
+            >
+              {/* Background Glow Per Card */}
+              <div className={`absolute inset-0 blur-[100px] ${article.glowColor} rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none`} />
+
+              <Link 
+                href={`/terminal-log/${article.slug}`} 
+                className={`group flex flex-col md:flex-row gap-8 bg-[#121212] border border-white/5 p-6 md:p-8 rounded-sm transition-all duration-500 relative z-10 ${article.borderColor}`}
+              >
+                {/* Thumbnail Gambar */}
+                <div className="w-full md:w-[40%] lg:w-[35%] aspect-[16/10] md:aspect-square relative bg-black border border-white/5 overflow-hidden rounded-sm shrink-0">
+                  <Image src={article.image} fill alt={article.title} className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" />
+                  
+                  {/* Efek Warna khusus untuk Deep Dive */}
+                  {article.id === "03" && (
+                    <div className="absolute inset-0 bg-[#38BDF8]/10 mix-blend-overlay group-hover:bg-transparent transition-colors"></div>
+                  )}
+
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 font-mono text-[9px] text-white border border-white/10 uppercase tracking-widest">
+                    ISSUE_{article.id}
+                  </div>
+                </div>
+                
+                {/* Konten Teks */}
+                <div className="flex-1 flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className={`text-[10px] font-mono font-bold uppercase tracking-widest ${article.accentColor}`}>
+                      {article.category}
+                    </span>
+                    <span className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest">
+                      // {article.date}
+                    </span>
+                  </div>
+                  
+                  <h2 className={`text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4 transition-colors duration-300 group-hover:${article.accentColor}`}>
+                    {article.title}
+                  </h2>
+                  
+                  <p className="text-sm text-neutral-400 leading-relaxed mb-8 font-light">
+                    {article.excerpt}
+                  </p>
+                  
+                  <div className="flex items-center gap-3 text-[10px] font-mono text-white font-bold uppercase tracking-widest mt-auto border-t border-white/5 pt-6">
+                    READ TRANSMISSION <ArrowRight size={14} className={`group-hover:translate-x-2 transition-transform duration-300 ${article.accentColor}`} />
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+
+        </div>
+      </section>
+
+      {/* FOOTER PENDING */}
+      <footer className="py-20 border-t border-white/5 text-center">
+        <p className="font-mono text-[9px] text-neutral-800 uppercase tracking-[0.6em]">
+          End of Archive Transmissions // 0xTanda Security Node
+        </p>
+      </footer>
+    </main>
+  );
+}
+</file>
+
+<file path="app/globals.css">
+@import "tailwindcss";
+
+@theme {
+  --color-brand-black: #0E0E0E;
+  --color-brand-purple: #836EF9;
+  --color-brand-green: #00FF9D;
+  --color-brand-white: #FFFFFF;
+  --color-brand-gray: #888888;
+  
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-space-mono);
+  --font-display: var(--font-cinzel);
+}
+
+/* --- ANIMATIONS --- */
+
+/* Glitch Effect */
+@keyframes glitch {
+  0% { transform: translate(0); text-shadow: -2px 0 #836EF9, 2px 0 #00FF9D; }
+  25% { transform: translate(-2px, 2px); }
+  50% { transform: translate(2px, -2px); text-shadow: 2px 0 #836EF9, -2px 0 #00FF9D; }
+  75% { transform: translate(-2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.animate-glitch {
+  animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
+}
+
+/* Marquee Effect */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+/* Smooth Fade In Up */
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Selection Color */
+::selection {
+  background-color: #836EF9;
+  color: #0E0E0E;
+}
+</file>
+
 <file path="app/verify/page.tsx">
 "use client";
 
@@ -1953,7 +2012,7 @@ const Link = ({ href, children, className }: any) => (
 
 export default function VerifyLandingPage() {
   return (
-    <main className="min-h-screen bg-[#0E0E0E] text-white flex flex-col items-center justify-center p-6 relative overflow-hidden font-sans selection:bg-[#836EF9] selection:text-black">
+    <main className="min-h-screen bg-[#0E0E0E] text-white flex flex-col items-center justify-center pt-32 pb-6 px-6 relative overflow-hidden font-sans selection:bg-[#836EF9] selection:text-black">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#836EF9]/10 blur-[150px] pointer-events-none rounded-full" />
 
@@ -2026,65 +2085,6 @@ export default function VerifyLandingPage() {
       </div>
     </main>
   );
-}
-</file>
-
-<file path="app/globals.css">
-@import "tailwindcss";
-
-@theme {
-  --color-brand-black: #0E0E0E;
-  --color-brand-purple: #836EF9;
-  --color-brand-green: #00FF9D;
-  --color-brand-white: #FFFFFF;
-  --color-brand-gray: #888888;
-  
-  --font-sans: var(--font-space-grotesk);
-  --font-mono: var(--font-space-mono);
-  --font-display: var(--font-cinzel);
-}
-
-/* --- ANIMATIONS --- */
-
-/* Glitch Effect */
-@keyframes glitch {
-  0% { transform: translate(0); text-shadow: -2px 0 #836EF9, 2px 0 #00FF9D; }
-  25% { transform: translate(-2px, 2px); }
-  50% { transform: translate(2px, -2px); text-shadow: 2px 0 #836EF9, -2px 0 #00FF9D; }
-  75% { transform: translate(-2px, -2px); }
-  100% { transform: translate(0); }
-}
-
-.animate-glitch {
-  animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
-}
-
-/* Marquee Effect */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 25s linear infinite;
-}
-
-/* Smooth Fade In Up */
-.fade-in {
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Custom Selection Color */
-::selection {
-  background-color: #836EF9;
-  color: #0E0E0E;
 }
 </file>
 

@@ -48,6 +48,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85, 
     },
     {
+      // Artikel 3: Digital Twin NFT (BARU DITAMBAHKAN)
+      url: `${baseUrl}/terminal-log/digital-twin-nft`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85, 
+    },
+    {
       url: `${baseUrl}/verify`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
