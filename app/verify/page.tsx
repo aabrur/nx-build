@@ -18,7 +18,7 @@ const Link = ({ href, children, className }: any) => (
 
 export default function VerifyLandingPage() {
   return (
-    <main className="min-h-screen bg-[#0E0E0E] text-white flex flex-col items-center justify-center p-6 relative overflow-hidden font-sans selection:bg-[#836EF9] selection:text-black">
+    <main className="min-h-screen bg-[#0E0E0E] text-white flex flex-col items-center justify-center pt-32 pb-6 px-6 relative overflow-hidden font-sans selection:bg-[#836EF9] selection:text-black">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#836EF9]/10 blur-[150px] pointer-events-none rounded-full" />
 

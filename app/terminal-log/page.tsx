@@ -33,7 +33,7 @@ const ARTICLES = [
     date: "14 Maret 2026",
     category: "Editorial",
     slug: "phygital-fashion-indonesia", 
-    image: "/branding/t-shirt-and-blockchain.jpg", // Huruf t kecil sesuai file asli
+    image: "/article/cover-phygital-fashion.png", // Huruf t kecil sesuai file asli
     accentColor: "text-[#836EF9]",
     borderColor: "hover:border-[#836EF9]/50",
     glowColor: "bg-[#836EF9]/5"
@@ -45,7 +45,7 @@ const ARTICLES = [
     date: "15 Maret 2026",
     category: "Tutorial & Guide",
     slug: "cara-klaim-nft", 
-    image: "/branding/og-banner.jpg",
+    image: "/article/cover-tutorial-klaim.png",
     accentColor: "text-[#00FF9D]",
     borderColor: "hover:border-[#00FF9D]/50",
     glowColor: "bg-[#00FF9D]/5"
@@ -57,7 +57,7 @@ const ARTICLES = [
     date: "16 Maret 2026",
     category: "Deep Dive",
     slug: "digital-twin-nft", 
-    image: "/branding/og-banner.jpg", 
+    image: "/article/cover-digital-twin-utility.jpg", 
     accentColor: "text-[#38BDF8]", // Biru Neon / Cyan
     borderColor: "hover:border-[#38BDF8]/50",
     glowColor: "bg-[#38BDF8]/5"

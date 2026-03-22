@@ -6,17 +6,11 @@ import {
   Layers, Package, Fingerprint, HelpCircle, Zap, ShieldCheck, Users, User, Calendar, Clock, Info, ArrowLeft, ChevronRight, Link as LinkIcon
 } from "lucide-react";
 
-// ============================================================================
-// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
-// CATATAN UNTUK COPAS: 
-// Saat menyalin kode ini ke file project asli Anda (VSCode/Vercel), 
-//
-// import Link from 'next/link';
-// import Image from 'next/image';
-// ============================================================================
+// Fallback komponen untuk menangani module eksternal
 const Link = ({ href, children, className }: any) => <a href={href} className={className}>{children}</a>;
-const Image = ({ src, alt, className, fill }: any) => fill ? <div className={`relative ${className}`}><img src={src} alt={alt} className="absolute inset-0 w-full h-full object-cover"/></div> : <img src={src} alt={alt} className={className} />;
-// ============================================================================
+const Image = ({ src, alt, width, height, className, priority }: any) => (
+  <img src={src} alt={alt} width={width} height={height} className={className} loading={priority ? "eager" : "lazy"} />
+);
 
 // --- VARIAN ANIMASI ---
 const fadeUp: Variants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }};
@@ -78,10 +72,17 @@ export default function DigitalTwinArticlePage() {
           </motion.div>
 
           <motion.div variants={fadeUp} className="py-6">
-            <figure className="relative aspect-[16/9] w-full rounded-sm overflow-hidden border border-white/10 bg-white/5 group">
-              <Image src="/branding/og-banner.jpg" alt="0xTanda Digital Twin Concept" fill className="object-cover group-hover:scale-105 transition-transform duration-1000 hue-rotate-180" />
-              <div className="absolute inset-0 bg-[#38BDF8]/10 mix-blend-overlay"></div>
-              <figcaption className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1.5 text-[10px] font-mono text-[#38BDF8] border border-[#38BDF8]/30 uppercase tracking-widest">
+            <figure className="relative aspect-[16/9] w-full rounded-sm overflow-hidden border border-white/10 bg-white/5 group flex items-center justify-center">
+              {/* IMAGE UPDATED: Filter hue-rotate dihapus dan menggunakan w-full h-full object-cover */}
+              <Image 
+                src="/article/cover-digital-twin-utility.jpg" 
+                alt="0xTanda Digital Twin Concept" 
+                width={1600}
+                height={900}
+                priority
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
+              />
+              <figcaption className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1.5 text-[10px] font-mono text-[#38BDF8] border border-[#38BDF8]/30 uppercase tracking-widest z-10">
                 Visual_Data // Digital Twin Utility
               </figcaption>
             </figure>
@@ -206,7 +207,7 @@ export default function DigitalTwinArticlePage() {
         </div>
       </article>
       
-      {/* INTERNAL LINKS (Sesuai Request) */}
+      {/* INTERNAL LINKS */}
       <section className="py-16 px-6 bg-white/[0.02] border-y border-white/5">
         <div className="max-w-4xl mx-auto space-y-6">
           <h4 className="font-mono text-[#38BDF8] text-[10px] tracking-[0.4em] uppercase mb-4 text-center md:text-left">Lanjutkan Penjelajahan:</h4>

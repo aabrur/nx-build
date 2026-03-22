@@ -16,7 +16,9 @@ import {
 // import Image from 'next/image';
 // ============================================================================
 const Link = ({ href, children, className }: any) => <a href={href} className={className}>{children}</a>;
-const Image = ({ src, alt, className, fill }: any) => fill ? <div className={`relative ${className}`}><img src={src} alt={alt} className="absolute inset-0 w-full h-full object-cover"/></div> : <img src={src} alt={alt} className={className} />;
+const Image = ({ src, alt, className, fill }: any) => fill 
+  ? <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} />
+  : <img src={src} alt={alt} className={className} />;
 // ============================================================================
 
 // --- VARIAN ANIMASI ---
@@ -81,7 +83,7 @@ export default function Article1() {
           <motion.div variants={fadeUp} className="py-6">
             <figure className="relative aspect-[16/9] w-full rounded-sm overflow-hidden border border-white/10 bg-white/5 group">
               {/* === DI SINI PERBAIKANNYA (HURUF t KECIL) === */}
-              <Image src="/branding/t-shirt-and-blockchain.jpg" alt="0xTanda Phygital Concept" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
+              <Image src="/article/cover-phygital-fashion.png" alt="0xTanda Phygital Concept" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
               <figcaption className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1.5 text-[10px] font-mono text-[#836EF9] border border-[#836EF9]/30 uppercase tracking-widest">
                 Visual_Data // 0xTanda Phygital Concept
               </figcaption>
