@@ -54,7 +54,7 @@ const PRODUCTS_DATA = [
       "1 Genesis Collection Card (dengan kode akses)",
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
-    stock: 9,
+    stock: 7, // UPDATE STOK TOTAL JADI 7
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
     sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
@@ -289,6 +289,56 @@ export default function ProductDetailPage() {
                 ))}
               </div>
             )}
+
+            {/* ======================================================== */}
+            {/* TAMBAHAN: PANEL LIVE STOCK INVENTORY (KHUSUS GENESIS TEE) */}
+            {/* ======================================================== */}
+            {product.id === "G-001" && (
+              <div className="mt-6 bg-[#121212] border border-white/5 rounded-sm p-6 shadow-xl">
+                <div className="flex items-center justify-between mb-4 pb-4 border-b border-white/5">
+                  <h3 className="text-[#00FF9D] text-[10px] font-mono font-bold tracking-[0.3em] flex items-center gap-2 uppercase">
+                    <Zap size={14} /> LIVE INVENTORY
+                  </h3>
+                  <span className="bg-[#00FF9D]/10 text-[#00FF9D] border border-[#00FF9D]/30 px-3 py-1 rounded-full text-[9px] font-mono font-bold tracking-widest uppercase flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-[#00FF9D] rounded-full animate-pulse"></span>
+                    STOCK: {product.stock}
+                  </span>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* Varian Putih */}
+                  <div className="space-y-3">
+                    <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.2em]">WARNA: PUTIH</p>
+                    <div className="flex gap-2">
+                      <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
+                        <p className="text-white font-bold text-sm">L</p>
+                        <p className="text-[#00FF9D] text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 3</p>
+                      </div>
+                      <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
+                        <p className="text-white font-bold text-sm">XL</p>
+                        <p className="text-red-400 text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 1</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Varian Hitam */}
+                  <div className="space-y-3">
+                    <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.2em]">WARNA: HITAM</p>
+                    <div className="flex gap-2">
+                      <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
+                        <p className="text-white font-bold text-sm">L</p>
+                        <p className="text-red-400 text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 1</p>
+                      </div>
+                      <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
+                        <p className="text-white font-bold text-sm">XL</p>
+                        <p className="text-yellow-400 text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 2</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* ======================================================== */}
 
             {product.sizeChart && (
               <div className="mt-8 bg-[#121212] border border-white/5 rounded-sm p-6 relative group">
