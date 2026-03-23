@@ -9,17 +9,17 @@ export interface Product {
   name: string;
   type: string;
   price: number;
-  originalPrice?: number; // Menambahkan opsi harga asli (untuk harga coret)
+  originalPrice?: number; 
   description: string;
   specs: string[];
   features: string[];
   includes: string[];
   stock: number;
   slug: string;
-  imgPhysical: string; // Gambar utama untuk tampilan kartu di halaman Shop
-  imgDigital: string;   // Gambar untuk tampilan Digital Card / NFT
-  gallery: string[];    // Kumpulan gambar untuk slider (Mockup & Model)
-  sizeChart?: string;   // Gambar panduan ukuran (Size Chart)
+  imgPhysical: string; 
+  imgDigital: string;   
+  gallery: string[];    
+  sizeChart?: string;   
   isPlaceholder?: boolean;
   links: {
     telegram: string;
@@ -36,7 +36,7 @@ export const PRODUCTS_DATA: Product[] = [
     name: "GENESIS BOXY TEE",
     type: "0xTanda Batch #001",
     price: 168000,
-    originalPrice: 249000, // HARGA CORET (ASLI) DITAMBAHKAN DI SINI
+    originalPrice: 249000,
     description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
     specs: [
       "Nama: Genesis Boxy Tee",
@@ -59,7 +59,7 @@ export const PRODUCTS_DATA: Product[] = [
       "1 Genesis Collection Card (dengan kode akses)",
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
-    stock: 7,
+    stock: 7, // <--- STOK DIUPDATE JADI 7 DI SINI
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
     sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
@@ -78,7 +78,6 @@ export const PRODUCTS_DATA: Product[] = [
       tiktokshop: "https://vt.tokopedia.com/t/ZS9eT3ML7F2cK-6q8hd/"
     }
   },
-  // Produk Placeholder (Coming Soon)
   {
     id: "PL-002",
     slug: "archive-02-placeholder",
@@ -124,7 +123,6 @@ export const ROADMAP_DATA = [
   { phase: "PHASE 06", year: "2027", title: "GLOBAL SYNDICATE", desc: "Kolaborasi lintas batas antara kreator digital dan pengrajin fisik." },
 ];
 
-// --- MASTER DATABASE SECRET CODES (Untuk Validasi) ---
 export const SECRET_CODES_DB = [
   "K7XM-9Q2L-4RZT", "V8P3-LQ7N-X5DW", "Z4TK-8MPR-2Q9L", "N6RX-W3P9-K2ZM", 
   "Q9VL-7X2R-M4PT", "X3QK-8LZM-5R7N", "M7ZT-2W9L-X4QP", "R5XL-9P2K-V8QW", 
@@ -133,5 +131,5 @@ export const SECRET_CODES_DB = [
   "V9ZM-3QXL-8R2P", "T5RL-9ZQ2-X7KM", "K8QX-4RZM-2P9L", "X7PM-9LQ2-Z4RW", 
   "R2ZL-8QXM-7P4K", "W9QT-3RZL-X8PM", "P4XM-7Q2R-9ZLK", "Z8RL-2QWP-4X9M", 
   "M9QX-7R2L-Z4KP", "L7ZM-9P4Q-X2RW", "Q4RL-8ZMX-7P2K", "X2QP-9LZR-4MW8",
-  "BRND-3QZL-7P2W", "DEV1-4QXM-8R2P", "ARTS-7RZM-9P4L" // Special Codes
+  "BRND-3QZL-7P2W", "DEV1-4QXM-8R2P", "ARTS-7RZM-9P4L" 
 ];
