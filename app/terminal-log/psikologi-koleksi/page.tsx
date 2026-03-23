@@ -77,7 +77,7 @@ export default function PsikologiKoleksiArticlePage() {
           <motion.div variants={fadeUp} className="py-6">
             <figure className="relative aspect-[16/9] w-full rounded-sm overflow-hidden border border-white/10 bg-white/5 group flex items-center justify-center">
               <Image 
-                src="/article/psikologi-koleksi.jpg" 
+                src="/article/cover-psikologi-koleksi.png" 
                 alt="Psikologi Koleksi" 
                 width={1600}
                 height={900}

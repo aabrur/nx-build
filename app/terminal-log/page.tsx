@@ -63,8 +63,8 @@ const ARTICLES = [
     date: "17 Maret 2026",
     category: "Editorial",
     slug: "psikologi-koleksi", 
-    image: "/article/psikologi-koleksi.jpg", // Akan menggunakan banner default sampai ada cover baru
-    accentColor: "text-[#F43F5E]", // Warna Aksen Rose/Pink
+    image: "/article/cover-psikologi-koleksi.png", 
+    accentColor: "text-[#F43F5E]", 
     borderColor: "hover:border-[#F43F5E]/50",
     glowColor: "bg-[#F43F5E]/5"
   }
