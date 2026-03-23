@@ -428,7 +428,7 @@ export default function AboutPage() {
           >
             <Hexagon className="absolute -right-4 -top-4 text-[#836EF9]/10 w-32 h-32 group-hover:rotate-90 transition-transform duration-1000" />
             <h3 className="text-2xl font-bold text-white uppercase tracking-tighter mb-2 relative z-10">ROYAL RESISTANCE</h3>
-            <p className="text-[10px] text-[#836EF9] uppercase tracking-widest mb-8 font-bold relative z-10">200 Pembeli Pertama</p>
+            <p className="text-[10px] text-[#836EF9] uppercase tracking-widest mb-8 font-bold relative z-10">1000 Pembeli Pertama</p>
             <p className="text-xs text-neutral-400 uppercase tracking-widest leading-relaxed relative z-10">
               Mendapatkan akses prioritas, diskon 10%, dan benefit tambahan sebagai bagian awal ekosistem.
             </p>
