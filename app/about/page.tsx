@@ -532,7 +532,7 @@ export default function AboutPage() {
       {/* FLOATING TELEGRAM CS */}
       <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-4">
         <a 
-          href="https://t.me/Bob_Node88" 
+          href="https://t.me/GM0xTanda" 
           target="_blank" 
           rel="noopener noreferrer"
           className="w-14 h-14 bg-[#836EF9] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(131,110,249,0.5)] hover:scale-110 active:scale-95 transition-all group relative border border-white/10"

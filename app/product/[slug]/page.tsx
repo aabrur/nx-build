@@ -67,7 +67,7 @@ const PRODUCTS_DATA = [
       "/product/gen1/model/Model-2-back-gen-1.png",
     ],
     links: {
-      telegram: "https://t.me/rempeyek_0",
+      telegram: "https://t.me/GM0xTanda",
       whatsapp: "https://wa.me/6281398621530",
       tokopedia: "https://www.tokopedia.com/0xtanda/0xtanda-genesis-boxy-tee-pria-wanita-unisex-dengan-nft-kaos-cotton-combed-16s-100-fit-boxy-oversized-modern-cut-bonus-genesis-collection-card-1734427428785194157",
       tiktokshop: "https://vt.tokopedia.com/t/ZS9eT3ML7F2cK-6q8hd/"
