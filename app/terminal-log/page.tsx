@@ -18,7 +18,6 @@ const Image = ({ src, alt, className, fill, sizes }: any) => {
 };
 // ============================================================================
 
-// DATA DAFTAR ARTIKEL - TERKONEKSI KE 4 PILAR EDUKASI 0xTANDA
 const ARTICLES = [
   {
     id: "01",
@@ -67,13 +66,24 @@ const ARTICLES = [
     accentColor: "text-[#F43F5E]", 
     borderColor: "hover:border-[#F43F5E]/50",
     glowColor: "bg-[#F43F5E]/5"
+  },
+  {
+    id: "05",
+    title: "Stoikisme dalam Fashion: Seni Berpakaian dengan Kesadaran di Era Konsumerisme",
+    excerpt: "Di tengah tren mingguan dan validasi media sosial, fashion seringkali menjadi sumber kecemasan. Temukan ketenangan melalui perspektif radikal filosofi Yunani Kuno.",
+    date: "18 Maret 2026",
+    category: "Editorial",
+    slug: "stoikisme-dalam-fashion", 
+    image: "/branding/og-banner.jpg", 
+    accentColor: "text-[#F59E0B]", // Warna Aksen Amber
+    borderColor: "hover:border-[#F59E0B]/50",
+    glowColor: "bg-[#F59E0B]/5"
   }
 ];
 
 export default function TerminalLogMenu() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F3F3F3] font-sans selection:bg-[#836EF9] selection:text-black">
-      
       <header className="pt-40 pb-16 px-6 border-b border-white/5 relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[300px] bg-[#836EF9]/5 blur-[120px] pointer-events-none rounded-full" />
         <div className="max-w-5xl mx-auto relative z-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -92,7 +102,6 @@ export default function TerminalLogMenu() {
 
       <section className="py-20 px-6">
         <div className="max-w-5xl mx-auto flex flex-col gap-10">
-          
           {ARTICLES.map((article, idx) => (
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -103,18 +112,13 @@ export default function TerminalLogMenu() {
               className="relative"
             >
               <div className={`absolute inset-0 blur-[100px] ${article.glowColor} rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none`} />
-
               <Link 
                 href={`/terminal-log/${article.slug}`} 
                 className={`group flex flex-col md:flex-row gap-8 bg-[#121212] border border-white/5 p-6 md:p-8 rounded-sm transition-all duration-500 relative z-10 ${article.borderColor}`}
               >
-                {/* Thumbnail Gambar Produksi */}
                 <div className="w-full md:w-[40%] lg:w-[35%] aspect-[16/10] md:aspect-square relative bg-black border border-white/5 overflow-hidden rounded-sm shrink-0">
-                  <Image src={article.image} fill sizes="(max-width: 768px) 100vw, 400px" alt={article.title} className="object-cover group-hover:scale-105 transition-transform duration-700" />
-                  
-                  {/* Efek Warna khusus dipertahankan tapi tipis */}
+                  <Image src={article.image} fill sizes="(max-width: 768px) 100vw, 400px" alt={article.title} className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" />
                   <div className={`absolute inset-0 ${article.glowColor} mix-blend-overlay opacity-50 group-hover:opacity-0 transition-opacity`}></div>
-
                   <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 font-mono text-[9px] text-white border border-white/10 uppercase tracking-widest">
                     ISSUE_{article.id}
                   </div>
@@ -129,15 +133,12 @@ export default function TerminalLogMenu() {
                       // {article.date}
                     </span>
                   </div>
-                  
                   <h2 className={`text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4 transition-colors duration-300 group-hover:${article.accentColor.split('[')[0]}[${article.accentColor.split('[')[1]}`}>
                     {article.title}
                   </h2>
-                  
                   <p className="text-sm text-neutral-400 leading-relaxed mb-8 font-light">
                     {article.excerpt}
                   </p>
-                  
                   <div className="flex items-center gap-3 text-[10px] font-mono text-white font-bold uppercase tracking-widest mt-auto border-t border-white/5 pt-6">
                     READ TRANSMISSION <ArrowRight size={14} className={`group-hover:translate-x-2 transition-transform duration-300 ${article.accentColor}`} />
                   </div>
@@ -145,7 +146,6 @@ export default function TerminalLogMenu() {
               </Link>
             </motion.div>
           ))}
-
         </div>
       </section>
 
