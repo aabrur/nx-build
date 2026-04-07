@@ -69,7 +69,7 @@ export default function StoikismeFashionArticlePage() {
           <motion.div variants={fadeUp} className="py-6">
             <figure className="relative aspect-[16/9] w-full rounded-sm overflow-hidden border border-white/10 bg-white/5 group flex items-center justify-center">
               <Image 
-                src="/branding/og-banner.jpg" 
+                src="/branding/stoikisme-cover.png" 
                 alt="Stoicism in Fashion" 
                 width={1600}
                 height={900}

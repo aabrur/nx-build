@@ -74,7 +74,7 @@ const ARTICLES = [
     date: "18 Maret 2026",
     category: "Editorial",
     slug: "stoikisme-dalam-fashion", 
-    image: "/branding/og-banner.jpg", 
+    image: "/branding/stoikisme-cover.png", 
     accentColor: "text-[#F59E0B]", // Warna Aksen Amber
     borderColor: "hover:border-[#F59E0B]/50",
     glowColor: "bg-[#F59E0B]/5"
