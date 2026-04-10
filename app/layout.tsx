@@ -61,8 +61,15 @@ export const metadata: Metadata = {
   },
   
   // Ikon Website
-  icons: {
-    icon: '/icon.png',
+ icons: {
+    // Memberikan instruksi spesifik ke Google tentang ukuran logo
+    icon: [
+      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon.png', sizes: '144x144', type: 'image/png' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+    ],
     shortcut: '/icon.png',
     apple: '/icon.png',
   },

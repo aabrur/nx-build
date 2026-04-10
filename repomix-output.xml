@@ -43,7 +43,6 @@ The content is organized as follows:
 .gitignore
 app/about/page.tsx
 app/globals.css
-app/icon.png
 app/layout.tsx
 app/page.tsx
 app/product/[slug]/page.tsx
@@ -77,6 +76,7 @@ public/branding/t-shirt-and-blockchain.jpg
 public/file.svg
 public/font/vox-regular.ttf.ttf
 public/globe.svg
+public/icon.png
 public/next.svg
 public/product/Banner/0xTanda-opensea-banner.jpg
 public/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png
@@ -97,22 +97,6 @@ tsconfig.json
 
 <files>
 This section contains the contents of the repository's files.
-
-<file path="app/robots.ts">
-import { MetadataRoute } from 'next';
-
-export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: {
-      // Mengizinkan semua bot search engine (Google, Bing, Yahoo, dll)
-      userAgent: '*',
-      allow: '/',
-    },
-    // PERBAIKAN: Menambahkan 'www.' agar persis dengan domain utama lu di GSC
-    sitemap: 'https://www.0xtanda.xyz/sitemap.xml',
-  };
-}
-</file>
 
 <file path="eslint.config.mjs">
 import { defineConfig, globalIgnores } from "eslint/config";
@@ -321,6 +305,22 @@ next-env.d.ts
 # Repomix AI output
 repomix-output.txt
 repomix-output.xml
+</file>
+
+<file path="app/robots.ts">
+import { MetadataRoute } from 'next';
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      // Mengizinkan semua bot search engine (Google, Bing, Yahoo, dll)
+      userAgent: '*',
+      allow: '/',
+    },
+    // PERBAIKAN: Menambahkan 'www.' agar persis dengan domain utama lu di GSC
+    sitemap: 'https://www.0xtanda.xyz/sitemap.xml',
+  };
+}
 </file>
 
 <file path="app/terminal-log/psikologi-koleksi/page.tsx">
