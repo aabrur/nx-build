@@ -2198,8 +2198,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85, 
     },
     {
-      // Artikel 4: Psikologi Koleksi (BARU)
+      // Artikel 4: Psikologi Koleksi
       url: `${baseUrl}/terminal-log/psikologi-koleksi`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85, 
+    },
+    {
+      // Artikel 5: Stoikisme dalam Fashion
+      url: `${baseUrl}/terminal-log/stoikisme-dalam-fashion`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85, 
+    },
+    {
+      // Artikel Edukasi: Phygital Anti Palsu
+      url: `${baseUrl}/journal/phygital-anti-palsu`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.85, 
@@ -2209,6 +2223,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      // Halaman Form Verifikasi
+      url: `${baseUrl}/verify/pageform`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
     {
       // Detail produk utama (Genesis Boxy Tee)
@@ -2615,6 +2636,168 @@ export default function HomePage() {
 }
 </file>
 
+<file path="app/layout.tsx">
+import type { Metadata, Viewport } from 'next';
+import { Inter, Space_Grotesk, Space_Mono } from 'next/font/google';
+import './globals.css';
+import Navbar from '../components/Navbar';
+import Marquee from '../components/Marquee';
+
+// Load Fonts
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
+const spaceMono = Space_Mono({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-space-mono' });
+
+// =================================================================
+// 🚀 MASTER SEO METADATA & LSI KEYWORDS ENGINE
+// =================================================================
+export const metadata: Metadata = {
+  applicationName: '0xTanda', // <--- TAMBAHAN BARU: Sinyal super kuat ke Google untuk Site Name
+  title: {
+    default: '0xTanda | Phygital Fashion & Web3 Streetwear Indonesia',
+    template: '%s | 0xTanda Phygital Fashion'
+  },
+  
+  description: '0xTanda adalah brand Phygital Streetwear pertama di Indonesia. Kami menggabungkan pakaian fisik heavyweight cotton berkualitas premium dengan bukti kepemilikan aset digital (Digital Twin NFT) di jaringan blockchain Monad. Tangible craftsmanship secured by digital ownership.',
+  
+  keywords: [
+    '0xTanda', '0x Tanda', '0xTanda Official', '0xTanda Shop', 'Oxtanda',
+    'Phygital Fashion', 'Phygital Streetwear', 'Web3 Fashion Indonesia', 'Crypto Fashion', 'Fashion Blockchain', 
+    'NFT Clothing', 'Digital Twin NFT', 'Brand Lokal Web3', 'Streetwear Jakarta',
+    'Genesis Boxy Tee', 'Kaos Boxy Oversized', 'Heavyweight Cotton 16s', 'Kaos Premium Pria Wanita', 
+    'Baju Kualitas Tinggi', 'Baju Anti Fast Fashion', 'Slow Fashion Indonesia',
+    'Royal Resistance', 'Stoikisme Fashion', 'Kolektor Seni', 'Aset Digital Monad', 'Concierge Airdrop'
+  ],
+  
+  authors: [{ name: 'Abrur Alaina', url: 'https://www.0xtanda.xyz' }],
+  creator: '0xTanda Research Lab',
+  publisher: '0xTanda',
+  
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+
+  metadataBase: new URL('https://www.0xtanda.xyz'),
+  alternates: {
+    canonical: '/',
+  },
+  
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/icon.png', // Apple devices still prefer high-res PNG
+  },
+
+  openGraph: {
+    type: 'website',
+    locale: 'id_ID',
+    url: 'https://www.0xtanda.xyz',
+    siteName: '0xTanda', // Sinyal kedua untuk Site Name Google
+    title: '0xTanda | Phygital Fashion & Web3 Streetwear Indonesia',
+    description: 'Pakaian fisik premium yang terhubung dengan Digital Twin NFT. Miliki karya nyata, amankan secara digital.',
+    images: [
+      {
+        url: '/branding/og-banner.jpg', 
+        width: 1200,
+        height: 630,
+        alt: '0xTanda Phygital Brand Vision',
+      },
+    ],
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: '0xTanda | Phygital Fashion Indonesia',
+    description: 'Tangible craftsmanship you can feel, secured by digital ownership you can prove. Join the resistance.',
+    creator: '@0xTanda',
+    site: '@0xTanda',
+    images: ['/branding/og-banner.jpg'],
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#0E0E0E',
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  
+  // =================================================================
+  // 🧠 JSON-LD SCHEMA MARKUP (GABUNGAN ORGANIZATION & WEBSITE)
+  // Menambahkan WebSite schema agar Google menamai situs ini "0xTanda"
+  // bukan "0xtanda.xyz" atau "www.0xtanda.xyz"
+  // =================================================================
+  const jsonLdData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "0xTanda",
+      "alternateName": ["0xTanda Phygital", "0xTanda Streetwear", "Oxtanda"],
+      "url": "https://www.0xtanda.xyz",
+      "logo": "https://www.0xtanda.xyz/branding/logo-0xtanda-icon.png",
+      "description": "Pionir Phygital Streetwear di Indonesia yang menggabungkan pakaian fisik heavyweight dengan aset digital NFT di blockchain Monad.",
+      "foundingDate": "2026",
+      "founders": [
+        {
+          "@type": "Person",
+          "name": "Abrur Alaina"
+        }
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Support",
+        "availableLanguage": "Indonesian"
+      },
+      "sameAs": [
+        "https://www.instagram.com/0xtanda/",
+        "https://x.com/0xTanda",
+        "https://www.tiktok.com/@0xtanda",
+        "https://t.me/Official0xTanda"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "0xTanda",
+      "alternateName": ["Oxtanda", "0xTanda Official"],
+      "url": "https://www.0xtanda.xyz/"
+    }
+  ];
+
+  return (
+    <html lang="id" className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}>
+      <head>
+        <meta name="google-site-verification" content="AdsL5zatSrtTJ8kvkoh5wI1flrVIf0YXJ9-93uTbT8o" />
+        
+        {/* INJEKSI JSON-LD ARRAY KE DALAM HEAD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
+        />
+      </head>
+      
+      <body className="bg-[#0a0a0a] text-[#f3f3f3] overflow-x-hidden antialiased">
+        <Marquee />
+        <Navbar />
+        {children}
+      </body>
+    </html>
+  );
+}
+</file>
+
 <file path="app/shop/page.tsx">
 "use client";
 
@@ -2671,7 +2854,7 @@ const PRODUCTS_DATA = [
       "1 Genesis Collection Card (dengan kode akses)",
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
-    stock: 7,
+    stock: 6,
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
     sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
@@ -2843,168 +3026,6 @@ export default function ShopPage() {
         })}
       </div>
     </main>
-  );
-}
-</file>
-
-<file path="app/layout.tsx">
-import type { Metadata, Viewport } from 'next';
-import { Inter, Space_Grotesk, Space_Mono } from 'next/font/google';
-import './globals.css';
-import Navbar from '../components/Navbar';
-import Marquee from '../components/Marquee';
-
-// Load Fonts
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
-const spaceMono = Space_Mono({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-space-mono' });
-
-// =================================================================
-// 🚀 MASTER SEO METADATA & LSI KEYWORDS ENGINE
-// =================================================================
-export const metadata: Metadata = {
-  applicationName: '0xTanda', // <--- TAMBAHAN BARU: Sinyal super kuat ke Google untuk Site Name
-  title: {
-    default: '0xTanda | Phygital Fashion & Web3 Streetwear Indonesia',
-    template: '%s | 0xTanda Phygital Fashion'
-  },
-  
-  description: '0xTanda adalah brand Phygital Streetwear pertama di Indonesia. Kami menggabungkan pakaian fisik heavyweight cotton berkualitas premium dengan bukti kepemilikan aset digital (Digital Twin NFT) di jaringan blockchain Monad. Tangible craftsmanship secured by digital ownership.',
-  
-  keywords: [
-    '0xTanda', '0x Tanda', '0xTanda Official', '0xTanda Shop', 'Oxtanda',
-    'Phygital Fashion', 'Phygital Streetwear', 'Web3 Fashion Indonesia', 'Crypto Fashion', 'Fashion Blockchain', 
-    'NFT Clothing', 'Digital Twin NFT', 'Brand Lokal Web3', 'Streetwear Jakarta',
-    'Genesis Boxy Tee', 'Kaos Boxy Oversized', 'Heavyweight Cotton 16s', 'Kaos Premium Pria Wanita', 
-    'Baju Kualitas Tinggi', 'Baju Anti Fast Fashion', 'Slow Fashion Indonesia',
-    'Royal Resistance', 'Stoikisme Fashion', 'Kolektor Seni', 'Aset Digital Monad', 'Concierge Airdrop'
-  ],
-  
-  authors: [{ name: 'Abrur Alaina', url: 'https://www.0xtanda.xyz' }],
-  creator: '0xTanda Research Lab',
-  publisher: '0xTanda',
-  
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-
-  metadataBase: new URL('https://www.0xtanda.xyz'),
-  alternates: {
-    canonical: '/',
-  },
-  
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/icon.png', // Apple devices still prefer high-res PNG
-  },
-
-  openGraph: {
-    type: 'website',
-    locale: 'id_ID',
-    url: 'https://www.0xtanda.xyz',
-    siteName: '0xTanda', // Sinyal kedua untuk Site Name Google
-    title: '0xTanda | Phygital Fashion & Web3 Streetwear Indonesia',
-    description: 'Pakaian fisik premium yang terhubung dengan Digital Twin NFT. Miliki karya nyata, amankan secara digital.',
-    images: [
-      {
-        url: '/branding/og-banner.jpg', 
-        width: 1200,
-        height: 630,
-        alt: '0xTanda Phygital Brand Vision',
-      },
-    ],
-  },
-
-  twitter: {
-    card: 'summary_large_image',
-    title: '0xTanda | Phygital Fashion Indonesia',
-    description: 'Tangible craftsmanship you can feel, secured by digital ownership you can prove. Join the resistance.',
-    creator: '@0xTanda',
-    site: '@0xTanda',
-    images: ['/branding/og-banner.jpg'],
-  },
-};
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  themeColor: '#0E0E0E',
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  
-  // =================================================================
-  // 🧠 JSON-LD SCHEMA MARKUP (GABUNGAN ORGANIZATION & WEBSITE)
-  // Menambahkan WebSite schema agar Google menamai situs ini "0xTanda"
-  // bukan "0xtanda.xyz" atau "www.0xtanda.xyz"
-  // =================================================================
-  const jsonLdData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "0xTanda",
-      "alternateName": ["0xTanda Phygital", "0xTanda Streetwear", "Oxtanda"],
-      "url": "https://www.0xtanda.xyz",
-      "logo": "https://www.0xtanda.xyz/branding/logo-0xtanda-icon.png",
-      "description": "Pionir Phygital Streetwear di Indonesia yang menggabungkan pakaian fisik heavyweight dengan aset digital NFT di blockchain Monad.",
-      "foundingDate": "2026",
-      "founders": [
-        {
-          "@type": "Person",
-          "name": "Abrur Alaina"
-        }
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "Customer Support",
-        "availableLanguage": "Indonesian"
-      },
-      "sameAs": [
-        "https://www.instagram.com/0xtanda/",
-        "https://x.com/0xTanda",
-        "https://www.tiktok.com/@0xtanda",
-        "https://t.me/Official0xTanda"
-      ]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "0xTanda",
-      "alternateName": ["Oxtanda", "0xTanda Official"],
-      "url": "https://www.0xtanda.xyz/"
-    }
-  ];
-
-  return (
-    <html lang="id" className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}>
-      <head>
-        <meta name="google-site-verification" content="AdsL5zatSrtTJ8kvkoh5wI1flrVIf0YXJ9-93uTbT8o" />
-        
-        {/* INJEKSI JSON-LD ARRAY KE DALAM HEAD */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
-        />
-      </head>
-      
-      <body className="bg-[#0a0a0a] text-[#f3f3f3] overflow-x-hidden antialiased">
-        <Marquee />
-        <Navbar />
-        {children}
-      </body>
-    </html>
   );
 }
 </file>
@@ -3627,7 +3648,7 @@ export const PRODUCTS_DATA: Product[] = [
       "1 Genesis Collection Card (dengan kode akses)",
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
-    stock: 7, // <--- STOK DIUPDATE JADI 7 DI SINI
+    stock: 6, // <--- STOK DIUPDATE JADI 7 DI SINI
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
     sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
@@ -3760,7 +3781,7 @@ const PRODUCTS_DATA = [
       "1 Genesis Collection Card (dengan kode akses)",
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
-    stock: 7, // UPDATE STOK TOTAL 7
+    stock: 6, // UPDATE STOK TOTAL 7
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
     sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
@@ -4028,7 +4049,7 @@ export default function ProductDetailPage() {
                     <div className="flex gap-2">
                       <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
                         <p className="text-white font-bold text-sm">L</p>
-                        <p className="text-red-400 text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 1</p>
+                        <p className="text-red-400 text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 0</p>
                       </div>
                       <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
                         <p className="text-white font-bold text-sm">XL</p>
