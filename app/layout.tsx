@@ -13,6 +13,7 @@ const spaceMono = Space_Mono({ weight: ['400', '700'], subsets: ['latin'], varia
 // 🚀 MASTER SEO METADATA & LSI KEYWORDS ENGINE
 // =================================================================
 export const metadata: Metadata = {
+  applicationName: '0xTanda', // <--- TAMBAHAN BARU: Sinyal super kuat ke Google untuk Site Name
   title: {
     default: '0xTanda | Phygital Fashion & Web3 Streetwear Indonesia',
     template: '%s | 0xTanda Phygital Fashion'
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'id_ID',
     url: 'https://www.0xtanda.xyz',
-    siteName: '0xTanda', // Diperjelas agar Google mengambil nama ini
+    siteName: '0xTanda', // Sinyal kedua untuk Site Name Google
     title: '0xTanda | Phygital Fashion & Web3 Streetwear Indonesia',
     description: 'Pakaian fisik premium yang terhubung dengan Digital Twin NFT. Miliki karya nyata, amankan secara digital.',
     images: [
