@@ -55,8 +55,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85, 
     },
     {
-      // Artikel 4: Psikologi Koleksi (BARU)
+      // Artikel 4: Psikologi Koleksi
       url: `${baseUrl}/terminal-log/psikologi-koleksi`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85, 
+    },
+    {
+      // Artikel 5: Stoikisme dalam Fashion
+      url: `${baseUrl}/terminal-log/stoikisme-dalam-fashion`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85, 
+    },
+    {
+      // Artikel Edukasi: Phygital Anti Palsu
+      url: `${baseUrl}/journal/phygital-anti-palsu`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.85, 
@@ -66,6 +80,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      // Halaman Form Verifikasi
+      url: `${baseUrl}/verify/pageform`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
     {
       // Detail produk utama (Genesis Boxy Tee)

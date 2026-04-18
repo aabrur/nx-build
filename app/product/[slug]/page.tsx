@@ -54,7 +54,7 @@ const PRODUCTS_DATA = [
       "1 Genesis Collection Card (dengan kode akses)",
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
-    stock: 7, // UPDATE STOK TOTAL 7
+    stock: 6, // UPDATE STOK TOTAL 7
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
     sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
@@ -322,7 +322,7 @@ export default function ProductDetailPage() {
                     <div className="flex gap-2">
                       <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
                         <p className="text-white font-bold text-sm">L</p>
-                        <p className="text-red-400 text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 1</p>
+                        <p className="text-red-400 text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 0</p>
                       </div>
                       <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
                         <p className="text-white font-bold text-sm">XL</p>
