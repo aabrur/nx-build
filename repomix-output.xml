@@ -2691,11 +2691,18 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/icon.png', // Apple devices still prefer high-res PNG
-  },
+  // Di dalam metadata object di app/layout.tsx
+
+icons: {
+  icon: [
+    { url: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
+    { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+  ],
+  shortcut: '/favicon.ico',
+  apple: [
+    { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+  ],
+},
 
   openGraph: {
     type: 'website',
@@ -3670,7 +3677,6 @@ import React, { useState, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 // === IMPORT MASTER CONTROL ===
-// Menggunakan path relatif yang tepat untuk menghindari error alias
 import { PRODUCTS_DATA } from '../../../lib/data';
 
 import { 
@@ -3684,11 +3690,12 @@ import {
 const Link = ({ href, children, className }: any) => (
   <a href={href} className={className}>{children}</a>
 );
-const Image = ({ src, alt, className, sizes, fill }: any) => {
+const Image = ({ src, alt, className, sizes, fill, priority, draggable }: any) => {
+    // FIX: Menghapus paksaan 'object-cover' agar bisa dikontrol lewat className
     if (fill) {
-      return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} sizes={sizes} />;
+      return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full ${className || ''}`} sizes={sizes} loading={priority ? "eager" : "lazy"} draggable={draggable} />;
     }
-    return <img src={src} alt={alt} className={className} sizes={sizes} />;
+    return <img src={src} alt={alt} className={className} sizes={sizes} loading={priority ? "eager" : "lazy"} draggable={draggable} />;
 };
 // ============================================================================
 
@@ -3724,7 +3731,6 @@ export default function ProductDetailPage() {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [lightboxData, setLightboxData] = useState<{ images: string[], currentIndex: number } | null>(null);
 
-  // MENCARI DATA PRODUK DARI MASTER CONTROL (lib/data.ts)
   const product = useMemo(() => 
     PRODUCTS_DATA.find(p => p.slug === params.slug), 
     [params.slug]
@@ -3761,6 +3767,13 @@ export default function ProductDetailPage() {
     if (images.length > 0) setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  // Handler Slide Untuk Gambar Utama
+  const handleMainDragEnd = (e: any, { offset }: any) => {
+    if (view === 'digital') return; // Jangan slide jika sedang lihat NFT Card
+    if (offset.x < -50) nextImage(); 
+    else if (offset.x > 50) prevImage();
+  };
+
   const lightboxNext = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     if (lightboxData && lightboxData.images.length > 1) {
@@ -3775,12 +3788,14 @@ export default function ProductDetailPage() {
     }
   };
 
-  const handleDragEnd = (e: any, { offset }: any) => {
+  // Handler Slide Untuk Layar Penuh (Lightbox)
+  const handleLightboxDragEnd = (e: any, { offset }: any) => {
     if (offset.x < -50) lightboxNext(); 
     else if (offset.x > 50) lightboxPrev();
   };
 
-  const openLightbox = () => {
+  const openLightbox = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     if (view === 'physical') {
       setLightboxData({ images, currentIndex: currentImgIndex });
     } else {
@@ -3802,28 +3817,39 @@ export default function ProductDetailPage() {
           
           {/* MEDIA SECTION */}
           <div className="space-y-6">
-            <div 
-              className="relative aspect-square bg-black border border-white/5 overflow-hidden rounded-sm shadow-2xl group flex items-center justify-center cursor-zoom-in"
-              onClick={openLightbox}
-            >
-              <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md p-2 rounded-full border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity z-20">
-                <Maximize2 size={16} className="text-white" />
-              </div>
+            
+            {/* CONTAINER GAMBAR UTAMA - Aspect 4:5 Lebih pas buat baju */}
+            <div className="relative aspect-[4/5] bg-[#0A0A0A] border border-white/5 overflow-hidden rounded-sm shadow-2xl group flex items-center justify-center">
+              
+              {/* TOMBOL ZOOM (Terpisah dari container swipe agar tidak salah pencet) */}
+              <button 
+                onClick={openLightbox} 
+                className="absolute top-4 right-4 bg-black/60 backdrop-blur-md p-3 rounded-full border border-white/10 hover:bg-[#836EF9] hover:text-black transition-all z-30 cursor-pointer shadow-lg"
+                title="Perbesar Gambar"
+              >
+                <Maximize2 size={18} className="text-white hover:text-black transition-colors" />
+              </button>
 
               <AnimatePresence mode="wait">
                 <motion.div
                   key={view === 'physical' ? (images[currentImgIndex] || 'empty') : product.imgDigital}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="relative w-full h-full"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative w-full h-full cursor-grab active:cursor-grabbing"
+                  // FITUR SWIPE LANGSUNG DI GAMBAR UTAMA
+                  drag={view === 'physical' ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.8}
+                  onDragEnd={handleMainDragEnd}
                 >
                   <Image 
                     src={view === 'physical' ? (images[currentImgIndex] || product.imgPhysical) : product.imgDigital} 
                     alt={product.name} 
                     fill 
-                    className="object-contain p-4 md:p-8" 
+                    className="object-contain p-2 md:p-6 select-none" // object-contain memastikan gambar muat sempurna & tidak terpotong
+                    draggable={false}
                     priority
                   />
                 </motion.div>
@@ -3831,22 +3857,23 @@ export default function ProductDetailPage() {
               
               {view === 'physical' && images.length > 1 && (
                 <>
-                  <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl">
+                  <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-100 md:opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl cursor-pointer">
                     <ChevronLeft size={20} />
                   </button>
-                  <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl">
+                  <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center opacity-100 md:opacity-0 group-hover:opacity-100 hover:bg-[#836EF9] hover:text-black transition-all z-20 shadow-2xl cursor-pointer">
                     <ChevronRight size={20} />
                   </button>
                   
                   <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                     {images.map((_, i) => (
-                      <div key={i} className={`h-1 transition-all duration-300 ${i === currentImgIndex ? 'w-6 bg-[#836EF9]' : 'w-2 bg-white/20'}`} />
+                      <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentImgIndex ? 'w-6 bg-[#836EF9]' : 'w-2 bg-white/30'}`} />
                     ))}
                   </div>
                 </>
               )}
               
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex bg-black/80 backdrop-blur-2xl p-1.5 rounded-full border border-white/10 shadow-2xl z-30" onClick={(e) => e.stopPropagation()}>
+              {/* SWITCHER PHYSICAL VS DIGITAL */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex bg-black/80 backdrop-blur-2xl p-1.5 rounded-full border border-white/10 shadow-2xl z-30" onClick={(e) => e.stopPropagation()}>
                 <button onClick={() => setView('physical')} className={`px-6 py-2 rounded-full text-[10px] font-mono transition-all uppercase tracking-widest ${view === 'physical' ? 'bg-white text-black font-bold' : 'text-white/40 hover:text-white'}`}>
                   PHYSICAL
                 </button>
@@ -3856,11 +3883,12 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
+            {/* THUMBNAILS */}
             {view === 'physical' && images.length > 0 && (
               <div className="flex gap-3 overflow-x-auto pb-4 hide-scrollbar justify-center">
                 {images.map((img, idx) => (
-                  <button key={idx} onClick={() => setCurrentImgIndex(idx)} className={`relative w-20 h-24 flex-shrink-0 border transition-all rounded-sm overflow-hidden bg-neutral-900 ${currentImgIndex === idx ? 'border-[#836EF9] opacity-100' : 'border-white/10 opacity-40 hover:opacity-100'}`}>
-                    <Image src={img} alt={`thumb-${idx}`} fill className="object-contain p-1" />
+                  <button key={idx} onClick={() => setCurrentImgIndex(idx)} className={`relative w-20 h-24 flex-shrink-0 border transition-all rounded-sm overflow-hidden bg-neutral-900 cursor-pointer ${currentImgIndex === idx ? 'border-[#836EF9] opacity-100' : 'border-white/10 opacity-40 hover:opacity-100'}`}>
+                    <Image src={img} alt={`thumb-${idx}`} fill className="object-contain p-1" draggable={false} />
                   </button>
                 ))}
               </div>
@@ -3885,10 +3913,9 @@ export default function ProductDetailPage() {
                       <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.2em]">WARNA: {variant.color}</p>
                       <div className="flex gap-2 flex-wrap">
                         {variant.sizes.map((sizeData, sIdx) => {
-                           // Tentukan warna badge berdasarkan sisa stok
-                           let stockColor = "text-[#00FF9D]"; // Aman
-                           if (sizeData.stock === 0) stockColor = "text-red-400"; // Habis
-                           else if (sizeData.stock <= 2) stockColor = "text-yellow-400"; // Sedikit
+                           let stockColor = "text-[#00FF9D]"; 
+                           if (sizeData.stock === 0) stockColor = "text-red-400"; 
+                           else if (sizeData.stock <= 2) stockColor = "text-yellow-400"; 
                            
                            return (
                              <div key={sIdx} className="flex-1 min-w-[60px] bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
@@ -3913,7 +3940,7 @@ export default function ProductDetailPage() {
                   <h3 className="text-[#836EF9] text-[10px] font-mono font-bold tracking-[0.3em] flex items-center gap-2 uppercase">
                     <Ruler size={16} /> PANDUAN UKURAN (SIZE CHART)
                   </h3>
-                  <button onClick={() => setLightboxData({ images: [product.sizeChart as string], currentIndex: 0 })} className="text-neutral-500 hover:text-white transition-colors">
+                  <button onClick={() => setLightboxData({ images: [product.sizeChart as string], currentIndex: 0 })} className="text-neutral-500 hover:text-white transition-colors cursor-pointer" title="Perbesar Size Chart">
                     <Maximize2 size={16} />
                   </button>
                 </div>
@@ -4031,6 +4058,7 @@ export default function ProductDetailPage() {
         </div>
       </div>
 
+      {/* FULL SCREEN LIGHTBOX (MODAL) */}
       <AnimatePresence>
         {lightboxData && (
           <motion.div
@@ -4040,21 +4068,33 @@ export default function ProductDetailPage() {
             className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-10"
             onClick={() => setLightboxData(null)}
           >
-            <button className="absolute top-6 right-6 z-[210] p-2 bg-white/10 rounded-full hover:bg-[#836EF9] hover:text-black transition-all" onClick={() => setLightboxData(null)}>
+            <button className="absolute top-6 right-6 z-[210] p-3 bg-white/10 rounded-full hover:bg-[#836EF9] hover:text-black transition-all cursor-pointer" onClick={() => setLightboxData(null)}>
               <X size={24} />
             </button>
 
             <div className="relative w-full h-full max-w-5xl flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
-              <motion.div key={lightboxData.currentIndex} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.2 }} className="relative w-full h-full cursor-grab active:cursor-grabbing" drag="x" dragConstraints={{ left: 0, right: 0 }} dragElastic={1} onDragEnd={handleDragEnd}>
-                <Image src={lightboxData.images[lightboxData.currentIndex]} alt="Zoomed" fill className="object-contain" priority draggable="false" />
+              <motion.div 
+                key={lightboxData.currentIndex} 
+                initial={{ opacity: 0, scale: 0.95 }} 
+                animate={{ opacity: 1, scale: 1 }} 
+                exit={{ opacity: 0, scale: 0.95 }} 
+                transition={{ duration: 0.2 }} 
+                className="relative w-full h-full cursor-grab active:cursor-grabbing" 
+                drag="x" 
+                dragConstraints={{ left: 0, right: 0 }} 
+                dragElastic={1} 
+                onDragEnd={handleLightboxDragEnd}
+              >
+                {/* FIX: object-contain menjamin gambar TIDAK TERPOTONG di layar penuh */}
+                <Image src={lightboxData.images[lightboxData.currentIndex]} alt="Zoomed" fill className="object-contain p-4 md:p-10" priority draggable={false} />
               </motion.div>
 
               {lightboxData.images.length > 1 && (
                 <>
-                  <button onClick={lightboxPrev} className="absolute left-0 md:-left-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all">
+                  <button onClick={lightboxPrev} className="absolute left-0 md:-left-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all cursor-pointer">
                     <ChevronLeft size={40} />
                   </button>
-                  <button onClick={lightboxNext} className="absolute right-0 md:-right-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all">
+                  <button onClick={lightboxNext} className="absolute right-0 md:-right-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all cursor-pointer">
                     <ChevronRight size={40} />
                   </button>
 
