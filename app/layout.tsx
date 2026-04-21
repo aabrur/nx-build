@@ -52,11 +52,18 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/icon.png', // Apple devices still prefer high-res PNG
-  },
+  // Di dalam metadata object di app/layout.tsx
+
+icons: {
+  icon: [
+    { url: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
+    { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+  ],
+  shortcut: '/favicon.ico',
+  apple: [
+    { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+  ],
+},
 
   openGraph: {
     type: 'website',

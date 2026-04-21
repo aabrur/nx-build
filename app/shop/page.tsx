@@ -2,6 +2,9 @@
 
 import React from 'react';
 import { ArrowRight, Zap, Lock } from 'lucide-react';
+// === PERBAIKAN: IMPORT DATA DARI MASTER CONTROL (PATH RELATIF) ===
+// Kita gunakan path relatif untuk menghindari error alias '@' pada preview environment
+import { PRODUCTS_DATA } from '../../lib/data';
 
 // ============================================================================
 // MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
@@ -15,107 +18,17 @@ import { ArrowRight, Zap, Lock } from 'lucide-react';
 const Link = ({ href, children, className, onClick }: any) => (
   <a href={href} className={className} onClick={onClick}>{children}</a>
 );
-const Image = ({ src, alt, className, sizes }: any) => (
-  <img src={src} alt={alt} className={className} sizes={sizes} />
-);
+const Image = ({ src, alt, className, sizes, fill }: any) => {
+    if (fill) {
+      return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} sizes={sizes} />;
+    }
+    return <img src={src} alt={alt} className={className} sizes={sizes} />;
+};
 // ============================================================================
 
-// ==========================================
-// DATA: PRODUCTS_DATA INLINE
-// ==========================================
-const PRODUCTS_DATA = [
-  {
-    id: "G-001",
-    slug: "genesis-boxy-tee",
-    name: "GENESIS BOXY TEE",
-    type: "0xTanda Batch #001",
-    price: 168000,
-    originalPrice: 249000, // HARGA CORET
-    description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
-    specs: [
-      "Nama: Genesis Boxy Tee",
-      "Batch: #001 (Limited Release)",
-      "Material: 100% Cotton Combed 16s Heavyweight",
-      "Gramasi: ±235–245 gsm",
-      "Fit: Boxy Oversized / Modern Cut",
-      "Sablon: DTF High-Density Print",
-      "Warna: Hitam & Putih",
-      "Ukuran: L & XL"
-    ],
-    features: [
-      "Kain tebal dan berstruktur",
-      "Tidak tipis dan tidak mudah melar",
-      "Cocok untuk daily wear",
-      "Detail cetak tajam dan solid"
-    ],
-    includes: [
-      "1 Kaos Genesis Boxy Tee",
-      "1 Genesis Collection Card (dengan kode akses)",
-      "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
-    ],
-    stock: 6,
-    imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
-    imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
-    sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
-    gallery: [
-      "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
-      "/product/gen1/mockup/Batch_1_Gen_1_White_Genesis_Boxy_Tee.png",
-      "/product/gen1/model/Model-1-front-gen-1.png",
-      "/product/gen1/model/Model-1-back-gen-1.png",
-      "/product/gen1/model/Model-2-front-gen-1.png",
-      "/product/gen1/model/Model-2-back-gen-1.png",
-    ],
-    links: {
-      telegram: "https://t.me/rempeyek_0",
-      whatsapp: "https://wa.me/6281398621530",
-      tokopedia: "https://tokopedia.com/oxtanda",
-      tiktokshop: "https://tiktok.com/@oxtanda/shop",
-    }
-  },
-  {
-    id: "PL-002",
-    slug: "archive-02-placeholder",
-    name: "ARCHIVE_02 // ???",
-    type: "Upcoming Phygital Release",
-    price: 0,
-    description: "Dokumen terenkripsi. Detail produk akan tersedia pada fase pengembangan berikutnya.",
-    specs: [],
-    features: [],
-    includes: [],
-    stock: 0,
-    imgPhysical: "", 
-    imgDigital: "",
-    gallery: [],
-    isPlaceholder: true,
-    links: { telegram: "" }
-  },
-  {
-    id: "PL-003",
-    slug: "archive-03-placeholder",
-    name: "ARCHIVE_03 // ???",
-    type: "Upcoming Phygital Release",
-    price: 0,
-    description: "Dokumen terenkripsi. Detail produk akan tersedia pada fase pengembangan berikutnya.",
-    specs: [],
-    features: [],
-    includes: [],
-    stock: 0,
-    imgPhysical: "", 
-    imgDigital: "",
-    gallery: [],
-    isPlaceholder: true,
-    links: { telegram: "" }
-  }
-];
-
-// ==========================================
-// HALAMAN UTAMA: SHOP PAGE
-// ==========================================
 export default function ShopPage() {
   return (
     <main className="min-h-screen bg-[#0E0E0E] pb-20 selection:bg-[#836EF9] selection:text-black font-sans overflow-x-hidden">
-      {/* Navbar dan Marquee sudah otomatis di-handle oleh app/layout.tsx dan telah dihapus dari sini */}
-
       <header className="pt-44 px-6 mb-20 text-center">
         <h2 className="font-mono text-[#836EF9] text-[10px] tracking-[0.5em] mb-4 uppercase">Archive Collection</h2>
         <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tighter uppercase leading-none text-white">
@@ -127,7 +40,7 @@ export default function ShopPage() {
         {PRODUCTS_DATA.map((product) => {
           const isPlaceholder = product.isPlaceholder;
           
-          // Kalkulasi Diskon Otomatis (Jika ada harga coret)
+          // Kalkulasi Diskon Otomatis (Jika ada harga coret di lib/data.ts)
           let discountPercentage = 0;
           if (product.originalPrice && product.originalPrice > product.price) {
             discountPercentage = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
@@ -159,7 +72,7 @@ export default function ShopPage() {
                   />
                 )}
                 
-                {/* Status Tag */}
+                {/* Status Tag Live dari lib/data.ts */}
                 {!isPlaceholder && (
                   <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 border border-white/10 rounded-full flex items-center gap-2 z-10">
                     <div className="w-1.5 h-1.5 bg-[#00FF9D] rounded-full animate-pulse" />
@@ -185,7 +98,7 @@ export default function ShopPage() {
                   {product.type}
                 </p>
                 
-                {/* --- BAGIAN HARGA (DENGAN FITUR DISKON CORET) --- */}
+                {/* BAGIAN HARGA */}
                 <div className="mb-8 flex flex-col gap-1">
                   {discountPercentage > 0 && !isPlaceholder && (
                     <div className="flex items-center gap-2">

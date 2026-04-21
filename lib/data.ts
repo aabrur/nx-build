@@ -4,6 +4,14 @@
  * File ini mengelola konten untuk katalog Shop dan halaman Detail Produk.
  */
 
+export interface ProductVariant {
+  color: string;
+  sizes: {
+    size: string;
+    stock: number;
+  }[];
+}
+
 export interface Product {
   id: string | number;
   name: string;
@@ -14,7 +22,8 @@ export interface Product {
   specs: string[];
   features: string[];
   includes: string[];
-  stock: number;
+  stock: number; // Total stock (bisa juga dikalkulasi otomatis dari variants)
+  variants?: ProductVariant[]; // <--- TAMBAHAN UNTUK STOK PER UKURAN/WARNA
   slug: string;
   imgPhysical: string; 
   imgDigital: string;   
@@ -59,7 +68,24 @@ export const PRODUCTS_DATA: Product[] = [
       "1 Genesis Collection Card (dengan kode akses)",
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
-    stock: 6, // <--- STOK DIUPDATE JADI 7 DI SINI
+    stock: 4, // Total stok
+    // === DATA STOK PER VARIAN DI SINI ===
+    variants: [
+      {
+        color: "PUTIH",
+        sizes: [
+          { size: "L", stock: 1 },
+          { size: "XL", stock: 1 }
+        ]
+      },
+      {
+        color: "HITAM",
+        sizes: [
+          { size: "L", stock: 0 },
+          { size: "XL", stock: 2 }
+        ]
+      }
+    ],
     imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
     imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
     sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",

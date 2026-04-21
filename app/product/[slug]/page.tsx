@@ -2,112 +2,29 @@
 
 import React, { useState, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+// === IMPORT MASTER CONTROL ===
+// Menggunakan path relatif yang tepat untuk menghindari error alias
+import { PRODUCTS_DATA } from '../../../lib/data';
 
 import { 
-  ArrowLeft, 
-  ShieldCheck, 
-  Send, 
-  Zap,
-  CheckCircle2,
-  Info,
-  ChevronLeft,
-  ChevronRight,
-  Maximize2,
-  X,
-  Ruler,
-  Lock
+  ArrowLeft, ShieldCheck, Send, Zap, CheckCircle2, Info,
+  ChevronLeft, ChevronRight, Maximize2, X, Ruler, Lock
 } from 'lucide-react';
 
-// ==========================================
-// DATA: PRODUCTS_DATA INLINE
-// ==========================================
-const PRODUCTS_DATA = [
-  {
-    id: "G-001",
-    slug: "genesis-boxy-tee",
-    name: "GENESIS BOXY TEE",
-    type: "0xTanda Batch #001",
-    price: 168000,
-    originalPrice: 249000, 
-    description: "Genesis Boxy Tee adalah rilisan perdana dari 0xTanda dengan pendekatan phygital: produk fisik berkualitas yang dilengkapi akses digital sebagai nilai tambah. Kaos ini menggunakan bahan cotton combed heavyweight dengan struktur tebal dan potongan boxy modern. Bagian depan menampilkan logo 0xTanda dalam ukuran minimal. Bagian belakang menampilkan ilustrasi karakter cyborg dengan sentuhan warna kontras sebagai representasi konsep “One Entity // Dual Existence”. Setiap pembelian akan mendapatkan Genesis Collection Card sebagai bonus kepemilikan fisik.",
-    specs: [
-      "Nama: Genesis Boxy Tee",
-      "Batch: #001 (Limited Release)",
-      "Material: 100% Cotton Combed 16s Heavyweight",
-      "Gramasi: ±235–245 gsm",
-      "Fit: Boxy Oversized / Modern Cut",
-      "Sablon: DTF High-Density Print",
-      "Warna: Hitam & Putih",
-      "Ukuran: L & XL"
-    ],
-    features: [
-      "Kain tebal dan berstruktur",
-      "Tidak tipis dan tidak mudah melar",
-      "Cocok untuk daily wear",
-      "Detail cetak tajam dan solid"
-    ],
-    includes: [
-      "1 Kaos Genesis Boxy Tee",
-      "1 Genesis Collection Card (dengan kode akses)",
-      "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
-    ],
-    stock: 6, // UPDATE STOK TOTAL 7
-    imgPhysical: "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
-    imgDigital: "/product/gen1/nft/Genesis-Collcetion-Card-0xTanda.png",
-    sizeChart: "/product/gen1/Size_Chart_Batch_1_Gen_1.jpg",
-    gallery: [
-      "/product/gen1/mockup/Batch_1_Gen_1_Black_Genesis_Boxy_Tee.png",
-      "/product/gen1/mockup/Batch_1_Gen_1_White_Genesis_Boxy_Tee.png",
-      "/product/gen1/model/Model-1-front-gen-1.png",
-      "/product/gen1/model/Model-1-back-gen-1.png",
-      "/product/gen1/model/Model-2-front-gen-1.png",
-      "/product/gen1/model/Model-2-back-gen-1.png",
-    ],
-    links: {
-      telegram: "https://t.me/GM0xTanda",
-      whatsapp: "https://wa.me/6281398621530",
-      tokopedia: "https://www.tokopedia.com/0xtanda/0xtanda-genesis-boxy-tee-pria-wanita-unisex-dengan-nft-kaos-cotton-combed-16s-100-fit-boxy-oversized-modern-cut-bonus-genesis-collection-card-1734427428785194157",
-      tiktokshop: "https://vt.tokopedia.com/t/ZS9eT3ML7F2cK-6q8hd/"
+// ============================================================================
+// MOCK NEXT.JS (Hanya untuk keperluan Preview di layar Canvas)
+// ============================================================================
+const Link = ({ href, children, className }: any) => (
+  <a href={href} className={className}>{children}</a>
+);
+const Image = ({ src, alt, className, sizes, fill }: any) => {
+    if (fill) {
+      return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full object-cover ${className || ''}`} sizes={sizes} />;
     }
-  },
-  {
-    id: "PL-002",
-    slug: "archive-02-placeholder",
-    name: "ARCHIVE_02 // ???",
-    type: "Upcoming Phygital Release",
-    price: 0,
-    description: "Dokumen terenkripsi. Detail produk akan tersedia pada fase pengembangan berikutnya.",
-    specs: [],
-    features: [],
-    includes: [],
-    stock: 0,
-    imgPhysical: "", 
-    imgDigital: "",
-    gallery: [],
-    isPlaceholder: true,
-    links: { telegram: "" }
-  },
-  {
-    id: "PL-003",
-    slug: "archive-03-placeholder",
-    name: "ARCHIVE_03 // ???",
-    type: "Upcoming Phygital Release",
-    price: 0,
-    description: "Dokumen terenkripsi. Detail produk akan tersedia pada fase pengembangan berikutnya.",
-    specs: [],
-    features: [],
-    includes: [],
-    stock: 0,
-    imgPhysical: "", 
-    imgDigital: "",
-    gallery: [],
-    isPlaceholder: true,
-    links: { telegram: "" }
-  }
-];
+    return <img src={src} alt={alt} className={className} sizes={sizes} />;
+};
+// ============================================================================
 
 // =================================================================
 // DEFINISI CUSTOM ICONS
@@ -133,9 +50,6 @@ const TikTokShopIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// =================================================================
-// HALAMAN UTAMA: PRODUCT DETAIL
-// =================================================================
 export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -144,6 +58,7 @@ export default function ProductDetailPage() {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [lightboxData, setLightboxData] = useState<{ images: string[], currentIndex: number } | null>(null);
 
+  // MENCARI DATA PRODUK DARI MASTER CONTROL (lib/data.ts)
   const product = useMemo(() => 
     PRODUCTS_DATA.find(p => p.slug === params.slug), 
     [params.slug]
@@ -162,7 +77,7 @@ export default function ProductDetailPage() {
     );
   }
 
-  // Kalkulasi Diskon Otomatis
+  // Kalkulasi Diskon Otomatis dari Master Control
   let discountPercentage = 0;
   if (product.originalPrice && product.originalPrice > product.price) {
     discountPercentage = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
@@ -285,10 +200,8 @@ export default function ProductDetailPage() {
               </div>
             )}
 
-            {/* ======================================================== */}
-            {/* PANEL LIVE STOCK INVENTORY (KHUSUS GENESIS TEE) */}
-            {/* ======================================================== */}
-            {product.id === "G-001" && (
+            {/* PANEL LIVE STOCK INVENTORY (DINAMIS DARI MASTER DATA) */}
+            {product.variants && product.variants.length > 0 && (
               <div className="mt-6 bg-[#121212] border border-white/5 rounded-sm p-6 shadow-xl">
                 <div className="flex items-center justify-between mb-4 pb-4 border-b border-white/5">
                   <h3 className="text-[#00FF9D] text-[10px] font-mono font-bold tracking-[0.3em] flex items-center gap-2 uppercase">
@@ -301,39 +214,32 @@ export default function ProductDetailPage() {
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {/* Varian Putih */}
-                  <div className="space-y-3">
-                    <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.2em]">WARNA: PUTIH</p>
-                    <div className="flex gap-2">
-                      <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
-                        <p className="text-white font-bold text-sm">L</p>
-                        <p className="text-[#00FF9D] text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 3</p>
-                      </div>
-                      <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
-                        <p className="text-white font-bold text-sm">XL</p>
-                        <p className="text-red-400 text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 1</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Varian Hitam */}
-                  <div className="space-y-3">
-                    <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.2em]">WARNA: HITAM</p>
-                    <div className="flex gap-2">
-                      <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
-                        <p className="text-white font-bold text-sm">L</p>
-                        <p className="text-red-400 text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 0</p>
-                      </div>
-                      <div className="flex-1 bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
-                        <p className="text-white font-bold text-sm">XL</p>
-                        <p className="text-yellow-400 text-[9px] font-mono mt-1 font-bold tracking-widest">SISA 2</p>
+                  {product.variants.map((variant, vIdx) => (
+                    <div key={vIdx} className="space-y-3">
+                      <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-[0.2em]">WARNA: {variant.color}</p>
+                      <div className="flex gap-2 flex-wrap">
+                        {variant.sizes.map((sizeData, sIdx) => {
+                           // Tentukan warna badge berdasarkan sisa stok
+                           let stockColor = "text-[#00FF9D]"; // Aman
+                           if (sizeData.stock === 0) stockColor = "text-red-400"; // Habis
+                           else if (sizeData.stock <= 2) stockColor = "text-yellow-400"; // Sedikit
+                           
+                           return (
+                             <div key={sIdx} className="flex-1 min-w-[60px] bg-white/5 border border-white/10 p-3 rounded-sm text-center transition-colors hover:border-white/30">
+                               <p className="text-white font-bold text-sm">{sizeData.size}</p>
+                               <p className={`${stockColor} text-[9px] font-mono mt-1 font-bold tracking-widest`}>
+                                 SISA {sizeData.stock}
+                               </p>
+                             </div>
+                           );
+                        })}
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             )}
-            {/* ======================================================== */}
+            {/* END PANEL LIVE STOCK INVENTORY */}
 
             {product.sizeChart && (
               <div className="mt-8 bg-[#121212] border border-white/5 rounded-sm p-6 relative group">
@@ -387,7 +293,7 @@ export default function ProductDetailPage() {
             <div className="space-y-6 mb-16">
               <p className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.5em]">PLACE YOUR ORDER:</p>
               
-              <a href={product.links.telegram} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-4 py-5 bg-[#836EF9] text-black font-mono text-xs font-bold uppercase transition-all hover:bg-white shadow-[0_0_40px_rgba(131,110,249,0.3)] active:scale-95">
+              <a href={product.links.telegram} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-4 py-5 bg-[#836EF9] text-black font-mono text-xs font-bold uppercase transition-all hover:bg-white shadow-[0_0_40px_rgba(131,110,249,0.3)] active:scale-95 rounded-sm">
                 <Send size={18} /> ORDER VIA TELEGRAM
               </a>
 
