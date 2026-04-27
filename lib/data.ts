@@ -22,14 +22,18 @@ export interface Product {
   specs: string[];
   features: string[];
   includes: string[];
-  stock: number; // Total stock (bisa juga dikalkulasi otomatis dari variants)
-  variants?: ProductVariant[]; // <--- TAMBAHAN UNTUK STOK PER UKURAN/WARNA
+  stock: number; 
+  variants?: ProductVariant[]; 
   slug: string;
   imgPhysical: string; 
   imgDigital: string;   
   gallery: string[];    
   sizeChart?: string;   
   isPlaceholder?: boolean;
+  // === NEW: DATA SMART CONTRACT BLOCKCHAIN ===
+  smartContract?: string; 
+  explorerLink?: string;
+  // =========================================
   links: {
     telegram: string;
     whatsapp?: string; 
@@ -68,8 +72,7 @@ export const PRODUCTS_DATA: Product[] = [
       "1 Genesis Collection Card (dengan kode akses)",
       "1 Akses digital resmi 0xTanda (diberikan setelah verifikasi)"
     ],
-    stock: 4, // Total stok
-    // === DATA STOK PER VARIAN DI SINI ===
+    stock: 4, 
     variants: [
       {
         color: "PUTIH",
@@ -97,6 +100,10 @@ export const PRODUCTS_DATA: Product[] = [
       "/product/gen1/model/Model-2-front-gen-1.png",
       "/product/gen1/model/Model-2-back-gen-1.png",
     ],
+    // === ALAMAT DEPLOYMENT SMART CONTRACT MONAD ===
+    smartContract: "0x75c294c9f8576FDF882cAAEf9d4316589b638610",
+    explorerLink: "https://monadvision.com/address/0x75c294c9f8576FDF882cAAEf9d4316589b638610?portfolio=Info&tab=Contract&mode=overview",
+    // ================================================
     links: {
       telegram: "https://t.me/rempeyek_0",
       whatsapp: "https://wa.me/6281398621530",

@@ -8,7 +8,8 @@ import { PRODUCTS_DATA } from '../../../lib/data';
 
 import { 
   ArrowLeft, ShieldCheck, Send, Zap, CheckCircle2, Info,
-  ChevronLeft, ChevronRight, Maximize2, X, Ruler, Lock
+  ChevronLeft, ChevronRight, Maximize2, X, Ruler, Lock,
+  Terminal, ExternalLink // <- Tambahan Ikon Baru
 } from 'lucide-react';
 
 // ============================================================================
@@ -94,9 +95,8 @@ export default function ProductDetailPage() {
     if (images.length > 0) setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // Handler Slide Untuk Gambar Utama
   const handleMainDragEnd = (e: any, { offset }: any) => {
-    if (view === 'digital') return; // Jangan slide jika sedang lihat NFT Card
+    if (view === 'digital') return; 
     if (offset.x < -50) nextImage(); 
     else if (offset.x > 50) prevImage();
   };
@@ -115,7 +115,6 @@ export default function ProductDetailPage() {
     }
   };
 
-  // Handler Slide Untuk Layar Penuh (Lightbox)
   const handleLightboxDragEnd = (e: any, { offset }: any) => {
     if (offset.x < -50) lightboxNext(); 
     else if (offset.x > 50) lightboxPrev();
@@ -381,6 +380,54 @@ export default function ProductDetailPage() {
                 </p>
               </div>
             </div>
+
+            {/* === PANEL DEPLOYMENT BLOCKCHAIN MONADVISION DIPINDAH KE SINI === */}
+            {product.smartContract && product.explorerLink && (
+              <div className="mt-12 bg-black border border-[#00FF9D]/30 p-5 md:p-6 rounded-sm relative overflow-hidden group shadow-[0_0_20px_rgba(0,255,157,0.05)]">
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00FF9D] to-transparent opacity-50" />
+                
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5 border-b border-white/5 pb-4">
+                  <h3 className="text-[#00FF9D] text-[10px] md:text-xs font-mono font-bold tracking-[0.3em] flex items-center gap-2 uppercase">
+                    <Terminal size={14} /> ON-CHAIN PROVENANCE
+                  </h3>
+                  <div className="flex items-center gap-2 bg-[#00FF9D]/10 px-3 py-1 rounded-sm border border-[#00FF9D]/30 w-fit">
+                    <div className="w-1.5 h-1.5 bg-[#00FF9D] rounded-full animate-pulse" />
+                    <span className="text-[#00FF9D] text-[8px] font-mono tracking-[0.2em] font-bold">MONAD NETWORK</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="bg-[#0A0A0A] p-4 border border-white/5 rounded-sm">
+                    <p className="text-[9px] text-neutral-500 font-mono tracking-widest uppercase mb-1">SMART CONTRACT NFT</p>
+                    <p className="text-[10px] md:text-sm text-white font-mono break-all selection:bg-[#00FF9D] selection:text-black">
+                      {product.smartContract}
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-[9px] text-neutral-500 font-mono tracking-widest uppercase mb-1">Standard</p>
+                      <p className="text-[10px] text-white font-mono font-bold tracking-widest">ERC-721</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[9px] text-neutral-500 font-mono tracking-widest uppercase mb-1">Status</p>
+                      <p className="text-[10px] text-[#00FF9D] font-mono font-bold tracking-widest">DEPLOYED / MINT</p>
+                    </div>
+                  </div>
+                  
+                  <a 
+                    href={product.explorerLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="mt-2 w-full flex items-center justify-center gap-2 py-3 bg-[#00FF9D]/10 border border-[#00FF9D]/30 text-[#00FF9D] hover:bg-[#00FF9D] hover:text-black transition-all text-[10px] font-bold font-mono tracking-widest uppercase rounded-sm"
+                  >
+                    <ExternalLink size={14} /> VIEW ON EXPLORER (MONADVISION)
+                  </a>
+                </div>
+              </div>
+            )}
+            {/* ======================================================== */}
+            
           </div>
         </div>
       </div>
