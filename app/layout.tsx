@@ -114,7 +114,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       "name": "0xTanda",
       "alternateName": ["0xTanda Phygital", "0xTanda Streetwear", "Oxtanda"],
       "url": "https://www.0xtanda.xyz",
-      "logo": "https://www.0xtanda.xyz/branding/logo-0xtanda-icon.png",
+      "logo": "https://www.0xtanda.xyz/branding/logo-0xtanda-icon.svg",
       "description": "Pionir Phygital Streetwear di Indonesia yang menggabungkan pakaian fisik heavyweight dengan aset digital NFT di blockchain Monad.",
       "foundingDate": "2026",
       "founders": [

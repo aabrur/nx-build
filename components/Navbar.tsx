@@ -31,7 +31,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center group">
           <div className="relative w-8 h-8">
             <Image 
-              src="/branding/logo-0xtanda-icon.png" 
+              src="/branding/logo-0xtanda-icon.svg" 
               alt="0xTanda Icon"
               width={32}
               height={32}
