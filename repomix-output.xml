@@ -70,7 +70,9 @@ public/article/cover-psikologi-koleksi.png
 public/article/cover-tutorial-klaim.png
 public/article/stoikisme-cover.png
 public/branding/logo-0xtanda-icon.png
+public/branding/logo-0xtanda-icon.svg
 public/branding/logo-0xtanda.png
+public/branding/logo-0xtanda.svg
 public/branding/og-banner.jpg
 public/branding/t-shirt-and-blockchain.jpg
 public/favicon.ico
@@ -286,6 +288,20 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+</file>
+
+<file path="public/branding/logo-0xtanda-icon.svg">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32">
+  <image width="2000" height="2000" transform="scale(.02)" xlink:href="../../../../OneDrive/Documents/Abrur File/Project/0xTanda/0xFile/Assets/Logo/0xTanda_White_Logo_Icon.png"/>
+</svg>
+</file>
+
+<file path="public/branding/logo-0xtanda.svg">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1500 525">
+  <image width="2000" height="700" transform="scale(.75)" xlink:href="logo-0xtanda.png"/>
+</svg>
 </file>
 
 <file path="tailwind.config.ts">
@@ -773,104 +789,6 @@ export default function StoikismeFashionArticlePage() {
         </div>
       </footer>
     </main>
-  );
-}
-</file>
-
-<file path="components/Navbar.tsx">
-"use client";
-
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
-
-/**
- * Komponen Navbar 0xTanda.
- * Menambahkan menu "TERMINAL LOG" untuk artikel/SEO.
- */
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-
-  // DI SINI NAMA MENU SUDAH DIGANTI JADI "TERMINAL LOG"
-  const navLinks = [
-    { name: 'HOME', path: '/' },
-    { name: 'SHOP', path: '/shop' },
-    { name: 'VERIFY', path: '/verify' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'TERMINAL LOG', path: '/terminal-log' }, // <--- UPDATE NAMA DI SINI
-  ];
-
-  return (
-    <nav className="fixed top-10 left-0 w-full z-50 px-6">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
-        
-        {/* LOGO ICON (POJOK KIRI) */}
-        <Link href="/" className="flex items-center group">
-          <div className="relative w-8 h-8">
-            <Image 
-              src="/branding/logo-0xtanda-icon.png" 
-              alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
-            />
-          </div>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
-                // Logika agar menu menyala walau user lagi baca artikel di sub-folder
-                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path
-                ? 'bg-[#836EF9] text-black font-bold' 
-                : 'text-neutral-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="lg:hidden flex items-center">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 lg:hidden animate-glitch shadow-2xl">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              href={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`text-3xl font-display font-bold tracking-tighter transition-colors uppercase ${
-                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path 
-                ? 'text-[#836EF9]' 
-                : 'text-white'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
   );
 }
 </file>
@@ -1717,18 +1635,100 @@ export default function Article1() {
 }
 </file>
 
-<file path="components/Marquee.tsx">
-export default function Marquee() {
-  const text = "0XTANDA • PHYGITAL STREETWEAR • GENESIS BATCH 001 • JAKARTA EST. 2026 • ";
-  
+<file path="components/Navbar.tsx">
+"use client";
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
+
+/**
+ * Komponen Navbar 0xTanda.
+ * Menambahkan menu "TERMINAL LOG" untuk artikel/SEO.
+ */
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // DI SINI NAMA MENU SUDAH DIGANTI JADI "TERMINAL LOG"
+  const navLinks = [
+    { name: 'HOME', path: '/' },
+    { name: 'SHOP', path: '/shop' },
+    { name: 'VERIFY', path: '/verify' },
+    { name: 'ABOUT', path: '/about' },
+    { name: 'TERMINAL LOG', path: '/terminal-log' }, // <--- UPDATE NAMA DI SINI
+  ];
+
   return (
-    <div className="fixed top-0 left-0 w-full bg-brand-purple text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
-      <div className="animate-marquee whitespace-nowrap">
-        {[...Array(10)].map((_, i) => (
-          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
-        ))}
+    <nav className="fixed top-10 left-0 w-full z-50 px-6">
+      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-2xl">
+        
+        {/* LOGO ICON (POJOK KIRI) */}
+        <Link href="/" className="flex items-center group">
+          <div className="relative w-8 h-8">
+            <Image 
+              src="/branding/logo-0xtanda-icon.svg" 
+              alt="0xTanda Icon"
+              width={32}
+              height={32}
+              className="object-contain group-hover:rotate-12 transition-transform duration-500"
+              priority
+            />
+          </div>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden lg:flex gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              className={`px-6 py-2 rounded-full text-[10px] font-mono tracking-widest transition-all ${
+                // Logika agar menu menyala walau user lagi baca artikel di sub-folder
+                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path
+                ? 'bg-[#836EF9] text-black font-bold' 
+                : 'text-neutral-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Mobile Toggle */}
+        <div className="lg:hidden flex items-center">
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
+            aria-label="Toggle Navigation"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
-    </div>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div className="absolute top-24 left-6 right-6 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 flex flex-col gap-6 lg:hidden animate-glitch shadow-2xl">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              href={link.path}
+              onClick={() => setIsOpen(false)}
+              className={`text-3xl font-display font-bold tracking-tighter transition-colors uppercase ${
+                (pathname.startsWith(link.path) && link.path !== '/') || pathname === link.path 
+                ? 'text-[#836EF9]' 
+                : 'text-white'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
   );
 }
 </file>
@@ -2135,6 +2135,22 @@ export default function VerifyFormPage() {
 }
 </file>
 
+<file path="components/Marquee.tsx">
+export default function Marquee() {
+  const text = "0XTANDA • PHYGITAL STREETWEAR • COMING SOON 0XTANDA ORIGIN • JAKARTA EST. 2026 • ";
+  
+  return (
+    <div className="fixed top-0 left-0 w-full bg-brand-purple text-black py-2 z-[60] overflow-hidden font-mono text-[10px] font-bold">
+      <div className="animate-marquee whitespace-nowrap">
+        {[...Array(10)].map((_, i) => (
+          <span key={i} className="mx-4 italic tracking-widest">{text}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+</file>
+
 <file path="app/sitemap.ts">
 import { MetadataRoute } from 'next';
 
@@ -2426,7 +2442,7 @@ export default function HomePage() {
           {/* ULTRA MEGA LOGO - Sangat Lebar, Tinggi Ramping, Margin Meppet */}
           <div className="relative w-[110vw] max-w-[1200px] h-[180px] md:max-w-[2800px] md:h-[420px] mb-2 animate-glitch">
             <Image 
-              src="/branding/logo-0xtanda.png"
+              src="/branding/logo-0xtanda.svg"
               alt="0xTanda Official Logo"
               fill
               className="object-contain"
@@ -2748,7 +2764,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       "name": "0xTanda",
       "alternateName": ["0xTanda Phygital", "0xTanda Streetwear", "Oxtanda"],
       "url": "https://www.0xtanda.xyz",
-      "logo": "https://www.0xtanda.xyz/branding/logo-0xtanda-icon.png",
+      "logo": "https://www.0xtanda.xyz/branding/logo-0xtanda-icon.svg",
       "description": "Pionir Phygital Streetwear di Indonesia yang menggabungkan pakaian fisik heavyweight dengan aset digital NFT di blockchain Monad.",
       "foundingDate": "2026",
       "founders": [

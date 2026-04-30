@@ -30,13 +30,11 @@ export default function Navbar() {
         {/* LOGO ICON (POJOK KIRI) */}
         <Link href="/" className="flex items-center group">
           <div className="relative w-8 h-8">
-            <Image 
+            {/* FIX: Menggunakan tag <img> standar untuk .svg agar lebih reliable daripada komponen <Image> Next.js */}
+            <img 
               src="/branding/logo-0xtanda-icon.svg" 
               alt="0xTanda Icon"
-              width={32}
-              height={32}
-              className="object-contain group-hover:rotate-12 transition-transform duration-500"
-              priority
+              className="w-full h-full object-contain group-hover:rotate-12 transition-transform duration-500"
             />
           </div>
         </Link>
