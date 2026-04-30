@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: '%s | 0xTanda Phygital Fashion'
   },
   
-  description: '0xTanda adalah brand Phygital Streetwear pertama di Indonesia. Kami menggabungkan pakaian fisik heavyweight cotton berkualitas premium dengan bukti kepemilikan aset digital (Digital Twin NFT) di jaringan blockchain Monad. Tangible craftsmanship secured by digital ownership.',
+  description: '0xTanda adalah brand Phygital Digital Twin Streetwear pertama di Indonesia. Kami menggabungkan pakaian fisik heavyweight cotton berkualitas premium dengan bukti kepemilikan aset digital (Digital Twin NFT) di jaringan blockchain Monad. Tangible craftsmanship secured by digital ownership.',
   
   keywords: [
     '0xTanda', '0x Tanda', '0xTanda Official', '0xTanda Shop', 'Oxtanda',
@@ -65,6 +65,12 @@ icons: {
   ],
 },
 
+// === FIX UNTUK MICROSOFT EDGE & BING ===
+  other: {
+    'msapplication-TileColor': '#0E0E0E',
+    'msapplication-TileImage': '/icon.png',
+  },
+  
   openGraph: {
     type: 'website',
     locale: 'id_ID',
